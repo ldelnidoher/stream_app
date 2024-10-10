@@ -1,0 +1,5 @@
+matplotlib
+plotly
+scikit-learn
+scipy
+datetime
