@@ -14,7 +14,7 @@ import plotly.graph_objects as go
 f1 = datetime.datetime.today()
 today = greg_to_mjd(f1) 
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/pred_bulla/xp_pred.txt','r') 
+f = open('archivos/pred_bulla/xp_pred.txt','r') 
 
 texto_xp = f.readlines()
 
@@ -69,7 +69,7 @@ if int(texto_xp[-1][2:7]) != today:
     xp_pred.insert(loc = 0, column = l2[0], value = fus)
     
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR(xp, AAM xmass) [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as], SSA 4PC + GPR [as], SSA 6PC + GPR [as]'
-    np.savetxt('C:/Users/lddelnido/Documents/app/archivos/pred_bulla/xp_pred.txt', xp_pred, fmt = ['%s','%d','%f','%f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
+    np.savetxt('archivos/pred_bulla/xp_pred.txt', xp_pred, fmt = ['%s','%d','%f','%f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
     
     f = open('archivos/pred_bulla/xp_pred.txt','r')
     texto_xp = f.read()
@@ -86,7 +86,7 @@ if int(texto_xp[-1][2:7]) != today:
     yp_pred.insert(loc = 0, column = l2[0], value = fus)
     
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (yp, dy)[as], KRR (yp, AAM ymass)[as], SSA 2PC + KRR [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as]'
-    np.savetxt('C:/Users/lddelnido/Documents/app/archivos/pred_bulla/yp_pred.txt', yp_pred, fmt = ['%s','%d','%1.5f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
+    np.savetxt('archivos/pred_bulla/yp_pred.txt', yp_pred, fmt = ['%s','%d','%1.5f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
     
     g = open('archivos/pred_bulla/yp_pred.txt','r')
     texto_yp = g.read()
@@ -104,7 +104,7 @@ if int(texto_xp[-1][2:7]) != today:
     dx_pred.insert(loc = 0, column = l2[0], value = fus)
         
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dx, xfcn) [as], KRR (dx, xfcn, xp) [as]'
-    np.savetxt('C:/Users/lddelnido/Documents/app/archivos/pred_bulla/dx_pred.txt', dx_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h, footer = str(today)+' mjd (last updated)')
+    np.savetxt('/archivos/pred_bulla/dx_pred.txt', dx_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h, footer = str(today)+' mjd (last updated)')
     
     g = open('archivos/pred_bulla/dx_pred.txt','r')
     texto_dx = g.read()
@@ -121,7 +121,7 @@ if int(texto_xp[-1][2:7]) != today:
     dy_pred.insert(loc = 0, column = l2[0], value = fus)
         
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dy, yfcn) [as], KRR (dy, yfcn, yp) [as]'
-    np.savetxt('C:/Users/lddelnido/Documents/app/archivos/pred_bulla/dy_pred.txt', dy_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h, footer = str(today)+' mjd (last updated)')
+    np.savetxt('archivos/pred_bulla/dy_pred.txt', dy_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h, footer = str(today)+' mjd (last updated)')
     
     g = open('archivos/pred_bulla/dy_pred.txt','r')
     texto_dy = g.read()
@@ -145,7 +145,7 @@ if int(texto_xp[-1][2:7]) != today:
     #     lod_pred.insert(loc = j, column = l2[j], value = lista[:,j])
         
     # h = 'Columns: Date (y, m, d), Epoch [MJD], KRR (LOD) [ms], KRR (LOD, AAM zmass)[ms]'
-    # np.savetxt('C:/Users/lddelnido/Documents/app/archivos/pred_bulla/lod_pred.txt', lod_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
+    # np.savetxt('archivos/pred_bulla/lod_pred.txt', lod_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
     
     # g = open('archivos/pred_bulla/lod_pred.txt','r')
     # texto_lod = g.read()
@@ -164,7 +164,7 @@ if int(texto_xp[-1][2:7]) != today:
     #     dut1_pred.insert(loc = j, column = l2[j], value = lista[:,j])
         
     # h = 'Columns: Date (y, m, d), Epoch [MJD], KRR (UT1-UTC) [s]'#', KRR (UT1-UTC, LOD) [s], KRR (UT1-UTC, LOD, zmass) [s]'
-    # np.savetxt('C:/Users/lddelnido/Documents/app/archivos/pred_bulla/dut1_pred.txt', dut1_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
+    # np.savetxt('archivos/pred_bulla/dut1_pred.txt', dut1_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
     
     # g = open('archivos/pred_bulla/dut1_pred.txt','r')
     # texto_dut1 = g.read()
@@ -191,7 +191,7 @@ else:
     
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR(xp, AAM xmass) [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as], SSA 4PC + GPR [as], SSA 6PC + GPR [as]'
     try:
-        np.savetxt('C:/Users/lddelnido/Documents/app/archivos/pred_bulla/xp_pred.txt', xp_pred, fmt = ['%s','%d','%1.5f','%1.5f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
+        np.savetxt('archivos/pred_bulla/xp_pred.txt', xp_pred, fmt = ['%s','%d','%1.5f','%1.5f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
     except TypeError as err:
         print(err.args)
     
@@ -214,7 +214,7 @@ else:
     yp_pred = pd.DataFrame(ypaux, columns = ['Date (yy/mm/dd)','Epoch', 'KRR (yp, AAM ymass)','SSA 2PC + KRR','SSA 4PC + KRR','SSA 6PC + KRR'])
     
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD],  KRR (yp, AAM ymass)[as], SSA 2PC + KRR [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as]'
-    np.savetxt('C:/Users/lddelnido/Documents/app/archivos/pred_bulla/yp_pred.txt', yp_pred, fmt = ['%s','%d','%1.5f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
+    np.savetxt('archivos/pred_bulla/yp_pred.txt', yp_pred, fmt = ['%s','%d','%1.5f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
     g = open('archivos/pred_bulla/yp_pred.txt','r')
     texto_yp = g.read()
     g.close()
@@ -233,7 +233,7 @@ else:
     dx_pred = pd.DataFrame(dxaux, columns = ['Date (yy/mm/dd)','Epoch','KRR (dx, xfcn)', 'KRR (dx, xfcn, xp)'])
 
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dx, xfcn)[as], KRR (dx, xfcn, xp)[as]'
-    np.savetxt('C:/Users/lddelnido/Documents/app/archivos/pred_bulla/dx_pred.txt', dx_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
+    np.savetxt('archivos/pred_bulla/dx_pred.txt', dx_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
     g = open('archivos/pred_bulla/dx_pred.txt','r')
     texto_dx = g.read()
     
@@ -252,7 +252,7 @@ else:
     dy_pred = pd.DataFrame(dyaux, columns = ['Date (yy/mm/dd)','Epoch','KRR (dy, yfcn)', 'KRR (dy, yfcn, yp)'])
     
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dy, yfcn)[as], KRR (dy, yfcn, yp)[as]'
-    np.savetxt('C:/Users/lddelnido/Documents/app/archivos/pred_bulla/dx_pred.txt', dy_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ', header=h, footer = str(today))
+    np.savetxt('archivos/pred_bulla/dx_pred.txt', dy_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ', header=h, footer = str(today))
     g = open('archivos/pred_bulla/dy_pred.txt','r')
     texto_dy = g.read()
     
@@ -273,7 +273,7 @@ else:
     # lod_pred = lod_pred.astype({'Epoch': int})
     
     # h = 'Columns: Date (y, m, d), Epoch [MJD], KRR (LOD)[ms], KRR (LOD, AAM zmass)[ms]'
-    # np.savetxt('C:/Users/lddelnido/Documents/app/archivos/pred_bulla/lod_pred.txt', lod_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
+    # np.savetxt('archivos/pred_bulla/lod_pred.txt', lod_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
     # g = open('archivos/pred_bulla/lod_pred.txt','r')
     # texto_lod = g.read()
     # g.close()
@@ -296,33 +296,33 @@ else:
     # dut1_pred = dut1_pred.astype({'Epoch': int})
     
     # h = 'Columns: Date (y, m, d), Epoch [MJD], KRR (UT1-UTC) [s],KRR (UT1-UTC, LOD) [s],KRR (UT1-UTC, LOD, zmass) [s]'
-    # np.savetxt('C:/Users/lddelnido/Documents/app/archivos/pred_bulla/dut1_pred.txt', dut1_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
+    # np.savetxt('pred_bulla/dut1_pred.txt', dut1_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
     # g = open('archivos/pred_bulla/dut1_pred.txt','r')
     # texto_dut1= g.read()
     # g.close()
     
 ################ día 1 ##############
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal2/xp_pred2.txt')
+f = open(archivos/predtotal2/xp_pred2.txt')
 texto_xp2 = f.read()
 f.close()
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal2/yp_pred2.txt')
+f = open('archivos/predtotal2/yp_pred2.txt')
 texto_yp2 = f.read()
 f.close()
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal2/dx_pred2.txt')
+f = open('predtotal2/dx_pred2.txt')
 texto_dx2 = f.read()
 f.close()
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal2/dy_pred2.txt')
+f = open('archivos/predtotal2/dy_pred2.txt')
 texto_dy2 = f.read()
 f.close()
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal2/lod_pred2.txt')
+f = open('archivos/predtotal2/lod_pred2.txt')
 texto_lod2 = f.read()
 f.close()
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal2/dut1_pred2.txt')
+f = open('archivos/predtotal2/dut1_pred2.txt')
 texto_dut12 = f.read()
 f.close()
 
@@ -373,28 +373,7 @@ fig_dy.update_xaxes(title_text="MJD", tickvals = dy_pred['Epoch'], ticktext =[st
 fig_dy.update_yaxes(title_text="as")
 
 
-# fig_lod = go.Figure()
-# for j in range(4,len(lod_pred.columns)):
-#    fig_lod.add_trace(go.Scatter(
-#        x = lod_pred['Epoch'],y = lod_pred[lod_pred.columns[j]],
-#        mode = 'lines+markers', name = lod_pred.columns[j]))
-   
-# fig_lod.update_layout(legend_title_text = "Models")
-# fig_lod.update_xaxes(title_text="MJD", tickvals = lod_pred['Epoch'], ticktext =[str(a) for a in lod_pred['Epoch']]) 
-# fig_lod.update_yaxes(title_text="ms")
-
-# fig_dut1= go.Figure()
-# for j in range(4,len(dut1_pred.columns)):
-#    fig_dut1.add_trace(go.Scatter(
-#        x = dut1_pred['Epoch'],y = dut1_pred[dut1_pred.columns[j]],
-#        mode = 'lines+markers', name = dut1_pred.columns[j]))
-   
-# fig_dut1.update_layout(legend_title_text = "Models")
-# fig_dut1.update_xaxes(title_text="MJD", tickvals = dut1_pred['Epoch'], ticktext =[str(a) for a in dut1_pred['Epoch']]) 
-# fig_dut1.update_yaxes(title_text="s")
-
-
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal2/iers2.txt')
+f = open('archivos/predtotal2/iers2.txt')
 texto_iers = f.readlines()
 f.close()
 aux = [texto_iers[i].split() for i in range(len(texto_iers))]
@@ -409,7 +388,7 @@ for k in range(1,7):
 iers2 = pd.DataFrame(data = {'xp':taux[0], 'yp':taux[1], 'LOD':taux[2], 'dut1':taux[3], 'dx':taux[4], 'dy':taux[5]})
 
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal2/xp_pred2.txt')
+f = open('archivos/predtotal2/xp_pred2.txt')
 texto_xp3 = f.readlines()
 f.close()
 aux = [texto_xp3[i].split() for i in range(1,len(texto_xp3))]
@@ -450,7 +429,7 @@ fig_xp3.update_xaxes(title_text="MJD")
 fig_xp3.update_yaxes(title_text="mas")
 fig_xp3.update_layout(annotations = annot)
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal2/yp_pred2.txt')
+f = open('archivos/predtotal2/yp_pred2.txt')
 texto_yp3 = f.readlines()
 f.close()
 aux = [texto_yp3[i].split() for i in range(1,len(texto_yp3))]
@@ -490,7 +469,7 @@ fig_yp3.update_yaxes(title_text="mas")
 fig_yp3.update_layout(annotations = annot)
 
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal2/dx_pred2.txt')
+f = open('archivos/predtotal2/dx_pred2.txt')
 texto_dx3 = f.readlines()
 f.close()
 aux = [texto_dx3[i].split() for i in range(1,len(texto_dx3))]
@@ -530,7 +509,7 @@ fig_dx3.update_yaxes(title_text="mas")
 fig_dx3.update_layout(annotations = annot)
 
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal2/dy_pred2.txt')
+f = open('archivos/predtotal2/dy_pred2.txt')
 texto_dy3 = f.readlines()
 f.close()
 aux = [texto_dy3[i].split() for i in range(1,len(texto_dy3))]
@@ -572,7 +551,7 @@ fig_dy3.update_yaxes(title_text="mas")
 fig_dy3.update_layout(annotations = annot)
 
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal2/lod_pred2.txt')
+f = open('archivos/predtotal2/lod_pred2.txt')
 texto_lod3 = f.readlines()
 f.close()
 aux = [texto_lod3[i].split() for i in range(1,len(texto_lod3))]
@@ -615,7 +594,7 @@ fig_lod3.update_yaxes(title_text="ms")
 fig_lod3.update_layout(annotations = annot)
 
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal2/dut1_pred2.txt')
+f = open('archivos/predtotal2/dut1_pred2.txt')
 texto_dut13 = f.readlines()
 f.close()
 aux = [texto_dut13[i].split() for i in range(1,len(texto_dut13))]
@@ -657,33 +636,33 @@ fig_dut13.update_yaxes(title_text="ms")
 fig_dut13.update_layout(annotations = annot)
 
 ######################### Day 10 #######################################
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal10/xp_2pred2.txt')
+f = open('archivos/predtotal10/xp_2pred2.txt')
 texto_xp4 = f.read()
 f.close()
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal10/yp_2pred2.txt')
+f = open('archivos/predtotal10/yp_2pred2.txt')
 texto_yp4 = f.read()
 f.close()
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal10/dx_2pred2.txt')
+f = open('archivos/predtotal10/dx_2pred2.txt')
 texto_dx4 = f.read()
 f.close()
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal10/dy_2pred2.txt')
+f = open('archivos/predtotal10/dy_2pred2.txt')
 texto_dy4 = f.read()
 f.close()
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal10/lod_2pred2.txt')
+f = open('archivos/predtotal10/lod_2pred2.txt')
 texto_lod4 = f.read()
 f.close()
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal10/dut1_2pred2.txt')
+f = open('archivos/predtotal10/dut1_2pred2.txt')
 texto_dut14 = f.read()
 f.close()
 
 
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal10/iers.txt')
+f = open('archivos/predtotal10/iers.txt')
 texto_iers = f.readlines()
 f.close()
 aux = [texto_iers[i].split() for i in range(len(texto_iers))]
@@ -698,7 +677,7 @@ for k in range(1,7):
 iers2 = pd.DataFrame(data = {'xp':taux[0], 'yp':taux[1], 'LOD':taux[2], 'dut1':taux[3], 'dx':taux[4], 'dy':taux[5]})
 
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal10/xp_2pred2.txt')
+f = open('archivos/predtotal10/xp_2pred2.txt')
 texto_xp5 = f.readlines()
 f.close()
 aux = [texto_xp5[i].split() for i in range(1,len(texto_xp5))]
@@ -739,7 +718,7 @@ fig_xp6.update_xaxes(title_text="MJD")
 fig_xp6.update_yaxes(title_text="mas")
 fig_xp6.update_layout(annotations = annot)
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal10/yp_2pred2.txt')
+f = open('archivos/predtotal10/yp_2pred2.txt')
 texto_yp5 = f.readlines()
 f.close()
 aux = [texto_yp5[i].split() for i in range(1,len(texto_yp5))]
@@ -779,7 +758,7 @@ fig_yp6.update_yaxes(title_text="mas")
 fig_yp6.update_layout(annotations = annot)
 
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal10/dx_2pred2.txt')
+f = open('archivos/predtotal10/dx_2pred2.txt')
 texto_dx5 = f.readlines()
 f.close()
 aux = [texto_dx5[i].split() for i in range(1,len(texto_dx5))]
@@ -819,7 +798,7 @@ fig_dx6.update_yaxes(title_text="mas")
 fig_dx6.update_layout(annotations = annot)
 
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal10/dy_2pred2.txt')
+f = open('archivos/predtotal10/dy_2pred2.txt')
 texto_dy5 = f.readlines()
 f.close()
 aux = [texto_dy5[i].split() for i in range(1,len(texto_dy5))]
@@ -861,7 +840,7 @@ fig_dy6.update_yaxes(title_text="mas")
 fig_dy6.update_layout(annotations = annot)
 
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal10/lod_2pred2.txt')
+f = open('archivos/predtotal10/lod_2pred2.txt')
 texto_lod5 = f.readlines()
 f.close()
 aux = [texto_lod5[i].split() for i in range(1,len(texto_lod5))]
@@ -904,7 +883,7 @@ fig_lod6.update_yaxes(title_text="ms")
 fig_lod6.update_layout(annotations = annot)
 
 
-f = open('C:/Users/lddelnido/Documents/app/archivos/predtotal10/dut1_2pred2.txt')
+f = open('archivos/predtotal10/dut1_2pred2.txt')
 texto_dut15 = f.readlines()
 f.close()
 aux = [texto_dut15[i].split() for i in range(1,len(texto_dut15))]
