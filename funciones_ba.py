@@ -16,8 +16,6 @@ from sklearn.decomposition import PCA
 from scipy.interpolate import PchipInterpolator
 import datetime
 import numpy.linalg  as la
-import folium
-from streamlit_folium import st_folium
 import copy
 
 
@@ -868,44 +866,8 @@ def add_date(mjd1, f,today):
         lista_fechas.append((resta+d2).timetuple()[:3])
     return lista_fechas
       
-def antennas():
-    """
-    Returns
-    -------
-    df : pandas.core.frame.DataFrame
-        dataframe with VLBI antennas name and coordinates
-    """
-    f = open('itrf2014.txt','r')
-    datos = f.read()
-    f.close()
-    lista = datos.split("\n")
-    lista_def = [lista[i].split() for i in range(len(lista)-1)]
 
-    altitud = np.array([float(lista_def[i][10]) for i in range(len(lista_def))])
-    lon = np.array([decimal([float(lista_def[i][4]),float(lista_def[i][5]),float(lista_def[i][6])]) for i in range(len(lista_def))])
-    lat = np.array([decimal([float(lista_def[i][7]),float(lista_def[i][8]),float(lista_def[i][9])]) for i in range(len(lista_def))])
-    ant = [lista_def[i][3]+'\nlat: '+str(np.round(lat[i],3))+'°\nlon: '+str(np.round(lon[i],3))+'°\nH: '+str(np.round(altitud[i],3))+'m' for i in range(len(lista_def))]
-    df = pd.DataFrame(data = {'name': ant,'lat': lat, 'lon': lon, 'altitude' : altitud })
-    return df
 
-def mapa(df):
-    """
-    Parameters
-    ----------
-    df : pandas.core.frame.DataFrame
-        dataframe with coordinates
 
-    Returns
-    -------
-    m : folium.folium.Map
-        map with coordinates from {df} marked in it
-    """
-    m = folium.Map(location=[0,180], tiles = "OpenStreetMap", zoom_start=1, control_scale=True)
-    for i in range(0, len(df)):
-        folium.Marker(
-            location = [df.iloc[i]['lat'],df.iloc[i]['lon']], popup=df.iloc[i]['name'],
-        ).add_to(m)
-    return m
-    
 
     
