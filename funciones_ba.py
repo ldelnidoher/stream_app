@@ -555,7 +555,7 @@ def pred_xp(xp,xmass,mjd):
     #KRR:
     m = []
     for v in range(1,11):
-        m.append(load(f'C:/Users/lddelnido/Documents/Algoritmos - Machine Learning/DEFINITIVO/output_xp/2model/day{v}_model_xp.joblib'))   #we load the prediction models
+        m.append(load(f'models/output_xp/2model/day{v}_model_xp.joblib'))   #we load the prediction models
     test = np.array(xp[-100:]+xmass[-100:]).reshape(1,-1)
     pred1 = []
     for j in range(10):
@@ -568,8 +568,8 @@ def pred_xp(xp,xmass,mjd):
         ex = interp(mjd,R)
         m1,m2 = [],[]
         for i in range(1,11):    #modelos
-            m1.append(load(f'C:/Users/lddelnido/Documents/Algoritmos - Machine Learning/DEFINITIVO/output_xp/model{num}/day{i}_model_xp.joblib'))
-            m2.append(load(f'C:/Users/lddelnido/Documents/Algoritmos - Machine Learning/DEFINITIVO/output_xp/modelgpr/{num}day{i}_model_xp.joblib')) 
+            m1.append(load(f'models/output_xp/model{num}/day{i}_model_xp.joblib'))
+            m2.append(load(f'models/output_xp/modelgpr/{num}day{i}_model_xp.joblib')) 
         test = N[-100:].reshape(1,-1)
         aux1,aux2 = [],[]
         for i in range(10):
@@ -601,8 +601,8 @@ def pred_yp(yp,dy,ymass,mjd):
     #KRR:
     m1,m3 = [],[]
     for v in range(1,11):
-        #m1.append(load(f'C:/Users/lddelnido/Documents/Algoritmos - Machine Learning/DEFINITIVO/output_yp/2model/day{v}_model_yp.joblib'))   #we load the prediction models
-        m3.append(load(f'C:/Users/lddelnido/Documents/Algoritmos - Machine Learning/DEFINITIVO/output_yp/modelaam/day{v}_model_yp.joblib'))   #we load the prediction models
+        #m1.append(load(f'models/output_yp/2model/day{v}_model_yp.joblib'))   #we load the prediction models
+        m3.append(load(f'models/output_yp/modelaam/day{v}_model_yp.joblib'))   #we load the prediction models
     #test = np.array(yp[-100:]+dy[-100:]).reshape(1,-1)
     test3 = np.array(yp[-300:]+ymass[-300:]).reshape(1,-1)
     pred1,pred2,pred3 = [],[],[]
@@ -618,7 +618,7 @@ def pred_yp(yp,dy,ymass,mjd):
         ex = interp(mjd,R)
         m = []
         for i in range(1,11):    #modelos
-            m.append(load(f'C:/Users/lddelnido/Documents/Algoritmos - Machine Learning/DEFINITIVO/output_yp/model{num}/day{i}_model_yp.joblib'))
+            m.append(load(f'models/output_yp/model{num}/day{i}_model_yp.joblib'))
         test = N[-100:].reshape(1,-1)
         aux=[]
         for i in range(10):
@@ -646,8 +646,8 @@ def pred_dx(dx,xfcn,xp):
     """
     m1,m2 = [], []
     for v in range(1,11):
-        m1.append(load(f'C:/Users/lddelnido/Documents/Algoritmos - Machine Learning/DEFINITIVO/output_dx/model4/day{v}_model_dx.joblib'))
-        m2.append(load(f'C:/Users/lddelnido/Documents/Algoritmos - Machine Learning/DEFINITIVO/output_dx/model5/day{v}_model_dx.joblib'))
+        m1.append(load(f'models/output_dx/model4/day{v}_model_dx.joblib'))
+        m2.append(load(f'models/output_dx/model5/day{v}_model_dx.joblib'))
     test1 = np.array(dx[-500:]+xfcn[-500:]).reshape(1,-1)
     test2 = np.array(dx[-450:]+xfcn[-450:]+xp[-450:]).reshape(1,-1)
     p1,p2 = [],[]
@@ -672,8 +672,8 @@ def pred_dy(dy,yfcn,yp):
     """
     m1,m2 = [], []
     for v in range(1,11):
-        m1.append(load(f'C:/Users/lddelnido/Documents/Algoritmos - Machine Learning/DEFINITIVO/output_dy/model2/day{v}_model_dy.joblib'))
-        m2.append(load(f'C:/Users/lddelnido/Documents/Algoritmos - Machine Learning/DEFINITIVO/output_dy/model3/day{v}_model_dy.joblib'))
+        m1.append(load(f'models/output_dy/model2/day{v}_model_dy.joblib'))
+        m2.append(load(f'models/output_dy/model3/day{v}_model_dy.joblib'))
     test1 = np.array(dy[-500:]+yfcn[-500:]).reshape(1,-1)
     test2 = np.array(dy[-400:]+yfcn[-400:]+yp[-400:]).reshape(1,-1)
     p1,p2 = [],[]
@@ -699,8 +699,8 @@ def pred_lod(lod,zmass,mjd):
     #1:KRR (lod). 2:KRR (lod, AAM zmass)
     m1,m2 = [],[]
     for v in range(1,11):
-        m1.append(load(f'C:/Users/lddelnido/Documents/Algoritmos - Machine Learning/DEFINITIVO/output_lod/model/day{v}_model_lod.joblib'))   #we load the prediction models
-        m2.append(load(f'C:/Users/lddelnido/Documents/Algoritmos - Machine Learning/DEFINITIVO/output_lod/modelaam/day{v}_model_lod.joblib'))   #we load the prediction models
+        m1.append(load(f'models/output_lod/model/day{v}_model_lod.joblib'))   #we load the prediction models
+        m2.append(load(f'models/output_lod/modelaam/day{v}_model_lod.joblib'))   #we load the prediction models
     test = np.array(lod[-400:]).reshape(1,-1)
     test2 = np.array(lod[-300:]+zmass[-300:]).reshape(1,-1)
     pred1,pred2 = [],[]
@@ -727,9 +727,9 @@ def pred_dut1(dut1,lod,zmass,mjd):
     #1:KRR (dut1).
     m1,m2,m3= [],[],[]
     for v in range(1,11):
-        m1.append(load(f'C:/Users/lddelnido/Documents/Algoritmos - Machine Learning/DEFINITIVO/output_dut1/model/day{v}_model_dut.joblib'))   #we load the prediction models
-        m2.append(load(f'C:/Users/lddelnido/Documents/Algoritmos - Machine Learning/DEFINITIVO/output_dut1/model2/day{v}_model_dut1.joblib'))   #we load the prediction models
-        m3.append(load(f'C:/Users/lddelnido/Documents/Algoritmos - Machine Learning/DEFINITIVO/output_dut1/model3/day{v}_model_dut1.joblib'))   #we load the prediction models
+        m1.append(load(f'models/output_dut1/model/day{v}_model_dut.joblib'))   #we load the prediction models
+        m2.append(load(f'models/output_dut1/model2/day{v}_model_dut1.joblib'))   #we load the prediction models
+        m3.append(load(f'models/output_dut1/model3/day{v}_model_dut1.joblib'))   #we load the prediction models
     test1 = np.array(dut1[-30:]).reshape(1,-1)
     test2 = np.array(dut1[-300:]+lod[-300:]).reshape(1,-1)
     test3 = np.array(dut1[-300:]+lod[-300:]+zmass[-300:]).reshape(1,-1)
