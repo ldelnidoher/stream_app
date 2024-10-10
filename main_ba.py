@@ -69,7 +69,7 @@ if int(texto_xp[-1][2:7]) != today:
     xp_pred.insert(loc = 0, column = l2[0], value = fus)
     
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR(xp, AAM xmass) [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as], SSA 4PC + GPR [as], SSA 6PC + GPR [as]'
-    np.savetxt('/pred_bulla/xp_pred.txt', xp_pred, fmt = ['%s','%d','%f','%f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
+    np.savetxt('pred_bulla/xp_pred.txt', xp_pred, fmt = ['%s','%d','%f','%f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
     
     f = open('pred_bulla/xp_pred.txt','r')
     texto_xp = f.read()
@@ -86,9 +86,9 @@ if int(texto_xp[-1][2:7]) != today:
     yp_pred.insert(loc = 0, column = l2[0], value = fus)
     
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (yp, dy)[as], KRR (yp, AAM ymass)[as], SSA 2PC + KRR [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as]'
-    np.savetxt('/pred_bulla/yp_pred.txt', yp_pred, fmt = ['%s','%d','%1.5f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
+    np.savetxt('pred_bulla/yp_pred.txt', yp_pred, fmt = ['%s','%d','%1.5f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
     
-    g = open('/pred_bulla/yp_pred.txt','r')
+    g = open('pred_bulla/yp_pred.txt','r')
     texto_yp = g.read()
     g.close()
     
@@ -104,7 +104,7 @@ if int(texto_xp[-1][2:7]) != today:
     dx_pred.insert(loc = 0, column = l2[0], value = fus)
         
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dx, xfcn) [as], KRR (dx, xfcn, xp) [as]'
-    np.savetxt('/pred_bulla/dx_pred.txt', dx_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h, footer = str(today)+' mjd (last updated)')
+    np.savetxt('pred_bulla/dx_pred.txt', dx_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h, footer = str(today)+' mjd (last updated)')
     
     g = open('archivos/pred_bulla/dx_pred.txt','r')
     texto_dx = g.read()
