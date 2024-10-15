@@ -20,7 +20,12 @@ texto_xp = f.readlines()
 
 f.close()
 mjd,xp,yp,dy,lod,dut = read_iers()
-epoch,xmass,ymass,zmass = read_aam()
+try:
+    epoch,xmass,ymass,zmass = read_aam()
+except:
+    print("Data is being updated. This process might take a few minutes")
+    break
+    
 mjd2, xp2, yp2, dut1, xp_comp, yp_comp = get_data(today)
 dx_comp, dy_comp = comp(today)
 #if True:
