@@ -10,17 +10,17 @@ import time
 import math
 from funciones_ba import * 
 import plotly.graph_objects as go
-
-f1 = datetime.datetime.today()
-today = greg_to_mjd(f1) 
-
-f = open('archivos/pred_bulla/xp_pred.txt','r') 
-
-texto_xp = f.readlines()
-
-f.close()
-mjd,xp,yp,dy,lod,dut = read_iers()
 try:
+    f1 = datetime.datetime.today()
+    today = greg_to_mjd(f1) 
+    
+    f = open('archivos/pred_bulla/xp_pred.txt','r') 
+    
+    texto_xp = f.readlines()
+    
+    f.close()
+    mjd,xp,yp,dy,lod,dut = read_iers()
+
     epoch,xmass,ymass,zmass = read_aam()
 
     
