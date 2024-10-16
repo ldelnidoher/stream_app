@@ -218,7 +218,7 @@ try:
     st.write(f'Last updated: {d} UTC+2')
 
 except:
-    st.write('Data is being updated. This process might take a few minutes')
+    st.write(':hourglass: Data is currently being updated. This process might take a few minutes :hourglass:')
 
 
 
