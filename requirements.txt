@@ -3,5 +3,3 @@ plotly
 scikit-learn
 scipy
 datetime
-hydralit
-hydralit_components
