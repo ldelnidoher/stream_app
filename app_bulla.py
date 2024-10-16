@@ -16,7 +16,7 @@ if add_selectbox == "Contact info":
     pass
 
 try:
-    xmass[0]
+    xp_pred[0]
 
     # if chosen == "Predictions":
     if add_selectbox == "Predictions":
