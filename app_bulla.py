@@ -218,7 +218,7 @@ try:
     st.write(f'Last updated: {d} UTC+2')
 
 except:
-    print("error")
+    st.write('Data is being updated. This process might take a few minutes')
 
 
 
