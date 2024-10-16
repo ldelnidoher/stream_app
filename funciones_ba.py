@@ -402,7 +402,7 @@ def read_aam():
     for k in range(3):  #there is several files with similar names, but we need the last one
         r4t = r4t[r4t.index('"name":"ESMGFZ_AAM_v1.0_W')+20:]
     ind = r4t.index('"name":"ESMGFZ_AAM_v1.0_W')    
-    url = 'http://rz-vm115.gfz-potsdam.de:8080/repository/entry/get/'+str(r4t[ind+8:ind+57])+'?entryid='+str(r4t[ind-39:ind-5])
+    url = 'http://rz-vm115.gfz-potsdam.de:8080/repository/entry/get/'+str(r4t[ind+8:ind+57])+'?entryid='+str(r4t[ind-39:ind-3])
     r5 = requests.get(url)
     aux = r5.text
     
