@@ -7,7 +7,6 @@ from main_ba import *
 import matplotlib.pyplot as plt
 import altair as alt
 import plotly.graph_objects as go
-import hydralit_components as hc
 #arreglar en todos intervalo dt en pred_dut1
 
 add_selectbox = st.sidebar.radio('Choose data to show:',
