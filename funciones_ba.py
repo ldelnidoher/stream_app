@@ -399,8 +399,7 @@ def read_aam():
     aam2024 = r3.text
     r4 = requests.get('http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=39f33bc7-5ea8-4184-b940-08534f3d911f')
     r4t = r4.text
-    for k in range(3):  #there is several files with similar names, but we need the last one
-        r4t = r4t[r4t.index('"name":"ESMGFZ_AAM_v1.0_W')+20:]
+    r4t = r4t[r4t.index('"name":"ESMGFZ_AAM_v1.0_W')+20:]
     ind = r4t.index('"name":"ESMGFZ_AAM_v1.0_W')    
     url = 'http://rz-vm115.gfz-potsdam.de:8080/repository/entry/get/'+str(r4t[ind+8:ind+57])+'?entryid='+str(r4t[ind-39:ind-3])
     r5 = requests.get(url)
