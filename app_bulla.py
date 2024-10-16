@@ -219,7 +219,9 @@ try:
 
 except:
     #st.write(':hourglass: Data is currently being updated. This process might take a few minutes :hourglass:')
-    st.spinner(text="Data is currently being updated. This process might take a few minutes...")
+    with st.spinner(text="Data is currently being updated. This process might take a few minutes..."):
+        time.sleep(5)
+        st.rerun()
     
      
 
