@@ -218,9 +218,8 @@ try:
     st.write(f'Last updated: {d} UTC+2')
 
 except:
-    #st.write(':hourglass: Data is currently being updated. This process might take a few minutes :hourglass:')
     with st.spinner(text="Data is currently being updated. This process might take a few minutes..."):
-        time.sleep(5)
+        time.sleep(15)
         st.rerun()
     
      
