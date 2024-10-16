@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
+import requests
 import time
 import datetime
 from main_ba import *
@@ -15,7 +16,7 @@ if add_selectbox == "Contact info":
     pass
 
 try:
-    xp_pred[0]
+    xmass[0]
 
     # if chosen == "Predictions":
     if add_selectbox == "Predictions":
