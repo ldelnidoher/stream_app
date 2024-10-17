@@ -10,8 +10,8 @@ import altair as alt
 import plotly.graph_objects as go
 
 st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':earth_africa:')
-logo = st.image('color_ua.png')
-st.logo(image = logo, icon_image = logo)
+
+st.logo(image = 'color_ua.png', icon_image = 'color_ua.png')
 add_selectbox = st.sidebar.radio('Choose data to show:',
 ("Predictions", "Past predictions","Contact info"))
 if add_selectbox == "Contact info":
