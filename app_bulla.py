@@ -218,7 +218,7 @@ try:
      
     st.write(f'Last updated: {d} UTC+2')
 
-except ValueError:
+except:
     with st.spinner(text="Data is currently being updated. This process might take a few minutes..."):
         time.sleep(15)
         st.rerun()
