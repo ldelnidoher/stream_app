@@ -15,7 +15,7 @@ st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':e
 #st.logo(image = 'logo_ua.png', size = 'large')
 logo = """
 <div class = "banner">
-    <img src = "ua_logo.png" alt="Banner Image">
+    <img src ="ua_logo.png">
 </div>
 <style>
     .banner {
