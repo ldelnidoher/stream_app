@@ -11,8 +11,25 @@ import plotly.graph_objects as go
 
 st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':earth_africa:')
 
-st.logo(image = 'logo_ua.png', size = 'large')
-st.logo(image = 'logo_ua.png', size = 'large')
+#st.logo(image = 'logo_ua.png', size = 'large')
+#st.logo(image = 'logo_ua.png', size = 'large')
+logo = """
+<div class = "banner">
+    <img "ua_logo.png" alt="Banner Image">
+</div>
+<style>
+    .banner {
+        width: 160%;
+        height: 200px;
+        overflow: hidden;
+    }
+    .banner img {
+        width: 100%;
+        object-fit: cover;
+    }
+</style>
+"""
+st.components.v1.html(logo)
 add_selectbox = st.sidebar.radio('Choose data to show:',
 ("Predictions", "Past predictions","Contact info"))
 if add_selectbox == "Contact info":
