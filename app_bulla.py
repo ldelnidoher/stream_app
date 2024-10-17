@@ -8,8 +8,8 @@ from main_ba import *
 import matplotlib.pyplot as plt
 import altair as alt
 import plotly.graph_objects as go
-#arreglar en todos intervalo dt en pred_dut1
 
+st.set_page_config(layout = 'wide')
 add_selectbox = st.sidebar.radio('Choose data to show:',
 ("Predictions", "Past predictions","Contact info"))
 if add_selectbox == "Contact info":
