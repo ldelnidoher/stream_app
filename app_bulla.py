@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import altair as alt
 import plotly.graph_objects as go
 
-st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = :earth_africa:)
+st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':earth_africa:')
 add_selectbox = st.sidebar.radio('Choose data to show:',
 ("Predictions", "Past predictions","Contact info"))
 if add_selectbox == "Contact info":
