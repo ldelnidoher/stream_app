@@ -16,7 +16,7 @@ if add_selectbox == "Contact info":
     pass
 
 try:
-    xp_pred[0]
+    xp_pred['Epoch']
 
     # if chosen == "Predictions":
     if add_selectbox == "Predictions":
@@ -218,9 +218,8 @@ try:
      
     st.write(f'Last updated: {d} UTC+2')
 
-except Exception as err:
+except:
     with st.spinner(text="Data is currently being updated. This process might take a few minutes..."):
-        st.write(f"{type(err).__name__} was raised: {err}")
         time.sleep(15)
         st.rerun()
     
