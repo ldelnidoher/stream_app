@@ -26,7 +26,7 @@ try:
         st.header('Short-term prediction for 10 days:')
         if chosen2 == 'xpol':
             st.write('Predictions using different models for **XPOL [as]** during the epoch [MJD]:')
-            c2 = st.radio("Data visualization:",("Table","Interactive plot"))
+            c2 = st.radio("Data visualization:",("Table","Interactive plot"), horizontal = True)
             if c2 == "Table":
                 st.dataframe(xp_pred, hide_index = True)
             if c2 == "Interactive plot":
@@ -39,7 +39,7 @@ try:
                 st.download_button(label =':arrow_heading_down: Save historic data as .txt :arrow_heading_down:', file_name = 'xp_historic.txt', data = texto_xp2)
         if chosen2 == 'ypol':
             st.write('Predictions using different models for **YPOL [as]** during the epoch [MJD]:')
-            c2 = st.radio("Data visualization:",("Table","Interactive plot"))
+            c2 = st.radio("Data visualization:",("Table","Interactive plot"), horizontal = True)
             if c2 == "Table":
                 st.dataframe(yp_pred, hide_index = True)
             if c2 == "Interactive plot":
@@ -50,7 +50,7 @@ try:
             
         if chosen2 == 'dX':
             st.write('Predictions using different models for **dX [as]** during the epoch [MJD]:')
-            c2 = st.radio("Data visualization:",("Table","Interactive plot"))
+            c2 = st.radio("Data visualization:",("Table","Interactive plot"), horizontal = True)
             if c2 == "Table":
                 st.dataframe(dx_pred, hide_index = True)
             if c2 == "Interactive plot":
@@ -61,7 +61,7 @@ try:
             
         if chosen2 == 'dY':
             st.write('Predictions using different models for **dY [as]** during the epoch [MJD]:')
-            c2 = st.radio("Data visualization:",("Table","Interactive plot"))
+            c2 = st.radio("Data visualization:",("Table","Interactive plot"), horizontal = True)
             if c2 == "Table":
                 st.dataframe(dy_pred, hide_index = True)
             if c2 == "Interactive plot":
@@ -72,7 +72,7 @@ try:
             
         # if chosen2 == 'LOD':
         #     st.write('Predictions using different models for ***LOD [ms]*** during the epoch [MJD]:')
-        #     c2 = st.radio("Data visualization:",("Table","Interactive plot"))
+        #     c2 = st.radio("Data visualization:",("Table","Interactive plot"), horizontal = True)
         #     if c2 == "Table":
         #         st.dataframe(lod_pred, hide_index = True)
         #     if c2 == "Interactive plot":
@@ -85,7 +85,7 @@ try:
             
         # if chosen2 == 'UT1-UTC':
         #     st.write('Predictions using different models for **UT1-UTC [s]** during the epoch [MJD]:')
-        #     c2 = st.radio("Data visualization:",("Table","Interactive plot"))
+        #     c2 = st.radio("Data visualization:",("Table","Interactive plot"), horizontal = True)
         #     if c2 == "Table":
         #         st.dataframe(dut1_pred, hide_index = True)
         #     if c2 == "Interactive plot":
@@ -102,7 +102,7 @@ try:
             'Which prediction?',
             ('xpol','ypol','dX','dY','LOD','UT1-UTC')
         )
-        add_selectbox2 = st.sidebar.radio('Using model:',('Day 1', 'Day 10'))
+        add_selectbox2 = st.sidebar.radio('Using model:',('Day 1', 'Day 10'), horizontal = True)
         if add_selectbox2 == 'Day 1':
             col1, col2, col3 = st.columns(3)
             if chosen3 == "xpol":
