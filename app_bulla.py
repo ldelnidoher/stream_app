@@ -215,7 +215,7 @@ try:
     d = datetime.datetime.now()
     d = d.replace(microsecond=0)
      
-    st.write(f'Last updated: {d} UTC+2')
+    st.write(f'Last updated: {d} UTC')
 
 except:
     with st.spinner(text="Data is currently being updated. This process might take a few minutes..."):
