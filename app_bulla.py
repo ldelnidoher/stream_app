@@ -218,8 +218,9 @@ try:
      
     st.write(f'Last updated: {d} UTC+2')
 
-except:
+except Exception as err:
     with st.spinner(text="Data is currently being updated. This process might take a few minutes..."):
+        st.write(f"{type(err).__name__} was raised: {err}")
         time.sleep(15)
         st.rerun()
     
