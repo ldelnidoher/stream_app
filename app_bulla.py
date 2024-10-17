@@ -16,7 +16,6 @@ if add_selectbox == "Contact info":
     pass
 
 try:
-    xp_pred['Epoch']
 
     # if chosen == "Predictions":
     if add_selectbox == "Predictions":
