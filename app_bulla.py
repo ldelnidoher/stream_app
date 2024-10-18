@@ -25,11 +25,10 @@ st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':e
 #        object-fit: cover;
 #    }
 #</style>
-
+#<img src="https://img.freepik.com/premium-photo/wide-banner-with-many-random-square-hexagons-charcoal-dark-black-color_105589-1820.jpg" alt="Banner Image">
 #st.components.v1.html(logo)
 custom_html = """
 <div class="banner">
-    #<img src="https://img.freepik.com/premium-photo/wide-banner-with-many-random-square-hexagons-charcoal-dark-black-color_105589-1820.jpg" alt="Banner Image">
      <img src="icono_ua.png" alt="Banner Image">
 </div>
 <style>
