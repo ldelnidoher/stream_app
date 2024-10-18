@@ -13,7 +13,7 @@ st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':e
 
 #st.logo(image = 'icono_ign.jpg', size = 'large')
 #st.logo(image = 'icono_ign.jpg', size = 'large')
-logo = <div class="banner"><img src='icono_ign.jpg'/></div>
+#logo = <div class="banner"><img src='icono_ign.jpg'/></div>
 #<style>
 #    .banner {
 #        width: 160%;
@@ -26,7 +26,25 @@ logo = <div class="banner"><img src='icono_ign.jpg'/></div>
 #    }
 #</style>
 
-st.components.v1.html(logo)
+#st.components.v1.html(logo)
+custom_html = """
+<div class="banner">
+    <img src="https://img.freepik.com/premium-photo/wide-banner-with-many-random-square-hexagons-charcoal-dark-black-color_105589-1820.jpg" alt="Banner Image">
+</div>
+<style>
+    .banner {
+        width: 160%;
+        height: 200px;
+        overflow: hidden;
+    }
+    .banner img {
+        width: 100%;
+        object-fit: cover;
+    }
+</style>
+"""
+# Display the custom HTML
+st.components.v1.html(custom_html)
 add_selectbox = st.sidebar.radio('Choose data to show:',
 ("Predictions", "Past predictions","Contact info"))
 if add_selectbox == "Contact info":
