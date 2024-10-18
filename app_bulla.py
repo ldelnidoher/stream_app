@@ -32,10 +32,11 @@ custom_html = """
 st.components.v1.html(custom_html)
 
 add_selectbox = st.sidebar.radio('Choose data to show:',
-("Predictions", "Past predictions","Contact info"))
+("Predictions", "Past predictions", "Models","Contact info"))
 if add_selectbox == "Contact info":
     pass
-
+if add_selectbox == "Models":
+    pass
 try:
 
     # if chosen == "Predictions":
