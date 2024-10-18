@@ -27,8 +27,8 @@ custom_html = """
     }
 </style>
 """
-# Display the custom HTML
 st.components.v1.html(custom_html)
+
 add_selectbox = st.sidebar.radio('Choose data to show:',
 ("Predictions", "Past predictions","Contact info"))
 if add_selectbox == "Contact info":
