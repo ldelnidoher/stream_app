@@ -13,7 +13,7 @@ st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':e
 
 #st.logo(image = 'https://github.com/ldelnidoher/stream_app/blob/main/icono_ign.jpg', size = 'large')
 #st.logo(image = 'stream_app/icono_ign.jpg', size = 'large')
-#logo = <div class="banner"><img src='stream_app/icono_ign.jpg'/></div>
+#logo = <div class="banner"><img src='https://github.com/ldelnidoher/stream_app/blob/main/icono_ign.jpg'/></div>
 #<style>
 #    .banner {
 #        width: 160%;
