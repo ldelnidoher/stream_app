@@ -29,7 +29,7 @@ st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':e
 #st.components.v1.html(logo)
 custom_html = """
 <div class="banner">
-     <img src="stream_app/icono_ign.jpg" alt="Banner Image">
+     <img src="https://github.com/ldelnidoher/stream_app/blob/main/icono_ign.jpg?raw=true" alt="Banner Image">
 </div>
 <style>
     .banner {
