@@ -13,9 +13,9 @@ st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':e
 
 #st.logo(image = 'icono_ign.jpg', size = 'large')
 #st.logo(image = 'icono_ign.jpg', size = 'large')
-logo = """
+logo = 
 <div class="banner">
-    <img src=icono_ign.jpg/>
+    <img src='icono_ign.jpg'/>
 </div>
 #<style>
 #    .banner {
@@ -28,7 +28,7 @@ logo = """
 #        object-fit: cover;
 #    }
 #</style>
-"""
+
 st.components.v1.html(logo)
 add_selectbox = st.sidebar.radio('Choose data to show:',
 ("Predictions", "Past predictions","Contact info"))
