@@ -18,7 +18,7 @@ custom_html = """
 <style>
     .banner {
         width: 100%;
-        height: 60px;
+        height: 30px;
     }
     .banner img {
         width: 100%;
