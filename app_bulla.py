@@ -22,7 +22,7 @@ custom_html = """
         overflow: hidden;
     }
     .banner img {
-        width: 100%;
+        width: 80%;
         object-fit: cover;
     }
 </style>
