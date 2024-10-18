@@ -11,30 +11,14 @@ import plotly.graph_objects as go
 
 st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':earth_africa:')
 
-#st.logo(image = 'https://github.com/ldelnidoher/stream_app/blob/main/icono_ign.jpg', size = 'large')
-#st.logo(image = 'stream_app/icono_ign.jpg', size = 'large')
-#logo = <div class="banner"><img src='https://github.com/ldelnidoher/stream_app/blob/main/icono_ign.jpg'/></div>
-#<style>
-#    .banner {
-#        width: 160%;
-#        height: 200px;
-#        overflow: hidden;
-#    }
-#    .banner img {
-#        width: 100%;
-#        object-fit: cover;
-#    }
-#</style>
-#<img src="https://img.freepik.com/premium-photo/wide-banner-with-many-random-square-hexagons-charcoal-dark-black-color_105589-1820.jpg" alt="Banner Image">
-#st.components.v1.html(logo)
 custom_html = """
 <div class="banner">
      <img src="https://github.com/ldelnidoher/stream_app/blob/main/logos.png?raw=true" alt="Banner Image">
 </div>
 <style>
     .banner {
-        width: 160%;
-        height: 200px;
+        width: 100%;
+        height: 150px;
         overflow: hidden;
     }
     .banner img {
