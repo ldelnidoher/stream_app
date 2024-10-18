@@ -17,17 +17,17 @@ logo = """
 <div class="banner">
     <img src="icono_ign.jpg"/>
 </div>
-<style>
-    .banner {
-        width: 160%;
-        height: 200px;
-        overflow: hidden;
-    }
-    .banner img {
-        width: 100%;
-        object-fit: cover;
-    }
-</style>
+#<style>
+#    .banner {
+#        width: 160%;
+#        height: 200px;
+#        overflow: hidden;
+#    }
+#    .banner img {
+#        width: 100%;
+#        object-fit: cover;
+#    }
+#</style>
 """
 st.components.v1.html(logo)
 add_selectbox = st.sidebar.radio('Choose data to show:',
