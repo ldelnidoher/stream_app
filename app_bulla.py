@@ -16,15 +16,17 @@ custom_html = """
      <img src="https://github.com/ldelnidoher/stream_app/blob/main/logos.png?raw=true" alt="Banner Image">
 </div>
 <style>
-    .banner {
-        width: 100%;
-        height: 80px;
-        overflow: hidden;
-    }
-    .banner img {
-        width: 80%;
-        object-fit: cover;
-    }
+     <center>
+         .banner {
+             width: 100%;
+             height: 70px;
+             overflow: hidden;
+         }
+         .banner img {
+             width: 75%;
+             object-fit: cover;
+         }
+    </center>
 </style>
 """
 st.components.v1.html(custom_html)
