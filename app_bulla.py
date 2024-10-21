@@ -133,7 +133,7 @@ try:
             'Which prediction?',
             ('xpol','ypol','dX','dY','LOD','UT1-UTC')
         )
-        add_selectbox2 = st.sidebar.radio('Using model:',('Day 1', 'Day 10'), horizontal = True, help = 'Each day is predicted 1 or 10 days ahead the last data available ath that moment')
+        add_selectbox2 = st.sidebar.radio('Using model:',('Day 1', 'Day 10'), horizontal = True, help = 'Each day is predicted 1 or 10 days ahead the last data available at that moment')
         if add_selectbox2 == 'Day 1':
             col1, col2, col3 = st.columns(3)
             if chosen3 == "xpol":
