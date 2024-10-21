@@ -66,9 +66,12 @@ try:
                 st.dataframe(yp_pred, hide_index = True)
             if c2 == "Interactive plot":
                 st.plotly_chart(fig_yp, use_container_width=False)
-                
-            st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = 'yp_preds.txt', data = texto_yp)
-            st.download_button(label =':arrow_heading_down: Save historic data as .txt :arrow_heading_down:', file_name = 'yp_historic.txt', data = texto_yp2)
+
+            col1, col2 = st.columns([1,1])
+            with col1:
+                 st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = 'yp_preds.txt', data = texto_yp)
+            with col2:
+                 st.download_button(label =':arrow_heading_down: Save historic data as .txt :arrow_heading_down:', file_name = 'yp_historic.txt', data = texto_yp2)
             
         if chosen2 == 'dX':
             st.write('Predictions using different models for **dX [as]** during the epoch [MJD]:')
@@ -77,9 +80,12 @@ try:
                 st.dataframe(dx_pred, hide_index = True)
             if c2 == "Interactive plot":
                 st.plotly_chart(fig_dx, use_container_width=False)
-                
-            st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = 'dx_preds.txt', data = texto_dx)
-            st.download_button(label =':arrow_heading_down: Save historic data as .txt :arrow_heading_down:', file_name = 'dx_historic.txt', data = texto_dx2)
+
+            col1, col2 = st.columns([1,1])
+            with col1: 
+                 st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = 'dx_preds.txt', data = texto_dx)
+            with col2:
+                 st.download_button(label =':arrow_heading_down: Save historic data as .txt :arrow_heading_down:', file_name = 'dx_historic.txt', data = texto_dx2)
             
         if chosen2 == 'dY':
             st.write('Predictions using different models for **dY [as]** during the epoch [MJD]:')
@@ -88,9 +94,12 @@ try:
                 st.dataframe(dy_pred, hide_index = True)
             if c2 == "Interactive plot":
                 st.plotly_chart(fig_dy, use_container_width=False)
-                
-            st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = 'dy_preds.txt', data = texto_dy)
-            st.download_button(label =':arrow_heading_down: Save historic data as .txt :arrow_heading_down:', file_name = 'dy_historic.txt', data = texto_dy2)
+
+            col1, col2 = st.columns([1,1])
+            with col1: 
+                 st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = 'dy_preds.txt', data = texto_dy)
+            with col2:
+                 st.download_button(label =':arrow_heading_down: Save historic data as .txt :arrow_heading_down:', file_name = 'dy_historic.txt', data = texto_dy2)
             
         # if chosen2 == 'LOD':
         #     st.write('Predictions using different models for ***LOD [ms]*** during the epoch [MJD]:')
