@@ -61,8 +61,8 @@ def get_data(today):
     xp, yp, dut1 : list of lists of floats
             Solutions given by Bulletin A of xpol, ypol, dut1 at the epochs in
             "date" (until yesterday)
-    xp_comp, yp_comp : lists of floats
-                Idem as "xp", "yp" but from today until 10 days in the future
+    xp_comp, yp_comp, dut1_comp : lists of floats
+                    Idem as "xp", "yp", "dut1" but from today until 10 days in the future
     """
     date = []
     xp,yp,dut1 = [],[],[]
@@ -86,9 +86,9 @@ def get_data(today):
             i = date[0].index(today)
             xp_comp = [float(lista_def[k][4]) for k in range(i,i+10)]
             yp_comp = [float(lista_def[k][5]) for k in range(i,i+10)]
-        
+            dut1_comp = [float(lista_def[k][6]) for k in range(i,i+10)]
     date.reverse(), xp.reverse(), yp.reverse(), dut1.reverse()
-    return date, xp, yp, dut1, xp_comp, yp_comp
+    return date, xp, yp, dut1, xp_comp, yp_comp, dut1_comp
 
 
 def reduc(date, xp, yp, dut1, today):
