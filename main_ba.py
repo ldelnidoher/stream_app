@@ -23,7 +23,7 @@ mjd,xp,yp,dy,lod,dut = read_iers()
 
 epoch,xmass,ymass,zmass = read_aam()
 epoch2,xmass2,ymass2,zmass2 = read_oam()
-szmass = [zmass[j]+zmass2[j] for j in range(len(zmass)]
+szmass = [zmass[j]+zmass2[j] for j in range(len(zmass))]
 
 
 mjd2, xp2, yp2, dut1, xp_comp, yp_comp = get_data(today)
