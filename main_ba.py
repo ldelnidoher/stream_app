@@ -183,7 +183,7 @@ if int(texto_xp[-1][2:7]) != today:
     dut1_pred = pd.DataFrame(dut1aux, columns = ['Epoch','KRR (UT1-UTC)','KRR (UT1-UTC, AAM zmass + OAM zmass)'])
     dut1_pred = dut1_pred.astype({'Epoch': int})
     
-    dut1_pred.insert(loc = 0, column = l2[j], value = fus)
+    dut1_pred.insert(loc = 0, column = l2[0], value = fus)
         
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (UT1-UTC) [s], KRR (UT1-UTC, AAM zmass+ OAM zmass) [s]'
     np.savetxt('archivos/pred_bulla/dut1_pred.txt', dut1_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
