@@ -57,7 +57,7 @@ if int(texto_xp[-1][2:7]) != today:
     yfcn = yfcn[i:f]
     
     xmass, ymass, zmass = equal(mjd,epoch,xmass, ymass, zmass)
-    
+    sxmass, symass, szmass = equal(mjd,epoch2,xmass2, ymass2, zmass)
 
     ### XPOL prediction
     

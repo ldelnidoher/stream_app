@@ -795,6 +795,7 @@ def pred_dut1(dut1,lod,zmass,czmass,mjd):
         pred1.append(m1[j].predict(test1))
         # pred2.append(m2[j].predict(test2))
         # pred3.append(m3[j].predict(test3))
+        pred4.append(m4[j].predict(test4))
         p1a.append((m1[j].predict(test1)).tolist()[0])
         #p2a.append((m2[j].predict(test2)).tolist()[0])
         #p3a.append((m3[j].predict(test3)).tolist()[0])
