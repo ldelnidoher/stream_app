@@ -766,7 +766,7 @@ def pred_lod(lod,zmass,mjd):
     p2 = (np.array(pred2).transpose()).tolist()[0]
     return p1,p2
     
-def pred_dut1(dut1,lod,zmass,mjd):
+def pred_dut1(dut1,lod,zmass,czmass,mjd):
     """
     Parameters
     ----------
