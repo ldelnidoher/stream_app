@@ -179,7 +179,7 @@ if int(texto_xp[-1][2:7]) != today:
     
     aux = int(mjd[-1])
     dut1aux = [list(range(aux,aux+10)), a, b]
-    dut1aux = np.transpose(np.array(dut1))
+    dut1aux = np.transpose(np.array(dut1aux))
     dut1_pred = pd.DataFrame(dut1aux, columns = ['Epoch','KRR (UT1-UTC)','KRR (UT1-UTC, AAM zmass + OAM zmass)'])
     dut1_pred = dut1_pred.astype({'Epoch': int})
     
