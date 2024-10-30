@@ -43,7 +43,7 @@ try:
     if add_selectbox == "Predictions":
         chosen2 = st.sidebar.radio(
             'Which prediction?',
-            ('xpol','ypol','dX','dY')
+            ('xpol','ypol','dX','dY','UT1-UTC')
         )
         st.header('Short-term prediction for 10 days:')
         if chosen2 == 'xpol':
@@ -114,18 +114,18 @@ try:
         #     with col2:
         #         st.download_button(label =':arrow_heading_down: Save historic data as .txt :arrow_heading_down:', file_name = 'lod_historic.txt', data = texto_lod2)
             
-        # if chosen2 == 'UT1-UTC':
-        #     st.write('Predictions using different models for **UT1-UTC [s]** during the epoch [MJD]:')
-        #     c2 = st.radio("Data visualization:",("Table","Interactive plot"), horizontal = True)
-        #     if c2 == "Table":
-        #         st.dataframe(dut1_pred, hide_index = True)
-        #     if c2 == "Interactive plot":
-        #         st.plotly_chart(fig_dut1, use_container_width=False)
-        #     col1, col2 = st.columns([1,1])
-        #     with col1:
-        #         st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = 'dut1_preds.txt', data = texto_dut1)
-        #     with col2:
-        #         st.download_button(label =':arrow_heading_down: Save historic data as .txt :arrow_heading_down:', file_name = 'dut1_historic.txt', data = texto_dut12)
+        if chosen2 == 'UT1-UTC':
+            st.write('Predictions using different models for **UT1-UTC [s]** during the epoch [MJD]:')
+            c2 = st.radio("Data visualization:",("Table","Interactive plot"), horizontal = True)
+            if c2 == "Table":
+                st.dataframe(dut1_pred, hide_index = True)
+            if c2 == "Interactive plot":
+                st.plotly_chart(fig_dut1, use_container_width=False)
+            col1, col2 = st.columns([1,1])
+            with col1:
+                st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = 'dut1_preds.txt', data = texto_dut1)
+            with col2:
+                st.download_button(label =':arrow_heading_down: Save historic data as .txt :arrow_heading_down:', file_name = 'dut1_historic.txt', data = texto_dut12)
         
                                                    
     if add_selectbox == "Past predictions":

@@ -22,9 +22,11 @@ f.close()
 mjd,xp,yp,dy,lod,dut = read_iers()
 
 epoch,xmass,ymass,zmass = read_aam()
+epoch2,xmass2,ymass2,zmass2 = read_oam()
+szmass = [zmass[j]+zmass2[j] for j in range(len(zmass))]
 
 
-mjd2, xp2, yp2, dut1, xp_comp, yp_comp = get_data(today)
+mjd2, xp2, yp2, dut1, xp_comp, yp_comp, dut1_comp = get_data(today)
 dx_comp, dy_comp = comp(today)
 #if True:
 if int(texto_xp[-1][2:7]) != today:  
@@ -172,7 +174,25 @@ if int(texto_xp[-1][2:7]) != today:
     # g = open('archivos/pred_bulla/dut1_pred.txt','r')
     # texto_dut1 = g.read()
     # g.close()
+
+    a,b = pred_dut1(dut,lod,zmass,szmass,mjd)
     
+    aux = int(mjd[-1])
+    dut1aux = [list(range(aux,aux+10)), a, b]
+    dut1aux = np.transpose(np.array(dut1))
+    dut1_pred = pd.DataFrame(dut1aux, columns = ['Epoch','KRR (UT1-UTC)','KRR (UT1-UTC, AAM zmass + OAM zmass)'])
+    dut1_pred = dut1_pred.astype({'Epoch': int})
+    
+    dut1_pred.insert(loc = 0, column = l2[j], value = fus)
+        
+    h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (UT1-UTC) [s], KRR (UT1-UTC, AAM zmass+ OAM zmass) [s]'
+    np.savetxt('archivos/pred_bulla/dut1_pred.txt', dut1_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
+    
+    g = open('archivos/pred_bulla/dut1_pred.txt','r')
+    texto_dut1 = g.read()
+    g.close()
+
+
 else:
     f = open('archivos/pred_bulla/xp_pred.txt','r')
     texto_xp = f.readlines()
@@ -303,6 +323,26 @@ else:
     # g = open('archivos/pred_bulla/dut1_pred.txt','r')
     # texto_dut1= g.read()
     # g.close()
+
+    g = open('archivos/pred_bulla/dut1_pred.txt','r')
+    texto_dut1= g.readlines()
+    g.close()
+    aux = [texto_dut1[i].split() for i in range(1,len(texto_dut1)-1)]   #last value is an empty line
+    day = [aux[i][0] for i in range(len(aux))]
+    epoch2 = [int(aux[i][1]) for i in range(len(aux))]
+    a = [float(aux[i][2]) for i in range(len(aux))]
+    b = [float(aux[i][3]) for i in range(len(aux))]
+    
+    dut1aux = [day,epoch2, a, b]
+    dut1 = np.transpose(np.array(dut1))
+    dut1_pred = pd.DataFrame(dut1, columns = ['Date (yy/mm/dd)','Epoch','KRR (UT1-UTC)','KRR (UT1-UTC, AAM zmass + OAM zmass)'])
+    dut1_pred = dut1_pred.astype({'Epoch': int})
+    
+    h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (UT1-UTC) [s],KRR ((UT1-UTC, AAM zmass + OAM zmass) [s]'
+    np.savetxt('archivos/pred_bulla/dut1_pred.txt', dut1_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
+    g = open('archivos/pred_bulla/dut1_pred.txt','r')
+    texto_dut1= g.read()
+    g.close()
     
 ################ día 1 ##############
 f = open('archivos/predtotal2/xp_pred2.txt')
@@ -374,6 +414,17 @@ for j in range(2,len(dy_pred.columns)):
 fig_dy.update_layout(legend_title_text = "Models")
 fig_dy.update_xaxes(title_text="MJD", tickvals = dy_pred['Epoch'], ticktext =[str(a) for a in dy_pred['Epoch']]) 
 fig_dy.update_yaxes(title_text="as")
+
+dut1_pred['Bulletin A IERS'] = dut1_comp
+fig_dut1 = go.Figure()
+for j in range(2,len(dut1_pred.columns)):
+   fig_dut1.add_trace(go.Scatter(
+       x = dut1_pred['Epoch'],y = dut1_pred[dut1_pred.columns[j]],
+       mode = 'lines+markers', name = dut1_pred.columns[j]))
+   
+fig_dut1.update_layout(legend_title_text = "Models")
+fig_dut1.update_xaxes(title_text="MJD", tickvals = dut1_pred['Epoch'], ticktext =[str(a) for a in dut1_pred['Epoch']]) 
+fig_dut1.update_yaxes(title_text="s")
 
 
 f = open('archivos/predtotal2/iers2.txt')

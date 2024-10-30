@@ -61,8 +61,8 @@ def get_data(today):
     xp, yp, dut1 : list of lists of floats
             Solutions given by Bulletin A of xpol, ypol, dut1 at the epochs in
             "date" (until yesterday)
-    xp_comp, yp_comp : lists of floats
-                Idem as "xp", "yp" but from today until 10 days in the future
+    xp_comp, yp_comp, dut1_comp : lists of floats
+                    Idem as "xp", "yp", "dut1" but from today until 10 days in the future
     """
     date = []
     xp,yp,dut1 = [],[],[]
@@ -86,9 +86,9 @@ def get_data(today):
             i = date[0].index(today)
             xp_comp = [float(lista_def[k][4]) for k in range(i,i+10)]
             yp_comp = [float(lista_def[k][5]) for k in range(i,i+10)]
-        
+            dut1_comp = [float(lista_def[k][6]) for k in range(i,i+10)]
     date.reverse(), xp.reverse(), yp.reverse(), dut1.reverse()
-    return date, xp, yp, dut1, xp_comp, yp_comp
+    return date, xp, yp, dut1, xp_comp, yp_comp, dut1_comp
 
 
 def reduc(date, xp, yp, dut1, today):
@@ -436,6 +436,61 @@ def read_aam():
     epoch = epoch[0:-1:8]
     return epoch,xmass,ymass,zmass
 
+def read_oam():
+    """
+    Returns
+    -------
+    epoch : list of floats
+        epoch of the xmass, ymass, zmass solutions  (daily at 00:00h from 1/01/2023
+                                                  up until yesterday)
+    xmass : list of floats
+        xmass solution of the Oceanic Angular Momentum at said epochs
+    ymass : list of floats
+        idem
+    zmass : list of floats
+        idem
+    """
+    r = requests.get("http://rz-vm115.gfz-potsdam.de:8080/repository/entry/get/ESMGFZ_OAM_v1.0_03h_2023.asc?entryid=9da2cd2e-9db9-47bb-96dd-b32fce398aac")
+    oam2023 = r.text
+    r2 = requests.get("http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=6db4b21e-40be-4099-ad4c-358fb3f4cae8")
+    r2t = r2.text
+    ind = r2t.index('ESMGFZ_OAM_v1.0_03h_2024.asc')
+    url = 'http://rz-vm115.gfz-potsdam.de:8080/repository/entry/get/ESMGFZ_OAM_v1.0_03h_2024.asc?entryid='+ r2t[ind-36-11:ind-11]
+    r3 = requests.get(url)
+    oam2024 = r3.text
+    r4 = requests.get('http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=b481fb96-721c-459f-84a3-5e03f4b81220')
+    r4t = r4.text
+    r4t = r4t[r4t.index('"name":"ESMGFZ_OAM_v1.0')+20:]
+    ind = r4t.index('"name":"ESMGFZ_OAM_v1.0')    
+    url = 'http://rz-vm115.gfz-potsdam.de:8080/repository/entry/get/'+str(r4t[ind+8:ind+41])+'?entryid='+str(r4t[ind-39:ind-3])
+    r5 = requests.get(url)
+    aux = r5.text
+    
+    cont,cont2,j,i= 0,0,0,0
+    
+    while(cont<42):
+        if oam2023[j] =="\n":
+          cont+=1
+        j+=1
+
+    oam2023=(oam2023[j:]).split("\n")
+    oam2024=(oam2024[j:]).split("\n")
+    ld = aux[j:].split("\n")[2:] #prediction of yesterday values (needed to predict today's)
+    
+    oam2023 = [oam2023[i].split() for i in range(len(oam2023)-1)]
+    oam2024 = [oam2024[i].split() for i in range(len(oam2024)-1)]+[ld[i].split() for i in range(8)]
+    
+    epoch, xmass, ymass = [],[],[]
+    epoch = [float(oam2023[j][4]) for j in range(len(oam2023))]+[float(oam2024[j][4]) for j in range(len(oam2024))]
+    xmass = [float(oam2023[j][5]) for j in range(len(oam2023))]+[float(oam2024[j][5]) for j in range(len(oam2024))]
+    ymass = [float(oam2023[j][6]) for j in range(len(oam2023))]+[float(oam2024[j][6]) for j in range(len(oam2024))]
+    zmass = [float(oam2023[j][7]) for j in range(len(oam2023))]+[float(oam2024[j][7]) for j in range(len(oam2024))]
+    
+    xmass = reduccion(xmass)
+    ymass = reduccion(ymass)
+    zmass = reduccion(zmass)
+    epoch = epoch[0:-1:8]
+    return epoch,xmass,ymass,zmass
 
 def equal(mjd,epoch,xmass,ymass,zmass):
     """
@@ -711,7 +766,7 @@ def pred_lod(lod,zmass,mjd):
     p2 = (np.array(pred2).transpose()).tolist()[0]
     return p1,p2
     
-def pred_dut1(dut1,lod,zmass,mjd):
+def pred_dut1(dut1,lod,zmass,czmass,mjd):
     """
     Parameters
     ----------
@@ -724,23 +779,26 @@ def pred_dut1(dut1,lod,zmass,mjd):
         a prediction calculated with a different model (written as a comment within the function)
     """
     #1:KRR (dut1).
-    m1,m2,m3= [],[],[]
+    m1,m2,m3,m4= [],[],[],[]
     for v in range(1,11):
         m1.append(load(f'models/output_dut1/model/day{v}_model_dut.joblib'))   #we load the prediction models
-        m2.append(load(f'models/output_dut1/model2/day{v}_model_dut1.joblib'))   #we load the prediction models
-        m3.append(load(f'models/output_dut1/model3/day{v}_model_dut1.joblib'))   #we load the prediction models
+        #m2.append(load(f'models/output_dut1/model2/day{v}_model_dut1.joblib'))   #we load the prediction models
+        #m3.append(load(f'models/output_dut1/model3/day{v}_model_dut1.joblib'))   #we load the prediction models
+        m4.append(load(f'models/output_dut1/modelAM/day{v}_model_dut1.joblib'))   #we load the prediction models
     test1 = np.array(dut1[-30:]).reshape(1,-1)
-    test2 = np.array(dut1[-300:]+lod[-300:]).reshape(1,-1)
-    test3 = np.array(dut1[-300:]+lod[-300:]+zmass[-300:]).reshape(1,-1)
-    pred1,pred2,pred3 = [],[],[]
-    p1a,p2a,p3a = [],[],[]
+    #test2 = np.array(dut1[-300:]+lod[-300:]).reshape(1,-1)
+    #test3 = np.array(dut1[-300:]+lod[-300:]+zmass[-300:]).reshape(1,-1)
+    test4 = np.array(dut1[-300:]+czmass[-300:]).reshape(1,-1)
+    pred1,pred2,pred3,pred4 = [],[],[],[]
+    p1a,p2a,p3a,p4a = [],[],[],[]
     for j in range(10):
-        # pred1.append(m1[j].predict(test1))
+        pred1.append(m1[j].predict(test1))
         # pred2.append(m2[j].predict(test2))
         # pred3.append(m3[j].predict(test3))
         p1a.append((m1[j].predict(test1)).tolist()[0])
-        p2a.append((m2[j].predict(test2)).tolist()[0])
-        p3a.append((m3[j].predict(test3)).tolist()[0])
+        #p2a.append((m2[j].predict(test2)).tolist()[0])
+        #p3a.append((m3[j].predict(test3)).tolist()[0])
+        p4a.append((m4[j].predict(test4)).tolist()[0])
     
     leaps = [56108,57203,57753]
     dt = mjd
@@ -749,13 +807,14 @@ def pred_dut1(dut1,lod,zmass,mjd):
     
     
     p1 = leap_inv(p1a,dt,leaps,s1)
-    p2 = leap_inv(p2a,dt,leaps,s1)
-    p3 = leap_inv(p3a,dt,leaps,s1)
-    
-    # p1 = (np.array(pred1).transpose()).tolist()[0]
+    #p2 = leap_inv(p2a,dt,leaps,s1)
+    #p3 = leap_inv(p3a,dt,leaps,s1)
+    p4 = leap_inv(p4a,dt,leaps,s1)
+    p1 = (np.array(pred1).transpose()).tolist()[0]
     # p2 = (np.array(pred2).transpose()).tolist()[0]
     # p3 = (np.array(pred3).transpose()).tolist()[0]
-    return p1,p2,p3
+    p4 = (np.array(pred4).transpose()).tolist()[0]
+    return p1,p4#p1,p2,p3,p4
     
 
 def fcn(dx, dy, dt):
