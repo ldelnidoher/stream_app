@@ -781,21 +781,21 @@ def pred_dut1(dut1,lod,zmass,czmass,mjd):
     #1:KRR (dut1).
     m1,m2,m3,m4= [],[],[],[]
     for v in range(1,11):
-        #m1.append(load(f'models/output_dut1/model/day{v}_model_dut.joblib'))   #we load the prediction models
+        m1.append(load(f'models/output_dut1/model/day{v}_model_dut.joblib'))   #we load the prediction models
         #m2.append(load(f'models/output_dut1/model2/day{v}_model_dut1.joblib'))   #we load the prediction models
         #m3.append(load(f'models/output_dut1/model3/day{v}_model_dut1.joblib'))   #we load the prediction models
         m4.append(load(f'models/output_dut1/modelAM/day{v}_model_dut1.joblib'))   #we load the prediction models
-    #test1 = np.array(dut1[-30:]).reshape(1,-1)
+    test1 = np.array(dut1[-30:]).reshape(1,-1)
     #test2 = np.array(dut1[-300:]+lod[-300:]).reshape(1,-1)
     #test3 = np.array(dut1[-300:]+lod[-300:]+zmass[-300:]).reshape(1,-1)
     test4 = np.array(dut1[-300:]+czmass[-300:]).reshape(1,-1)
     pred1,pred2,pred3,pred4 = [],[],[],[]
     p1a,p2a,p3a,p4a = [],[],[],[]
     for j in range(10):
-        # pred1.append(m1[j].predict(test1))
+        pred1.append(m1[j].predict(test1))
         # pred2.append(m2[j].predict(test2))
         # pred3.append(m3[j].predict(test3))
-        #p1a.append((m1[j].predict(test1)).tolist()[0])
+        p1a.append((m1[j].predict(test1)).tolist()[0])
         #p2a.append((m2[j].predict(test2)).tolist()[0])
         #p3a.append((m3[j].predict(test3)).tolist()[0])
         p4a.append((m4[j].predict(test4)).tolist()[0])
@@ -806,14 +806,15 @@ def pred_dut1(dut1,lod,zmass,czmass,mjd):
     
     
     
-    #p1 = leap_inv(p1a,dt,leaps,s1)
+    p1 = leap_inv(p1a,dt,leaps,s1)
     #p2 = leap_inv(p2a,dt,leaps,s1)
     #p3 = leap_inv(p3a,dt,leaps,s1)
     p4 = leap_inv(p4a,dt,leaps,s1)
-    # p1 = (np.array(pred1).transpose()).tolist()[0]
+    p1 = (np.array(pred1).transpose()).tolist()[0]
     # p2 = (np.array(pred2).transpose()).tolist()[0]
     # p3 = (np.array(pred3).transpose()).tolist()[0]
-    return p4#p1,p2,p3,p4
+    p4 = (np.array(pred4).transpose()).tolist()[0]
+    return p1,p4#p1,p2,p3,p4
     
 
 def fcn(dx, dy, dt):
