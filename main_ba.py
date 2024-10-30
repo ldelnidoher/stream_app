@@ -26,8 +26,8 @@ epoch2,xmass2,ymass2,zmass2 = read_oam()
 szmass = [zmass[j]+zmass2[j] for j in range(len(zmass))]
 
 
-mjd2, xp2, yp2, dut1, xp_comp, yp_comp = get_data(today)
-dx_comp, dy_comp, dut1_comp = comp(today)
+mjd2, xp2, yp2, dut1, xp_comp, yp_comp, dut1_comp = get_data(today)
+dx_comp, dy_comp = comp(today)
 #if True:
 if int(texto_xp[-1][2:7]) != today:  
     ### INPUT DATA
