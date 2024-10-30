@@ -27,7 +27,7 @@ szmass = [zmass[j]+zmass2[j] for j in range(len(zmass)]
 
 
 mjd2, xp2, yp2, dut1, xp_comp, yp_comp = get_data(today)
-dx_comp, dy_comp = comp(today)
+dx_comp, dy_comp, dut1_comp = comp(today)
 #if True:
 if int(texto_xp[-1][2:7]) != today:  
     ### INPUT DATA
@@ -414,6 +414,17 @@ for j in range(2,len(dy_pred.columns)):
 fig_dy.update_layout(legend_title_text = "Models")
 fig_dy.update_xaxes(title_text="MJD", tickvals = dy_pred['Epoch'], ticktext =[str(a) for a in dy_pred['Epoch']]) 
 fig_dy.update_yaxes(title_text="as")
+
+dut1_pred['Bulletin A IERS'] = dut1_comp
+fig_dut1 = go.Figure()
+for j in range(2,len(dut1_pred.columns)):
+   fig_dut1.add_trace(go.Scatter(
+       x = dut1_pred['Epoch'],y = dut1_pred[dut1_pred.columns[j]],
+       mode = 'lines+markers', name = dut1_pred.columns[j]))
+   
+fig_dut1.update_layout(legend_title_text = "Models")
+fig_dut1.update_xaxes(title_text="MJD", tickvals = dut1_pred['Epoch'], ticktext =[str(a) for a in dut1_pred['Epoch']]) 
+fig_dut1.update_yaxes(title_text="s")
 
 
 f = open('archivos/predtotal2/iers2.txt')
