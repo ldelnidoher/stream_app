@@ -74,7 +74,7 @@ if int(texto_xp[-1][2:7]) != today:
     xp_pred.insert(loc = 0, column = l2[0], value = fus)
     
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR(xp, AAM xmass) [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as], SSA 4PC + GPR [as], SSA 6PC + GPR [as]'
-    np.savetxt('archivos/pred_bulla/xp_pred.txt', xp_pred, fmt = ['%s','%d','%f','%f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
+    np.savetxt('archivos/pred_bulla/xp_pred.txt', xp_pred, fmt = ['%s','%d','%f','%f','%1.5f','%1.5f','%1.5f'],delimiter='\t',header=h,footer = str(today)+' mjd (last updated)')
     
     f = open('archivos/pred_bulla/xp_pred.txt','r')
     texto_xp = f.read()
@@ -91,7 +91,7 @@ if int(texto_xp[-1][2:7]) != today:
     yp_pred.insert(loc = 0, column = l2[0], value = fus)
     
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (yp, dy)[as], KRR (yp, AAM ymass)[as], SSA 2PC + KRR [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as]'
-    np.savetxt('archivos/pred_bulla/yp_pred.txt', yp_pred, fmt = ['%s','%d','%1.5f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
+    np.savetxt('archivos/pred_bulla/yp_pred.txt', yp_pred, fmt = ['%s','%d','%1.5f','%1.5f','%1.5f','%1.5f'], delimiter='\t',header=h,footer = str(today)+' mjd (last updated)')
     
     g = open('archivos/pred_bulla/yp_pred.txt','r')
     texto_yp = g.read()
@@ -109,7 +109,7 @@ if int(texto_xp[-1][2:7]) != today:
     dx_pred.insert(loc = 0, column = l2[0], value = fus)
         
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dx, xfcn) [as], KRR (dx, xfcn, xp) [as]'
-    np.savetxt('archivos/pred_bulla/dx_pred.txt', dx_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h, footer = str(today)+' mjd (last updated)')
+    np.savetxt('archivos/pred_bulla/dx_pred.txt', dx_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='\t',header=h, footer = str(today)+' mjd (last updated)')
     
     g = open('archivos/pred_bulla/dx_pred.txt','r')
     texto_dx = g.read()
@@ -126,7 +126,7 @@ if int(texto_xp[-1][2:7]) != today:
     dy_pred.insert(loc = 0, column = l2[0], value = fus)
         
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dy, yfcn) [as], KRR (dy, yfcn, yp) [as]'
-    np.savetxt('archivos/pred_bulla/dy_pred.txt', dy_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h, footer = str(today)+' mjd (last updated)')
+    np.savetxt('archivos/pred_bulla/dy_pred.txt', dy_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='\t',header=h, footer = str(today)+' mjd (last updated)')
     
     g = open('archivos/pred_bulla/dy_pred.txt','r')
     texto_dy = g.read()
@@ -150,7 +150,7 @@ if int(texto_xp[-1][2:7]) != today:
     #     lod_pred.insert(loc = j, column = l2[j], value = lista[:,j])
         
     # h = 'Columns: Date (y, m, d), Epoch [MJD], KRR (LOD) [ms], KRR (LOD, AAM zmass)[ms]'
-    # np.savetxt('archivos/pred_bulla/lod_pred.txt', lod_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
+    # np.savetxt('archivos/pred_bulla/lod_pred.txt', lod_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f'], delimiter='\t',header=h,footer = str(today)+' mjd (last updated)')
     
     # g = open('archivos/pred_bulla/lod_pred.txt','r')
     # texto_lod = g.read()
@@ -169,7 +169,7 @@ if int(texto_xp[-1][2:7]) != today:
     #     dut1_pred.insert(loc = j, column = l2[j], value = lista[:,j])
         
     # h = 'Columns: Date (y, m, d), Epoch [MJD], KRR (UT1-UTC) [s]'#', KRR (UT1-UTC, LOD) [s], KRR (UT1-UTC, LOD, zmass) [s]'
-    # np.savetxt('archivos/pred_bulla/dut1_pred.txt', dut1_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
+    # np.savetxt('archivos/pred_bulla/dut1_pred.txt', dut1_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f','%1.5f'], delimiter='\t',header=h,footer = str(today)+' mjd (last updated)')
     
     # g = open('archivos/pred_bulla/dut1_pred.txt','r')
     # texto_dut1 = g.read()
@@ -186,7 +186,7 @@ if int(texto_xp[-1][2:7]) != today:
     dut1_pred.insert(loc = 0, column = l2[0], value = fus)
         
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (UT1-UTC) [s], KRR (UT1-UTC, AAM zmass+ OAM zmass) [s]'
-    np.savetxt('archivos/pred_bulla/dut1_pred.txt', dut1_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today)+' mjd (last updated)')
+    np.savetxt('archivos/pred_bulla/dut1_pred.txt', dut1_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='\t',header=h,footer = str(today)+' mjd (last updated)')
     
     g = open('archivos/pred_bulla/dut1_pred.txt','r')
     texto_dut1 = g.read()
@@ -214,7 +214,7 @@ else:
     
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR(xp, AAM xmass) [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as], SSA 4PC + GPR [as], SSA 6PC + GPR [as]'
     try:
-        np.savetxt('archivos/pred_bulla/xp_pred.txt', xp_pred, fmt = ['%s','%d','%1.5f','%1.5f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
+        np.savetxt('archivos/pred_bulla/xp_pred.txt', xp_pred, fmt = ['%s','%d','%1.5f','%1.5f','%1.5f','%1.5f','%1.5f'], delimiter='\t',header=h,footer = str(today))
     except TypeError as err:
         print(err.args)
     
@@ -237,7 +237,7 @@ else:
     yp_pred = pd.DataFrame(ypaux, columns = ['Date (yy/mm/dd)','Epoch', 'KRR (yp, AAM ymass)','SSA 2PC + KRR','SSA 4PC + KRR','SSA 6PC + KRR'])
     
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD],  KRR (yp, AAM ymass)[as], SSA 2PC + KRR [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as]'
-    np.savetxt('archivos/pred_bulla/yp_pred.txt', yp_pred, fmt = ['%s','%d','%1.5f','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
+    np.savetxt('archivos/pred_bulla/yp_pred.txt', yp_pred, fmt = ['%s','%d','%1.5f','%1.5f','%1.5f','%1.5f'], delimiter='\t',header=h,footer = str(today))
     g = open('archivos/pred_bulla/yp_pred.txt','r')
     texto_yp = g.read()
     g.close()
@@ -256,7 +256,7 @@ else:
     dx_pred = pd.DataFrame(dxaux, columns = ['Date (yy/mm/dd)','Epoch','KRR (dx, xfcn)', 'KRR (dx, xfcn, xp)'])
 
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dx, xfcn)[as], KRR (dx, xfcn, xp)[as]'
-    np.savetxt('archivos/pred_bulla/dx_pred.txt', dx_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
+    np.savetxt('archivos/pred_bulla/dx_pred.txt', dx_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='\t',header=h,footer = str(today))
     g = open('archivos/pred_bulla/dx_pred.txt','r')
     texto_dx = g.read()
     
@@ -275,7 +275,7 @@ else:
     dy_pred = pd.DataFrame(dyaux, columns = ['Date (yy/mm/dd)','Epoch','KRR (dy, yfcn)', 'KRR (dy, yfcn, yp)'])
     
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dy, yfcn)[as], KRR (dy, yfcn, yp)[as]'
-    np.savetxt('archivos/pred_bulla/dx_pred.txt', dy_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ', header=h, footer = str(today))
+    np.savetxt('archivos/pred_bulla/dx_pred.txt', dy_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='\t', header=h, footer = str(today))
     g = open('archivos/pred_bulla/dy_pred.txt','r')
     texto_dy = g.read()
     
@@ -296,7 +296,7 @@ else:
     # lod_pred = lod_pred.astype({'Epoch': int})
     
     # h = 'Columns: Date (y, m, d), Epoch [MJD], KRR (LOD)[ms], KRR (LOD, AAM zmass)[ms]'
-    # np.savetxt('archivos/pred_bulla/lod_pred.txt', lod_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
+    # np.savetxt('archivos/pred_bulla/lod_pred.txt', lod_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f'], delimiter='\t',header=h,footer = str(today))
     # g = open('archivos/pred_bulla/lod_pred.txt','r')
     # texto_lod = g.read()
     # g.close()
@@ -319,7 +319,7 @@ else:
     # dut1_pred = dut1_pred.astype({'Epoch': int})
     
     # h = 'Columns: Date (y, m, d), Epoch [MJD], KRR (UT1-UTC) [s],KRR (UT1-UTC, LOD) [s],KRR (UT1-UTC, LOD, zmass) [s]'
-    # np.savetxt('archivos/pred_bulla/dut1_pred.txt', dut1_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
+    # np.savetxt('archivos/pred_bulla/dut1_pred.txt', dut1_pred, fmt = ['%d','%d','%d','%d','%1.5f','%1.5f','%1.5f'], delimiter='\t',header=h,footer = str(today))
     # g = open('archivos/pred_bulla/dut1_pred.txt','r')
     # texto_dut1= g.read()
     # g.close()
@@ -339,7 +339,7 @@ else:
     dut1_pred = dut1_pred.astype({'Epoch': int})
     
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (UT1-UTC) [s],KRR ((UT1-UTC, AAM zmass + OAM zmass) [s]'
-    np.savetxt('archivos/pred_bulla/dut1_pred.txt', dut1_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='   ',header=h,footer = str(today))
+    np.savetxt('archivos/pred_bulla/dut1_pred.txt', dut1_pred, fmt = ['%s','%d','%1.5f','%1.5f'], delimiter='\t',header=h,footer = str(today))
     g = open('archivos/pred_bulla/dut1_pred.txt','r')
     texto_dut1= g.read()
     g.close()
