@@ -11,18 +11,7 @@ import altair as alt
 import plotly.graph_objects as go
 
 
-csv_file = "files.csv"
-if os.path.exists(csv_file):
-    files = pd.read_csv(csv_file,index_col = False)
-else:
-    files = pd.DataFrame(
-        {'XPOL':np.array([]),
-         'YPOL':np.array([]),
-         'dX':np.array([]),
-         'dY':np.array([]),
-         'dUT1':np.array([]),
-        }
-    )
+
 
 st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':earth_africa:')
 
@@ -261,7 +250,19 @@ try:
         t = datetime.datetime.today()
         day_of_week = t.isoweekday()
         suffix = t.strftime('%Y%m%d')
-
+        
+        csv_file = "files.csv"
+        if os.path.exists(csv_file):
+            files = pd.read_csv(csv_file,index_col = False)
+        else:
+            files = pd.DataFrame(
+                {'XPOL':np.array([]),
+                 'YPOL':np.array([]),
+                 'dX':np.array([]),
+                 'dY':np.array([]),
+                 'dUT1':np.array([]),
+                }
+            )
 
         if day_of_week in {1,2,5}: #1 es para ver si funciona hoy
             #reload function and update 
