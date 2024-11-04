@@ -271,7 +271,7 @@ try:
             dx_file = f'dx_{suffix}.txt'
             dy_file = f'dy_{suffix}.txt'
             dut1_file = f'dut1_{suffix}.txt'
-            if not os.path.exists(xpol_file):
+            if os.path.exists(xpol_file):
                 h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR(xp, AAM xmass) [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as], SSA 4PC + GPR [as], SSA 6PC + GPR [as]'
                 np.savetxt(xpol_file, xp_pred.iloc[:,:-1], fmt = ['%s','%d','% f','% f','% 1.5f','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
                 h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (yp, dy)[as], KRR (yp, AAM ymass)[as], SSA 2PC + KRR [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as]'
@@ -283,6 +283,7 @@ try:
                 h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (UT1-UTC) [s], KRR (UT1-UTC, AAM zmass+ OAM zmass) [s]'
                 np.savetxt(dut1_file, dut1_pred.iloc[:,:-1], fmt = ['%s','%d','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
                 files.append([xpol_file,ypol_file,dx_file,dy_file,dut1_file])
+                st.write('llegue')
         st.text('Choose file:')
         st.dataframe(files)
             
