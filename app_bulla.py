@@ -4,6 +4,7 @@ import pandas as pd
 import requests
 import time
 import datetime
+import os
 from main_ba import *
 import matplotlib.pyplot as plt
 import altair as alt
@@ -32,7 +33,7 @@ custom_html = """
 st.components.v1.html(custom_html)
 
 add_selectbox = st.sidebar.radio('Choose data to show:',
-("Predictions", "Past predictions", "Models","Contact info"))
+("Predictions", "Past predictions", "Models","Prueba","Contact info"))
 if add_selectbox == "Contact info":
     pass
 if add_selectbox == "Models":
@@ -242,7 +243,31 @@ try:
                     st.link_button(label = "Link to ESMGFZ repository: AAM",url = "http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=57600abc-2c31-481e-9675-48f488b9304d")
                                                          
                                                                  
+    if add_selectbox == "Prueba":
+        t = datetime.datetime.today()
+        day_of_week = t.isoweekday()
+        suffix = t.strftime('%Y%m%d')
 
+
+        if day_of_week in {1,2,5}: #1 es para ver si funciona hoy
+            #reload function and update 
+            xpol_file = f'xpol_{suffix}.txt'
+            ypol_file = f'ypol_{suffix}.txt'
+            dx_file = f'dx_{suffix}.txt'
+            dy_file = f'dy_{suffix}.txt'
+            dut1_file = f'dut1_{suffix}.txt'
+            if not os.path.exists(xpol_file):
+                h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR(xp, AAM xmass) [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as], SSA 4PC + GPR [as], SSA 6PC + GPR [as]'
+                np.savetxt(xpol_file, xp_pred.iloc[:,:-1], fmt = ['%s','%d','% f','% f','% 1.5f','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
+                h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (yp, dy)[as], KRR (yp, AAM ymass)[as], SSA 2PC + KRR [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as]'
+                np.savetxt(ypol_file, yp_pred.iloc[:,:-1], fmt = ['%s','%d','% f','% f','% 1.5f','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
+                h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dx, xfcn) [as], KRR (dx, xfcn, xp) [as]'
+                np.savetxt(dxpol_file, dx_pred.iloc[:,:-1], fmt = ['%s','%d','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
+                h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dy, yfcn) [as], KRR (dy, yfcn, yp) [as]'
+                np.savetxt(dypol_file, dy_pred.iloc[:,:-1], fmt = ['%s','%d','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
+                h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (UT1-UTC) [s], KRR (UT1-UTC, AAM zmass+ OAM zmass) [s]'
+                np.savetxt(dut1_file, dut1_pred.iloc[:,:-1], fmt = ['%s','%d','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
+        
     d = datetime.datetime.now()
     d = d.replace(microsecond=0)
      
