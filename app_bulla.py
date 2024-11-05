@@ -288,8 +288,9 @@ try:
                 files.loc[len(files)] = [xpol_file,ypol_file,dx_file,dy_file,dut1_file]
         st.text('Choose file day:')
         d = st.date_input('Choose file day: ', format="YYYY-MM-DD")
-        chosen_date = d[0:4]+d[5:7]+d[8:]
         t = str(type(d))
+        chosen_date = d[0:4]+d[5:7]+d[8:]
+        
         st.write(t)
       
         if  ('xpol_'+chosen_date+'.txt) in files['XPOL'].value:
