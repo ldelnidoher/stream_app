@@ -287,8 +287,8 @@ try:
                 np.savetxt(dut1_file, dut1_pred.iloc[:,:-1], fmt = ['%s','%d','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
                 files.loc[len(files)] = [xpol_file,ypol_file,dx_file,dy_file,dut1_file]
         st.text('Choose file day:')
-        a = st.date_input(format="MM.DD.YYYY")
-        st.text(a)
+        st.date_input(format="MM.DD.YYYY")
+        
         st.dataframe(files)
             
         
