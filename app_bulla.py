@@ -267,6 +267,8 @@ try:
                 }
             )
         st.write(estado)
+        estado2 = os.path.exists(csv_file)
+        st.write(str(estado2))
         if day_of_week in {2,5}:
             #reload function and update 
             xpol_file = f'xpol_{suffix}.txt'
