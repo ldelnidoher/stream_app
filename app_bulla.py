@@ -277,12 +277,11 @@ try:
             dut1_file = f'dut1_{suffix}.txt'
             st.dataframe(files)
             if not xpol_file in files['XPOL'].values:
-                #st.write("prueba")
-                #h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR(xp, AAM xmass) [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as], SSA 4PC + GPR [as], SSA 6PC + GPR [as]'
-                #np.savetxt(xpol_file, xp_pred.iloc[:,:-1], fmt = ['%s','%d','% f','% f','% 1.5f','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
-                #st.write("guardo x")
+                h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR(xp, AAM xmass) [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as], SSA 4PC + GPR [as], SSA 6PC + GPR [as]'
+                np.savetxt(xpol_file, xp_pred.iloc[:,:-1], fmt = ['%s','%d','% f','% f','% 1.5f','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
+                st.write("guardo x")
                 h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (yp, dy)[as], KRR (yp, AAM ymass)[as], SSA 2PC + KRR [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as]'
-                np.savetxt(ypol_file, yp_pred.iloc[:,:-1], fmt = ['%s','%d','% f','% f','% 1.5f','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
+                np.savetxt(ypol_file, yp_pred.iloc[:,:-1], fmt = ['%s','%d','% f','% 1.5f','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
                 st.write("guardo y")
                 h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dx, xfcn) [as], KRR (dx, xfcn, xp) [as]'
                 np.savetxt(dxpol_file, dx_pred.iloc[:,:-1], fmt = ['%s','%d','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
