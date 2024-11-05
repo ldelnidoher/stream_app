@@ -289,12 +289,12 @@ try:
         st.text('Choose file day:')
         d = st.date_input('Choose file day: ', format="YYYY-MM-DD")
         t = str(type(d))
-        chosen_date = d[0:4]+d[5:7]+d[8:]
+        #chosen_date = d[0:4]+d[5:7]+d[8:]
         
         st.write(t)
       
-        if  ('xpol_'+chosen_date+'.txt) in files['XPOL'].values:
-             st.text('a')
+        #if  ('xpol_'+chosen_date+'.txt) in files['XPOL'].values:
+        #     st.text('a')
         st.dataframe(files)
             
         
