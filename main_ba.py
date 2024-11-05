@@ -334,8 +334,8 @@ else:
     b = [float(aux[i][3]) for i in range(len(aux))]
     
     dut1aux = [day,epoch2, a, b]
-    dut1 = np.transpose(np.array(dut1))
-    dut1_pred = pd.DataFrame(dut1, columns = ['Date (yy/mm/dd)','Epoch','KRR (UT1-UTC)','KRR (UT1-UTC, AAM zmass + OAM zmass)'])
+    dut1aux = np.transpose(np.array(dut1aux))
+    dut1_pred = pd.DataFrame(dut1aux, columns = ['Date (yy/mm/dd)','Epoch','KRR (UT1-UTC)','KRR (UT1-UTC, AAM zmass + OAM zmass)'])
     dut1_pred = dut1_pred.astype({'Epoch': int})
     
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (UT1-UTC) [s],KRR ((UT1-UTC, AAM zmass + OAM zmass) [s]'
