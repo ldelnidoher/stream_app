@@ -291,7 +291,7 @@ try:
         chosen_date = str(d)[0:4]+str(d)[5:7]+str(d)[8:10]
         nombre = 'xpol_'+chosen_date+'.txt'
         if nombre in files['XPOL'].values:
-             st.text('a')
+             st.download_button(label ='xpol data', file_name = 'xpol_file.txt', data = xpol_file)
         st.dataframe(files)
             
         
