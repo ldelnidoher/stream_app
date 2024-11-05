@@ -289,8 +289,10 @@ try:
         st.text('Choose file day:')
         d = st.date_input('Choose file day: ', format="YYYY-MM-DD")
         chosen_date = d[0:4]+d[5:7]+d[8:]
+        t = str(type(d))
+        st.write(t)
       
-        if  'xpol_file'+ chosen_date in files['XPOL'].value:
+        if  ('xpol_'+chosen_date+'.txt) in files['XPOL'].value:
              st.text('a')
         st.dataframe(files)
             
