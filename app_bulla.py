@@ -279,21 +279,15 @@ try:
             if not xpol_file in files['XPOL'].values:
                 h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR(xp, AAM xmass) [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as], SSA 4PC + GPR [as], SSA 6PC + GPR [as]'
                 np.savetxt(xpol_file, xp_pred.iloc[:,:-1], fmt = ['%s','%d','% f','% f','% 1.5f','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
-                st.write("guardo x")
                 h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (yp, dy)[as], KRR (yp, AAM ymass)[as], SSA 2PC + KRR [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as]'
                 np.savetxt(ypol_file, yp_pred.iloc[:,:-1], fmt = ['%s','%d','% f','% 1.5f','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
-                st.write("guardo y")
                 h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dx, xfcn) [as], KRR (dx, xfcn, xp) [as]'
                 np.savetxt(dx_file, dx_pred.iloc[:,:-1], fmt = ['%s','%d','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
-                st.write("guardo dx") 
                 h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dy, yfcn) [as], KRR (dy, yfcn, yp) [as]'
                 np.savetxt(dy_file, dy_pred.iloc[:,:-1], fmt = ['%s','%d','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
-                st.write("guardo dy")
                 h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (UT1-UTC) [s], KRR (UT1-UTC, AAM zmass+ OAM zmass) [s]'
                 np.savetxt(dut1_file, dut1_pred.iloc[:,:-1], fmt = ['%s','%d','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
-                st.write("guardo dut1")
                 files.loc[len(files)] = [xpol_file,ypol_file,dx_file,dy_file,dut1_file]
-                st.write('llegue')
         st.text('Choose file:')
         st.dataframe(files)
             
