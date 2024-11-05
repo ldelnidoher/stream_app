@@ -264,13 +264,13 @@ try:
                 }
             )
 
-        if day_of_week in {1,2,5}: #1 es para ver si funciona hoy
+        if day_of_week in {2,5}:
             #reload function and update 
-            xpol_file = f'xpol_{suffix}.csv'
-            ypol_file = f'ypol_{suffix}.csv'
-            dx_file = f'dx_{suffix}.csv'
-            dy_file = f'dy_{suffix}.csv'
-            dut1_file = f'dut1_{suffix}.csv'
+            xpol_file = f'xpol_{suffix}.txt'
+            ypol_file = f'ypol_{suffix}.txt'
+            dx_file = f'dx_{suffix}.txt'
+            dy_file = f'dy_{suffix}.txt'
+            dut1_file = f'dut1_{suffix}.txt'
             if os.path.exists(xpol_file):
                 st.write("prueba")
                 h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR(xp, AAM xmass) [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as], SSA 4PC + GPR [as], SSA 6PC + GPR [as]'
@@ -283,7 +283,7 @@ try:
                 np.savetxt(dypol_file, dy_pred.iloc[:,:-1], fmt = ['%s','%d','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
                 h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (UT1-UTC) [s], KRR (UT1-UTC, AAM zmass+ OAM zmass) [s]'
                 np.savetxt(dut1_file, dut1_pred.iloc[:,:-1], fmt = ['%s','%d','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
-                files.append([xpol_file,ypol_file,dx_file,dy_file,dut1_file])
+                files.loc[len(files)] = [xpol_file,ypol_file,dx_file,dy_file,dut1_file]
                 st.write('llegue')
         st.text('Choose file:')
         st.dataframe(files)
