@@ -293,7 +293,7 @@ try:
         
         st.write(t)
       
-        if  ('xpol_'+chosen_date+'.txt) in files['XPOL'].value:
+        if  ('xpol_'+chosen_date+'.txt) in files['XPOL'].values:
              st.text('a')
         st.dataframe(files)
             
