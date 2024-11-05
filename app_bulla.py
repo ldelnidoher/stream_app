@@ -266,11 +266,11 @@ try:
 
         if day_of_week in {1,2,5}: #1 es para ver si funciona hoy
             #reload function and update 
-            xpol_file = f'xpol_{suffix}.txt'
-            ypol_file = f'ypol_{suffix}.txt'
-            dx_file = f'dx_{suffix}.txt'
-            dy_file = f'dy_{suffix}.txt'
-            dut1_file = f'dut1_{suffix}.txt'
+            xpol_file = f'xpol_{suffix}.csv'
+            ypol_file = f'ypol_{suffix}.csv'
+            dx_file = f'dx_{suffix}.csv'
+            dy_file = f'dy_{suffix}.csv'
+            dut1_file = f'dut1_{suffix}.csv'
             if os.path.exists(xpol_file):
                 st.write("prueba")
                 h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR(xp, AAM xmass) [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as], SSA 4PC + GPR [as], SSA 6PC + GPR [as]'
