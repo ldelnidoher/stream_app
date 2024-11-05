@@ -252,9 +252,12 @@ try:
         suffix = t.strftime('%Y%m%d')
         
         csv_file = "files.csv"
+        estado = 'False'
         if os.path.exists(csv_file):
+            estado = 'True'
             files = pd.read_csv(csv_file,index_col = False)
         else:
+            estado = 'h true'
             files = pd.DataFrame(
                 {'XPOL':np.array([]),
                  'YPOL':np.array([]),
@@ -263,7 +266,7 @@ try:
                  'dUT1':np.array([]),
                 }
             )
-        st.write(if os.path.exists(csv_file))
+        st.write(estado)
         if day_of_week in {2,5}:
             #reload function and update 
             xpol_file = f'xpol_{suffix}.txt'
