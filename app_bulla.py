@@ -288,7 +288,7 @@ try:
                 files.loc[len(files)] = [xpol_file,ypol_file,dx_file,dy_file,dut1_file]
         st.text('Choose file day:')
         d = st.date_input('Choose file day: ', format="MM.DD.YYYY")
-        
+        st.text(d)
         st.dataframe(files)
             
         
