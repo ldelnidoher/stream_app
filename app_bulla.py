@@ -288,7 +288,9 @@ try:
                 h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (UT1-UTC) [s], KRR (UT1-UTC, AAM zmass+ OAM zmass) [s]'
                 np.savetxt(dut1_file, dut1_pred.iloc[:,:-1], fmt = ['%s','%d','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
                 files.loc[len(files)] = [xpol_file,ypol_file,dx_file,dy_file,dut1_file]
-        st.text('Choose file:')
+        st.text('Choose file day:')
+        a = st.date_input(format="MM.DD.YYYY")
+        st.text(a)
         st.dataframe(files)
             
         
