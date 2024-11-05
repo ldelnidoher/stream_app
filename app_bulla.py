@@ -271,6 +271,7 @@ try:
             dx_file = f'dx_{suffix}.txt'
             dy_file = f'dy_{suffix}.txt'
             dut1_file = f'dut1_{suffix}.txt'
+            st.write('if yes')
             if os.path.exists(xpol_file):
                 st.write("prueba")
                 h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR(xp, AAM xmass) [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as], SSA 4PC + GPR [as], SSA 6PC + GPR [as]'
