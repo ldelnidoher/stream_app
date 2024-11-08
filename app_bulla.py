@@ -245,7 +245,7 @@ try:
                                                          
                                                                  
     if add_selectbox == "Prueba":
-        files = act_df()
+        files = act_df(texto_xp,texto_yp,texto_dx,texto_dy,texto_dut1)
         m = list(files.index)
         ans1 = st.selectbox("fecha:",(m))
         ans2 = st.radio('Elige eop', ("XPOL","YPOL","dX","dY","dUT1"),horizontal = True)
