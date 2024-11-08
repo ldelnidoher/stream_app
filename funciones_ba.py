@@ -928,7 +928,7 @@ def add_date(mjd1, f,today):
 def act_df():
     t = datetime.datetime.today()
     day_of_week = t.isoweekday()
-    #suffix = t.strftime('%Y%m%d')
+    suffix = t.strftime('%Y%m%d')
     csv_file = 'prueba777.csv'
     if os.path.exists(csv_file):
         files = pd.read_csv(csv_file, delimiter = ';',index_col = 0) 
