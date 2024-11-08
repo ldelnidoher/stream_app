@@ -925,7 +925,31 @@ def add_date(mjd1, f,today):
         lista_fechas.append((resta+d2).timetuple()[:3])
     return lista_fechas
       
-
+def act_df():
+    t = datetime.datetime.today()
+    day_of_week = t.isoweekday()
+    #suffix = t.strftime('%Y%m%d')
+    csv_file = 'prueba777.csv'
+    if os.path.exists(csv_file):
+        files = pd.read_csv(csv_file, delimiter = ',',index_col = 0) 
+    else:
+        files = pd.DataFrame(
+            {'XPOL':[],
+             'YPOL':[],
+             'dX':[],
+             'dY':[],
+             'dUT1':[]
+            },
+            index = np.array([],dtype = str)
+        )
+    if suffix not in files.index:
+         num2 = list(map(list,zip(*[[2+r.random()for j in range(3)] for i in range(2)])))
+         b = pd.DataFrame({'XPOL':texto_xp,'YPOL':texto_yp,'dX':texto_dx,'dY':texto_dy,'dUT1':texto_dut1},index = [suffix])
+         files = pd.concat([files,b])
+         files.index = files.index.astype(str)
+         files.to_csv(csv_file, sep = ';',index=True, mode = 'w')
+    return files
+        
 
 
 
