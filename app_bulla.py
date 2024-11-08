@@ -251,7 +251,6 @@ try:
         ans2 = st.radio('Elige eop', ("XPOL","YPOL","dX","dY","dUT1"),horizontal = True)
         datos = to_txt(files.at[ans1,ans2])
         st.download_button(label = 'Download',data = datos, file_name = f'{ans2}_{ans1}.txt')
-        st.dataframe(files)
          
     d = datetime.datetime.now()
     d = d.replace(microsecond=0)
