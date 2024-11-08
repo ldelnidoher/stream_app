@@ -944,7 +944,7 @@ def act_df(texto_xp,texto_yp,texto_dx,texto_dy,texto_dut1):
             index = np.array([],dtype = str)
         )
     if suffix not in files.index:
-        if day_of_week in {2,5}:
+        if day_of_week in {3,5}:
              b = pd.DataFrame({'XPOL':[texto_xp],'YPOL':[texto_yp],'dX':[texto_dx],'dY':[texto_dy],'dUT1':[texto_dut1]},index = [suffix])
              files = pd.concat([files,b])
              files.index = files.index.astype(str)

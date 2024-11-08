@@ -250,7 +250,7 @@ try:
         ans1 = st.selectbox("fecha:",(m))
         ans2 = st.radio('Elige eop', ("XPOL","YPOL","dX","dY","dUT1"),horizontal = True)
         datos = files.at[ans1,ans2]
-        st.download_button(label = 'Download',data = datos, file_name = f'{ans2}_{ans1}.txt')
+        st.download_button(label = f'Download {ans2} data',data = datos, file_name = f'{ans2}_{ans1}.txt')
 
          
     d = datetime.datetime.now()
