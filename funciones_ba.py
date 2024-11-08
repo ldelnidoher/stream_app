@@ -17,6 +17,7 @@ from scipy.interpolate import PchipInterpolator
 import datetime
 import numpy.linalg  as la
 import copy
+import os
 
 
 
@@ -925,7 +926,7 @@ def add_date(mjd1, f,today):
         lista_fechas.append((resta+d2).timetuple()[:3])
     return lista_fechas
       
-def act_df():
+def act_df(texto_xp,texto_yp,texto_dx,texto_dy,texto_dut1):
     t = datetime.datetime.today()
     day_of_week = t.isoweekday()
     suffix = t.strftime('%Y%m%d')
@@ -942,8 +943,7 @@ def act_df():
             },
             index = np.array([],dtype = str)
         )
-    if suffix not in files.index:
-         num2 = list(map(list,zip(*[[2+r.random()for j in range(3)] for i in range(2)])))
+    if day_of_the_week in {2,5} and (suffix not in files.index):
          b = pd.DataFrame({'XPOL':texto_xp,'YPOL':texto_yp,'dX':texto_dx,'dY':texto_dy,'dUT1':texto_dut1},index = [suffix])
          files = pd.concat([files,b])
          files.index = files.index.astype(str)
