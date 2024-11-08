@@ -928,7 +928,7 @@ def act_df(texto_xp,texto_yp,texto_dx,texto_dy,texto_dut1):
     t = datetime.datetime.today()
     day_of_week = t.isoweekday()
     suffix = t.strftime('%Y%m%d')
-    csv_file = 'prueba_ba.csv'
+    csv_file = 'base.csv'
 
     if os.path.exists(csv_file):
         files = pd.read_csv(csv_file, delimiter = ';',index_col = 0) 
