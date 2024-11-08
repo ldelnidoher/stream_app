@@ -1,0 +1,2 @@
+# Columns: Date (yy/mm/dd), Epoch [MJD], KRR (UT1-UTC) [s],KRR ((UT1-UTC, AAM zmass + OAM zmass) [s]
+# 60622
