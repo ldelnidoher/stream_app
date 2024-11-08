@@ -18,11 +18,6 @@ import datetime
 import numpy.linalg  as la
 import copy
 import os
-<<<<<<< HEAD
-=======
-
->>>>>>> cafda520307bee5c4ec4d766b92781614e899332
-
 
 frecFCN = -(2*math.pi)/430.0027   #Free Core Nutation frecquency
 
@@ -933,10 +928,11 @@ def act_df(texto_xp,texto_yp,texto_dx,texto_dy,texto_dut1):
     t = datetime.datetime.today()
     day_of_week = t.isoweekday()
     suffix = t.strftime('%Y%m%d')
-    csv_file = 'prueba73.csv'
+    csv_file = 'prueba_ba.csv'
 
     if os.path.exists(csv_file):
         files = pd.read_csv(csv_file, delimiter = ';',index_col = 0) 
+        files.index = files.index.astype(str)
     else:
         files = pd.DataFrame(
             {'XPOL':[],
@@ -947,7 +943,6 @@ def act_df(texto_xp,texto_yp,texto_dx,texto_dy,texto_dut1):
             },
             index = np.array([],dtype = str)
         )
-
     if suffix not in files.index:
         if day_of_week in {2,5}:
              b = pd.DataFrame({'XPOL':[texto_xp],'YPOL':[texto_yp],'dX':[texto_dx],'dY':[texto_dy],'dUT1':[texto_dut1]},index = [suffix])

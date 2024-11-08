@@ -244,24 +244,14 @@ try:
                     st.link_button(label = "Link to ESMGFZ repository: AAM",url = "http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=57600abc-2c31-481e-9675-48f488b9304d")
                                                          
                                                                  
-        if add_selectbox == "Prueba":
-            files = act_df(texto_xp,texto_yp,texto_dx,texto_dy,texto_dut1)
-            m = list(files.index)
-            st.write('aaa')
-            ans1 = st.selectbox("fecha:",(m))
-            ans2 = st.radio('Elige eop', ("XPOL","YPOL","dX","dY","dUT1"),horizontal = True)
-            st.write('bbb')
-            datos = files.at[ans1,ans2]
-            st.write('button')
-            st.download_button(label = 'Download',data = datos, file_name = f'{ans2}_{ans1}.txt')
-
     if add_selectbox == "Prueba":
         files = act_df(texto_xp,texto_yp,texto_dx,texto_dy,texto_dut1)
         m = list(files.index)
         ans1 = st.selectbox("fecha:",(m))
         ans2 = st.radio('Elige eop', ("XPOL","YPOL","dX","dY","dUT1"),horizontal = True)
-        datos = to_txt(files.at[ans1,ans2])
+        datos = files.at[ans1,ans2]
         st.download_button(label = 'Download',data = datos, file_name = f'{ans2}_{ans1}.txt')
+
          
     d = datetime.datetime.now()
     d = d.replace(microsecond=0)
