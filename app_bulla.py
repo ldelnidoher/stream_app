@@ -244,45 +244,17 @@ try:
                     st.link_button(label = "Link to ESMGFZ repository: AAM",url = "http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=57600abc-2c31-481e-9675-48f488b9304d")
                                                          
                                                                  
-    if add_selectbox == "Prueba":
-         t = datetime.datetime.today()
-            day_of_week = t.isoweekday()
-            suffix = t.strftime('%Y%m%d')
-             
-            csv_file = "files.csv"
-            if os.path.exists(csv_file):
-                files = pd.read_csv(csv_file,index_col = False)
-            else:
-                files = pd.DataFrame(
-                    {'XPOL':np.array([]),
-                     'YPOL':np.array([]),
-                     'dX':np.array([]),
-                     'dY':np.array([]),
-                     'dUT1':np.array([]),
-                    }
-                )
-            if day_of_week in {2,3,5}:
-                #reload function and update 
-                xpol_file = f'xpol_{suffix}.txt'
-                ypol_file = f'ypol_{suffix}.txt'
-                dx_file = f'dx_{suffix}.txt'
-                dy_file = f'dy_{suffix}.txt'
-                dut1_file = f'dut1_{suffix}.txt'
-                if not xpol_file in files['XPOL'].values:
-                    h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR(xp, AAM xmass) [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as], SSA 4PC + GPR [as], SSA 6PC + GPR [as]'
-                    np.savetxt(xpol_file, xp_pred.iloc[:,:-1], fmt = ['%s','%d','% f','% f','% 1.5f','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
-                    h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (yp, dy)[as], KRR (yp, AAM ymass)[as], SSA 2PC + KRR [as], SSA 4PC + KRR [as], SSA 6PC + KRR [as]'
-                    np.savetxt(ypol_file, yp_pred.iloc[:,:-1], fmt = ['%s','%d','% f','% 1.5f','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
-                    h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dx, xfcn) [as], KRR (dx, xfcn, xp) [as]'
-                    np.savetxt(dx_file, dx_pred.iloc[:,:-1], fmt = ['%s','%d','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
-                    h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dy, yfcn) [as], KRR (dy, yfcn, yp) [as]'
-                    np.savetxt(dy_file, dy_pred.iloc[:,:-1], fmt = ['%s','%d','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
-                    h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (UT1-UTC) [s], KRR (UT1-UTC, AAM zmass+ OAM zmass) [s]'
-                    np.savetxt(dut1_file, dut1_pred.iloc[:,:-1], fmt = ['%s','%d','% 1.5f','% 1.5f'],delimiter=' \t',header=h)
-                    files.loc[len(files)] = [xpol_file,ypol_file,dx_file,dy_file,dut1_file]
-            
-        st.text((open(xpol_file)).readlines())
-        st.dataframe(files)
+        if add_selectbox == "Prueba":
+            files = act_df(texto_xp,texto_yp,texto_dx,texto_dy,texto_dut1)
+            m = list(files.index)
+            st.write('aaa')
+            ans1 = st.selectbox("fecha:",(m))
+            ans2 = st.radio('Elige eop', ("XPOL","YPOL","dX","dY","dUT1"),horizontal = True)
+            st.write('bbb')
+            datos = files.at[ans1,ans2]
+            st.write('button')
+            st.download_button(label = 'Download',data = datos, file_name = f'{ans2}_{ans1}.txt')
+
     d = datetime.datetime.now()
     d = d.replace(microsecond=0)
      
