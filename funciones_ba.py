@@ -931,7 +931,7 @@ def act_df():
     #suffix = t.strftime('%Y%m%d')
     csv_file = 'prueba777.csv'
     if os.path.exists(csv_file):
-        files = pd.read_csv(csv_file, delimiter = ',',index_col = 0) 
+        files = pd.read_csv(csv_file, delimiter = ';',index_col = 0) 
     else:
         files = pd.DataFrame(
             {'XPOL':[],
