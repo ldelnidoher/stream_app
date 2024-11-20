@@ -116,17 +116,17 @@ if True:
     g.close()
     
     ### dY prediction
-    a,b = pred_dy(dy,yfcn,yp)
+    a,b,c = pred_dy(dy,yfcn,yp,ymass)
     
     aux = int(mjd[-1])
-    dyaux = [list(range(aux+1,aux+11)),a,b]
+    dyaux = [list(range(aux+1,aux+11)),a,b,c]
     dyaux = np.transpose(np.array(dyaux))
-    dy_pred = pd.DataFrame(dyaux,columns = ['Epoch','KRR (dy, yfcn)', 'KRR (dy, yfcn, yp)'])
+    dy_pred = pd.DataFrame(dyaux,columns = ['Epoch','KRR (dy, yfcn)', 'KRR (dy, yfcn, yp)','KRR (dy, yfcn, AAM ymass)'])
     
     dy_pred.insert(loc = 0, column = l2[0], value = fus)
         
-    h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dy, yfcn) [as], KRR (dy, yfcn, yp) [as]'
-    np.savetxt('archivos/pred_bulla/dy_pred.txt', dy_pred, fmt = ['%s','%d','% 1.5f','% 1.5f'], delimiter=' \t',header=h, footer = str(today)+' mjd (last updated)')
+    h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dy, yfcn) [as], KRR (dy, yfcn, yp) [as], KRR (dy, yfcn, AAM ymass) [as]'
+    np.savetxt('archivos/pred_bulla/dy_pred.txt', dy_pred, fmt = ['%s','%d','% 1.5f','% 1.5f', '% 1.5f'], delimiter=' \t',header=h, footer = str(today)+' mjd (last updated)')
     
     g = open('archivos/pred_bulla/dy_pred.txt','r')
     texto_dy = g.read()
@@ -270,12 +270,13 @@ else:
     epoch2 = [int(aux[i][1]) for i in range(len(aux))]
     a = [float(aux[i][2]) for i in range(len(aux))]
     b = [float(aux[i][3]) for i in range(len(aux))]
+    c = [float(aux[i][4]) for i in range(len(aux))]
     
-    dyaux = [d,epoch2, a,b]
+    dyaux = [d,epoch2, a, b, c]
     dyaux = np.transpose(np.array(dyaux, dtype = object))
-    dy_pred = pd.DataFrame(dyaux, columns = ['Date (yy/mm/dd)','Epoch','KRR (dy, yfcn)', 'KRR (dy, yfcn, yp)'])
+    dy_pred = pd.DataFrame(dyaux, columns = ['Date (yy/mm/dd)','Epoch','KRR (dy, yfcn)', 'KRR (dy, yfcn, yp)', 'KRR (dy, yfcn, AAM ymass)'])
     
-    h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dy, yfcn)[as], KRR (dy, yfcn, yp)[as]'
+    h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dy, yfcn)[as], KRR (dy, yfcn, yp)[as], KRR (dy, yfcn, ymass) [as]'
     np.savetxt('archivos/pred_bulla/dx_pred.txt', dy_pred, fmt = ['%s','%d','% 1.5f','% 1.5f'], delimiter=' \t', header=h, footer = str(today))
     g = open('archivos/pred_bulla/dy_pred.txt','r')
     texto_dy = g.read()

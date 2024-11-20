@@ -715,7 +715,7 @@ def pred_dx(dx,xfcn,xp, xmass):
     p3 = (np.array(p3).transpose()).tolist()[0]
     return p1,p2,p3
 
-def pred_dy(dy,yfcn,yp):
+def pred_dy(dy,yfcn,yp, ymass):
     """
     Parameters
     ----------
@@ -727,19 +727,23 @@ def pred_dy(dy,yfcn,yp):
     p1, p2 : list of floats
         10 day prediction of dY according to two different models
     """
-    m1,m2 = [], []
+    m1,m2,m3 = [], [], []
     for v in range(1,11):
         m1.append(load(f'models/output_dy/model2/day{v}_model_dy.joblib'))
         m2.append(load(f'models/output_dy/model3/day{v}_model_dy.joblib'))
+        m3.append(load(f'models/output_dy/modelaam/day{v}_model_dy.joblib'))
     test1 = np.array(dy[-500:]+yfcn[-500:]).reshape(1,-1)
     test2 = np.array(dy[-400:]+yfcn[-400:]+yp[-400:]).reshape(1,-1)
-    p1,p2 = [],[]
+    test3 = np.array(dy[-500:]+yfcn[-500:]+ymass[-500:]).reshape(1,-1)
+    p1,p2,p3 = [],[],[]
     for j in range(10):
         p1.append(m1[j].predict(test1))
         p2.append(m2[j].predict(test2))
+        p3.append(m3[j].predict(test3))
     p1 = (np.array(p1).transpose()).tolist()[0]
     p2 = (np.array(p2).transpose()).tolist()[0]
-    return p1,p2
+    p3 = (np.array(p3).transpose()).tolist()[0]
+    return p1,p2,p3
 
 def pred_lod(lod,zmass,mjd):
     """
