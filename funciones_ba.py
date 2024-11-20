@@ -704,7 +704,7 @@ def pred_dx(dx,xfcn,xp, xmass):
         m3.append(load(f'models/output_dx/modelaam/day{v}_model_dx.joblib'))
     test1 = np.array(dx[-500:]+xfcn[-500:]).reshape(1,-1)
     test2 = np.array(dx[-450:]+xfcn[-450:]+xp[-450:]).reshape(1,-1)
-    test3 = np.array(dx[-500:]+xfcn[-500:]+xmass[-500:]).reshape(1,-1)
+    test3 = np.array(dx[-400:]+xfcn[-400:]+xmass[-400:]).reshape(1,-1)
     p1,p2, p3 = [],[], []
     for j in range(10):
         p1.append(m1[j].predict(test1))
