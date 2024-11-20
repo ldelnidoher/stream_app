@@ -685,7 +685,7 @@ def pred_yp(yp,dy,ymass,mjd):
     p3 = (np.array(pred3).transpose()).tolist()[0]
     return p21,p22,p23,p3
     
-def pred_dx(dx,xfcn,xp):
+def pred_dx(dx,xfcn,xp, xmass):
     """
     Parameters
     ----------
@@ -697,19 +697,23 @@ def pred_dx(dx,xfcn,xp):
     p1, p2 : list of floats
         10 day prediction of dX according to two different models
     """
-    m1,m2 = [], []
+    m1,m2, m3 = [], [], []
     for v in range(1,11):
         m1.append(load(f'models/output_dx/model4/day{v}_model_dx.joblib'))
         m2.append(load(f'models/output_dx/model5/day{v}_model_dx.joblib'))
+        m3.append(load(f'models/output_dx/modelaam/day{v}_model_dx.joblib'))
     test1 = np.array(dx[-500:]+xfcn[-500:]).reshape(1,-1)
     test2 = np.array(dx[-450:]+xfcn[-450:]+xp[-450:]).reshape(1,-1)
-    p1,p2 = [],[]
+    test3 = np.array(dx[-500:]+xfcn[-500:]+xmass[-500:]).reshape(1,-1)
+    p1,p2, p3 = [],[], []
     for j in range(10):
         p1.append(m1[j].predict(test1))
         p2.append(m2[j].predict(test2))
+        p3.append(m3[j].predict(test3))
     p1 = (np.array(p1).transpose()).tolist()[0]
     p2 = (np.array(p2).transpose()).tolist()[0]
-    return p1,p2
+    p3 = (np.array(p3).transpose()).tolist()[0]
+    return p1,p2,p3
 
 def pred_dy(dy,yfcn,yp):
     """
@@ -928,7 +932,7 @@ def act_df(texto_xp,texto_yp,texto_dx,texto_dy,texto_dut1):
     t = datetime.datetime.today()
     day_of_week = t.isoweekday()
     suffix = t.strftime('%Y%m%d')
-    csv_file = 'base.csv'
+    csv_file = 'base2.csv'
 
     if os.path.exists(csv_file):
         files = pd.read_csv(csv_file, delimiter = ';',index_col = 0) 
