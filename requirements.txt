@@ -3,4 +3,3 @@ plotly
 scikit-learn
 scipy
 datetime
-sqlite3
