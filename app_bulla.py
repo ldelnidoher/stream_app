@@ -9,6 +9,8 @@ from main_ba import *
 import matplotlib.pyplot as plt
 import altair as alt
 import plotly.graph_objects as go
+import django
+import sqlite3
 
 
 st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':earth_africa:')
@@ -38,7 +40,16 @@ add_selectbox = st.sidebar.radio('Choose data to show:',
 if add_selectbox == "Contact info":
     pass
 if add_selectbox == "Models":
-    pass
+    conn = sqlite3.connect('C:/Users/lddelnido/Documents/db_app/db_app.sqlite3')
+    sql_query = """SELECT name FROM sqlite_master  
+        WHERE type='table';"""
+    cur = conn.cursor()
+    cur.execute(sql_query)
+    row = cur.fetchall()
+    
+    print(row)
+    conn.close()
+    #pass
 try:
 
     # if chosen == "Predictions":
