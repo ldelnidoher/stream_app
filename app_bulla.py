@@ -43,7 +43,7 @@ if add_selectbox == "Models":
      
     conn = st.connection(db_path,tupe = 'sql')
     with conn.session as s:
-         aa = conn.query('select * from db)
+         aa = conn.query('select * from db')
          st.dataframe(aa)
     #sql_query = """SELECT name FROM sqlite_master  
     #    WHERE type='table';"""
