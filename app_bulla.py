@@ -9,7 +9,6 @@ from main_ba import *
 import matplotlib.pyplot as plt
 import altair as alt
 import plotly.graph_objects as go
-import django
 import sqlite3
 
 
