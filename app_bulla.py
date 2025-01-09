@@ -39,7 +39,7 @@ add_selectbox = st.sidebar.radio('Choose data to show:',
 if add_selectbox == "Contact info":
     pass
 if add_selectbox == "Models":
-    db_path = st.secrets['sqlite']
+    db_path = st.secrets[sqlite]
      
     conn = sqlite3.connect(**db_path)
     sql_query = """SELECT name FROM sqlite_master  
