@@ -277,7 +277,7 @@ else:
     dy_pred = pd.DataFrame(dyaux, columns = ['Date (yy/mm/dd)','Epoch','KRR (dy, yfcn)', 'KRR (dy, yfcn, yp)', 'KRR (dy, yfcn, AAM ymass)'])
     
     h = 'Columns: Date (yy/mm/dd), Epoch [MJD], KRR (dy, yfcn)[as], KRR (dy, yfcn, yp)[as], KRR (dy, yfcn, ymass) [as]'
-    np.savetxt('archivos/pred_bulla/dx_pred.txt', dy_pred, fmt = ['%s','%d','% 1.5f','% 1.5f'], delimiter=' \t', header=h, footer = str(today))
+    np.savetxt('archivos/pred_bulla/dy_pred.txt', dy_pred, fmt = ['%s','%d','% 1.5f','% 1.5f'], delimiter=' \t', header=h, footer = str(today))
     g = open('archivos/pred_bulla/dy_pred.txt','r')
     texto_dy = g.read()
     

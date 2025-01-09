@@ -390,12 +390,17 @@ def read_aam():
     """
     r = requests.get("http://rz-vm115.gfz-potsdam.de:8080/repository/entry/get/ESMGFZ_AAM_v1.0_03h_2023.asc?entryid=3a09f41b-79c0-4d9b-b637-40985171a9e3")
     aam2023 = r.text
+    r = requests.get("http://rz-vm115.gfz-potsdam.de:8080/repository/entry/get/ESMGFZ_AAM_v1.0_03h_2024.asc?entryid=fa948f0f-24ed-4547-9ced-e952b8829157")
+    aam2024 = r.text
+    
+
     r2 = requests.get("http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=57600abc-2c31-481e-9675-48f488b9304d")
     r2t = r2.text
-    ind = r2t.index('ESMGFZ_AAM_v1.0_03h_2024.asc')
-    url = 'http://rz-vm115.gfz-potsdam.de:8080/repository/entry/get/ESMGFZ_AAM_v1.0_03h_2024.asc?entryid='+ r2t[ind-36-11:ind-11]
+    ind = r2t.index('ESMGFZ_AAM_v1.0_03h_2025.asc')
+    url = 'http://rz-vm115.gfz-potsdam.de:8080/repository/entry/get/ESMGFZ_AAM_v1.0_03h_2025.asc?entryid='+ r2t[ind-36-11:ind-11]
     r3 = requests.get(url)
-    aam2024 = r3.text
+    aam2025 = r3.text
+    
     r4 = requests.get('http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=39f33bc7-5ea8-4184-b940-08534f3d911f')
     r4t = r4.text
     r4t = r4t[r4t.index('"name":"ESMGFZ_AAM_v1.0_W')+20:]
@@ -418,16 +423,18 @@ def read_aam():
         
     aam2023=(aam2023[j:]).split("\n")
     aam2024=(aam2024[j:]).split("\n")
+    aam2025=(aam2025[j:]).split("\n")
     ld = aux[i:].split("\n") #prediction of yesterday values (needed to predict today's)
     
     aam2023 = [aam2023[i].split() for i in range(len(aam2023)-1)]
-    aam2024 = [aam2024[i].split() for i in range(len(aam2024)-1)]+[ld[i].split() for i in range(8)]
+    aam2024 = [aam2024[i].split() for i in range(len(aam2024)-1)]
+    aam2025 = [aam2025[i].split() for i in range(len(aam2025)-1)]+[ld[i].split() for i in range(8)]
     
     epoch, xmass, ymass = [],[],[]
-    epoch = [float(aam2023[j][4]) for j in range(len(aam2023))]+[float(aam2024[j][4]) for j in range(len(aam2024))]
-    xmass = [float(aam2023[j][5]) for j in range(len(aam2023))]+[float(aam2024[j][5]) for j in range(len(aam2024))]
-    ymass = [float(aam2023[j][6]) for j in range(len(aam2023))]+[float(aam2024[j][6]) for j in range(len(aam2024))]
-    zmass = [float(aam2023[j][7]) for j in range(len(aam2023))]+[float(aam2024[j][7]) for j in range(len(aam2024))]
+    epoch = [float(aam2023[j][4]) for j in range(len(aam2023))]+[float(aam2024[j][4]) for j in range(len(aam2024))]+[float(aam2025[j][4]) for j in range(len(aam2025))]
+    xmass = [float(aam2023[j][5]) for j in range(len(aam2023))]+[float(aam2024[j][5]) for j in range(len(aam2024))]+[float(aam2025[j][5]) for j in range(len(aam2025))]
+    ymass = [float(aam2023[j][6]) for j in range(len(aam2023))]+[float(aam2024[j][6]) for j in range(len(aam2024))]+[float(aam2025[j][6]) for j in range(len(aam2025))]
+    zmass = [float(aam2023[j][7]) for j in range(len(aam2023))]+[float(aam2024[j][7]) for j in range(len(aam2024))]+[float(aam2025[j][7]) for j in range(len(aam2025))]
     
     xmass = reduccion(xmass)
     ymass = reduccion(ymass)
@@ -451,12 +458,14 @@ def read_oam():
     """
     r = requests.get("http://rz-vm115.gfz-potsdam.de:8080/repository/entry/get/ESMGFZ_OAM_v1.0_03h_2023.asc?entryid=9da2cd2e-9db9-47bb-96dd-b32fce398aac")
     oam2023 = r.text
+    r = requests.get("http://rz-vm115.gfz-potsdam.de:8080/repository/entry/get/ESMGFZ_OAM_v1.0_03h_2024.asc?entryid=65c57820-99fe-4d47-974b-544ba9df3779")
+    oam2024 = r.text
     r2 = requests.get("http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=6db4b21e-40be-4099-ad4c-358fb3f4cae8")
     r2t = r2.text
-    ind = r2t.index('ESMGFZ_OAM_v1.0_03h_2024.asc')
-    url = 'http://rz-vm115.gfz-potsdam.de:8080/repository/entry/get/ESMGFZ_OAM_v1.0_03h_2024.asc?entryid='+ r2t[ind-36-11:ind-11]
+    ind = r2t.index('ESMGFZ_OAM_v1.0_03h_2025.asc')
+    url = 'http://rz-vm115.gfz-potsdam.de:8080/repository/entry/get/ESMGFZ_OAM_v1.0_03h_2025.asc?entryid='+ r2t[ind-36-11:ind-11]
     r3 = requests.get(url)
-    oam2024 = r3.text
+    oam2025 = r3.text
     r4 = requests.get('http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=b481fb96-721c-459f-84a3-5e03f4b81220')
     r4t = r4.text
     r4t = r4t[r4t.index('"name":"ESMGFZ_OAM_v1.0')+20:]
@@ -474,16 +483,18 @@ def read_oam():
 
     oam2023=(oam2023[j:]).split("\n")
     oam2024=(oam2024[j:]).split("\n")
+    oam2025=(oam2025[j:]).split("\n")
     ld = aux[j:].split("\n")[2:] #prediction of yesterday values (needed to predict today's)
     
     oam2023 = [oam2023[i].split() for i in range(len(oam2023)-1)]
-    oam2024 = [oam2024[i].split() for i in range(len(oam2024)-1)]+[ld[i].split() for i in range(8)]
+    oam2024 = [oam2024[i].split() for i in range(len(oam2024)-1)]
+    oam2025 = [oam2025[i].split() for i in range(len(oam2025)-1)]+[ld[i].split() for i in range(8)]
     
     epoch, xmass, ymass = [],[],[]
-    epoch = [float(oam2023[j][4]) for j in range(len(oam2023))]+[float(oam2024[j][4]) for j in range(len(oam2024))]
-    xmass = [float(oam2023[j][5]) for j in range(len(oam2023))]+[float(oam2024[j][5]) for j in range(len(oam2024))]
-    ymass = [float(oam2023[j][6]) for j in range(len(oam2023))]+[float(oam2024[j][6]) for j in range(len(oam2024))]
-    zmass = [float(oam2023[j][7]) for j in range(len(oam2023))]+[float(oam2024[j][7]) for j in range(len(oam2024))]
+    epoch = [float(oam2023[j][4]) for j in range(len(oam2023))]+[float(oam2024[j][4]) for j in range(len(oam2024))]+[float(oam2025[j][4]) for j in range(len(oam2025))]
+    xmass = [float(oam2023[j][5]) for j in range(len(oam2023))]+[float(oam2024[j][5]) for j in range(len(oam2024))]+[float(oam2025[j][5]) for j in range(len(oam2025))]
+    ymass = [float(oam2023[j][6]) for j in range(len(oam2023))]+[float(oam2024[j][6]) for j in range(len(oam2024))]+[float(oam2025[j][6]) for j in range(len(oam2025))]
+    zmass = [float(oam2023[j][7]) for j in range(len(oam2023))]+[float(oam2024[j][7]) for j in range(len(oam2024))]+[float(oam2025[j][7]) for j in range(len(oam2025))]
     
     xmass = reduccion(xmass)
     ymass = reduccion(ymass)
