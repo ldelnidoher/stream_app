@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import altair as alt
 import plotly.graph_objects as go
 import sqlite3
-
+import mysql
 
 st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':earth_africa:')
 
@@ -39,7 +39,7 @@ add_selectbox = st.sidebar.radio('Choose data to show:',
 if add_selectbox == "Contact info":
     pass
 if add_selectbox == "Models":
-    db_path = r'db.db'
+    db_path = 'stream_app/db.db'
      
     conn = st.connection(db_path,tupe = 'sql')
     with conn.session as s:
