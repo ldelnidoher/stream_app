@@ -54,9 +54,12 @@ if add_selectbox == "Models":
     dates = dff['pub_date'].values
     year = [s[:4] for s in dates]
     month = [m[5:7] for m in dates]
+    day = [d[8:9] for d in dates]
     
     dff.insert(0, column = 'year', value = year)
     dff.insert(1, column = 'month', value = month)
+    dff.insert(2, column = 'day', value = day)
+     
     
     
     selected = st.selectbox('Choose an EOP:', ('xpol', 'ypol', 'dX', 'dY', 'UT1-UTC')) 
@@ -74,20 +77,24 @@ if add_selectbox == "Models":
     st.subheader(f'Files for {selected}')
      
     df2 = dff[dff['param']==val]
-    st.dataframe(df2)
     st.write('Filters:') 
-    col1,col2 = st.columns([1,1])
+    col1,col2,col3 = st.columns([1,1])
     with col1:
          years = st.selectbox(label = '1.- Select a year:', options = list(set(df2.year.values)))
          df3 = df2[df2['year']==years]
     with col2:
-         months = st.selectbox(label = '2.- Select a month:', options = list(set(df2.month.values)))
+         months = st.selectbox(label = '2.- Select a month:', options = list(set(df3.month.values)))
          df4 = df3[df3['month']==months]
-    
-    st.dataframe(df4)
-    #col1, col2 = st.columns([1,1])
-    #    with col1:
-    #st.write('Results', df3)
+    with col3:
+         days = st.selectbox(label = '3.- Select a day:', options = list(set(df4.day.values)))
+         df5 = df4[df4['day']==days]
+    col1, col2 = st.columns([1,1])
+    with col1:
+        st.write('Without EAM')
+        st.dataframe(df5[df5['type_EAM'] == 0])
+    with col2:
+        st.write('With EAM')
+        st.dataframe(df5[df5['type_EAM'] == 1])
     #pdate = st.radio(label='Publication date:',options = df2.pub_date.values)
      
     #pred = df2['values'].drop_duplicates()
