@@ -71,7 +71,7 @@ if add_selectbox == "Models":
      
     years = df2['pub_date'].loc[df2['values'] == pred_choice]
     years_choice = st.sidebar.selectbox('', years)
-    eam = df2['type EAM'].loc[df2['values'] == pred_choice]
+    eam = df2['type_EAM'].loc[df2['values'] == pred_choice]
     eam_choice = st.sidebar.selectbox('', years) 
      
     
