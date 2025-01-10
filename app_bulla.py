@@ -75,10 +75,16 @@ if add_selectbox == "Models":
      
     df2 = dff[dff['param']==val]
     st.dataframe(df2)
-    date = st.selectbox(label = 'Select a publication date:', options = df2.pub_date.values, help = 'Equivalent to day 0 of prediction')
-    df3 = df2[df2['pub_date']==date]
+    st.write('Filters:') 
+    col1,col2 = st.columns([1,1])
+    with col1:
+         years = st.selectbox(label = 'Select a year:', options = df2.year.values)
+         df3 = df2[df2['year']==years]
+    with col2:
+         months = st.selectbox(label = 'Select a month:', options = df2.month.values)
+         df4 = df3[df3['month']==months]
     
-    st.dataframe(df3) 
+    st.dataframe(df4)
     #col1, col2 = st.columns([1,1])
     #    with col1:
     #st.write('Results', df3)
