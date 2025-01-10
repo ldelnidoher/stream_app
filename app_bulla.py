@@ -5,7 +5,7 @@ import requests
 import time
 import datetime
 import os
-from main_ba import *
+#from main_ba import *
 import matplotlib.pyplot as plt
 import altair as alt
 import plotly.graph_objects as go
