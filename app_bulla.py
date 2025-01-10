@@ -77,7 +77,6 @@ if add_selectbox == "Models":
     st.subheader(f'Files for {selected}')
      
     df2 = dff[dff['param']==val]
-    st.dataframe(df2)
     st.write('Filters:') 
     col1,col2,col3 = st.columns(3)
     with col1:
