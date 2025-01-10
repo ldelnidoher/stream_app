@@ -63,13 +63,14 @@ if add_selectbox == "Models":
     if selected == 'UT1-UTC':
          val = 'dt' 
     st.subheader(f'Files for {selected}')
+     
     df2 = dff[dff['param']==val]
     pdate = st.radio(label='Publication date:',options = df2.pub_date.values)
     pred = df2['values'].drop_duplicates()
     pred_choice = st.sidebar.selectbox('select a date',pred)
-    years = df2['pub_date'].loc[dff['values'] = pred_choice]
+    years = df2['pub_date'].loc[df2['values'] = pred_choice]
     years_choice = st.sidebar.selectbox('', years)
-    eam = df2['type EAM'].loc[dff['values'] = pred_choice]
+    eam = df2['type EAM'].loc[df2['values'] = pred_choice]
     eam_choice = st.sidebar.selectbox('', years) 
      
     
