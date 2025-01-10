@@ -50,11 +50,11 @@ if add_selectbox == "Models":
     st.write("ALL TABLES")
     st.write(cursor.fetchall())
 
-    cursor.execute("""SELECT ('polls_files') from sqlite_master""")
+    cursor.execute("""SELECT polls_files from sqlite_master""")
     st.write("table: polls files")
     st.write(cursor.fetchall()) 
 
-    cursor.execute("""SELECT ('polls_files')('polls_files') from sqlite_master""")
+    cursor.execute("""SELECT * from polls_files """)
     st.write("table: polls files2")
     st.write(cursor.fetchall()) 
      
