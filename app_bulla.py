@@ -66,9 +66,9 @@ if add_selectbox == "Models":
      
     df2 = dff[dff['param']==val]
     pdate = st.radio(label='Publication date:',options = df2.pub_date.values)
-    pred = df2['values'].drop_duplicates()
-    pred_choice = st.selectbox('select a date',pred)
      
+    pred = df2['values'].drop_duplicates()
+    pred_choice = st.selectbox('select a date',pdate)
     years = df2['pub_date'].loc[df2['values'] == pred_choice]
     years_choice = st.selectbox('', years)
     eam = df2['type_EAM'].loc[df2['values'] == pred_choice]
