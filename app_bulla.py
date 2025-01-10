@@ -78,10 +78,10 @@ if add_selectbox == "Models":
     st.write('Filters:') 
     col1,col2 = st.columns([1,1])
     with col1:
-         years = st.selectbox(label = 'Select a year:', options = list(set(df2.year.values)))
+         years = st.selectbox(label = '1) Select a year:', options = list(set(df2.year.values)))
          df3 = df2[df2['year']==years]
     with col2:
-         months = st.selectbox(label = 'Select a month:', options = list(set(df2.month.values)))
+         months = st.selectbox(label = 2) Select a month:', options = list(set(df2.month.values)))
          df4 = df3[df3['month']==months]
     
     st.dataframe(df4)
