@@ -64,7 +64,9 @@ if add_selectbox == "Models":
          val = 'dt' 
     st.subheader(f'Files for {selected}')
     df2 = dff[dff['param']==val]
-    st.radio(label='Publication date:',options = df2.pub_date.values)
+    pdate = st.radio(label='Publication date:',options = df2.pub_date.values)
+    
+ 
     
 
     
