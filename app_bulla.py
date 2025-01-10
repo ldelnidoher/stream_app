@@ -74,7 +74,8 @@ if add_selectbox == "Models":
     eam = df2['type_EAM'].loc[df2['values'] == pred_choice]
     eam_choice = st.sidebar.selectbox('', eam) 
      
-    
+    st.write('results', df2['values'])
+     
  
     
 
