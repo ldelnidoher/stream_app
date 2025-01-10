@@ -42,6 +42,7 @@ if add_selectbox == "Contact info":
     pass
 if add_selectbox == "Models":
     db_path = 'db.db' 
+    print(db_path)
     conn = sqlite3.connect(db_path)
     print('connected')
     #sql_query = """SELECT name FROM sqlite_master WHERE type='table';"""
