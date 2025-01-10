@@ -70,7 +70,7 @@ if add_selectbox == "Models":
     pred = df2['values'].drop_duplicates()
     
     pred_choice = st.selectbox('select a date',df2.pub_date.values)
-    years = df2['pub_date'].loc[df2['values'] == pred_choice]
+    years = df2['pub_date'].loc[df2['pub_date'] == pred_choice]
     years_choice = st.selectbox('', years)
     #eam = df2['type_EAM'].loc[df2['values'] == pred_choice]
     #eam_choice = st.selectbox('', eam) 
