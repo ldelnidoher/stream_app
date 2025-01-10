@@ -54,7 +54,7 @@ if add_selectbox == "Models":
     dates = dff['pub_date'].values
     year = [s[:4] for s in dates]
     month = [m[5:7] for m in dates]
-    day = [d[8:9] for d in dates]
+    day = [d[8:10] for d in dates]
     
     dff.insert(0, column = 'year', value = year)
     dff.insert(1, column = 'month', value = month)
