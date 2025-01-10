@@ -278,10 +278,10 @@ else:
      
     st.write(f'Last updated: {d} UTC')
     
-except:
-    with st.spinner(text="Data is currently being updated. This process might take a few minutes..."):
-        time.sleep(15)
-        st.rerun()
+#except:
+#    with st.spinner(text="Data is currently being updated. This process might take a few minutes..."):
+#        time.sleep(15)
+#        st.rerun()
 
     
      
