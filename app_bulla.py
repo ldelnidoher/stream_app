@@ -50,6 +50,15 @@ if add_selectbox == "Models":
     st.dataframe(dff)
     conn.close()
 
+
+    dates = dff['pub_date'].values
+    year = [s[:4] for s in dates]
+    month = [m[5:7] for m in dates]
+    
+    dff.insert(0, column = 'year', value = year)
+    dff.insert(1, column = 'month', value = month)
+    
+    
     selected = st.selectbox('Choose an EOP:', ('xpol', 'ypol', 'dX', 'dY', 'UT1-UTC')) 
     eop = ['xpol', 'ypol', 'dX', 'dY', 'UT1-UTC']
     if selected == 'xpol':
