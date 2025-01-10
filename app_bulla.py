@@ -63,8 +63,8 @@ if add_selectbox == "Models":
     if selected == 'UT1-UTC':
          val = 'dt' 
     st.subheader(f'Files for {selected}')
-    df2 = dff[df['param']==val]
-    st.radio(label='',options = df2.values)
+    df2 = dff[dff['param']==val]
+    st.radio(label='',options = list(df2.values))
     
 
     
