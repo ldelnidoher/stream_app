@@ -41,7 +41,7 @@ add_selectbox = st.sidebar.radio('Choose data to show:',
 if add_selectbox == "Contact info":
     pass
 if add_selectbox == "Models":
-    db_path = 'stream_app/db.db'
+    db_path = 'db.db'
      
     conn = sqlite3.connect(db_path)
     st.write('connect')
