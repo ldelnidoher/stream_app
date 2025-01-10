@@ -41,11 +41,15 @@ add_selectbox = st.sidebar.radio('Choose data to show:',
 if add_selectbox == "Contact info":
     pass
 if add_selectbox == "Models":
-    db_path = 'db.db'
-     
+    db_path = 'db.db' 
     conn = sqlite3.connect(db_path)
-    dff = pd.read_sql_query("SELECT * WHERE type='table'", conn)
-    st.dataframe(dff)
+    print('connected')
+    sql_query = """SELECT name FROM sqlite_master WHERE type='table';"""
+    cursor = sqliteConnection.cursor()
+    cursor.execute(sql_query)
+    print(cursor.fetchall())
+    #dff = pd.read_sql_query("SELECT * WHERE type='table'", conn)
+    #st.dataframe(dff)
     #aa = conn.query('select * from db')
     #st.dataframe(aa)
     #sql_query = """SELECT name FROM sqlite_master  
