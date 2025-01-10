@@ -45,7 +45,7 @@ if add_selectbox == "Models":
     conn = sqlite3.connect(db_path)
     print('connected')
     sql_query = """SELECT name FROM sqlite_master WHERE type='table';"""
-    cursor = sqliteConnection.cursor()
+    cursor = conn.cursor()
     cursor.execute(sql_query)
     print(cursor.fetchall())
     #dff = pd.read_sql_query("SELECT * WHERE type='table'", conn)
