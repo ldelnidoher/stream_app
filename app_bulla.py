@@ -45,7 +45,7 @@ if add_selectbox == "Models":
     conn = sqlite3.connect(db_path)
     st.write('connected')
     #sql_query = """SELECT name FROM sqlite_master WHERE type='table';"""
-    #cursor = conn.cursor()
+    cursor = conn.cursor()
     #cursor.execute(sql_query)
     #st.write("ALL TABLES")
     #st.write(cursor.fetchall())
