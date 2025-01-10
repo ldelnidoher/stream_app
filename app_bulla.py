@@ -43,10 +43,11 @@ if add_selectbox == "Contact info":
 if add_selectbox == "Models":
     db_path = 'stream_app/db.db'
      
-    conn = st.connection(db_path,tupe = 'sql')
-    with conn.session as s:
-         aa = conn.query('select * from db')
-         st.dataframe(aa)
+    conn = sqlite3.connect(db_path)
+    st.write('connect')
+    #with conn.session as s:
+    #     aa = conn.query('select * from db')
+    #     st.dataframe(aa)
     #sql_query = """SELECT name FROM sqlite_master  
     #    WHERE type='table';"""
     #database = pd.read_sql(sql_query, conn) 
@@ -55,7 +56,7 @@ if add_selectbox == "Models":
     #row = cur.fetchall()
     
     #print(row)
-    conn.close()
+    #conn.close()
     #pass
 try:
 
