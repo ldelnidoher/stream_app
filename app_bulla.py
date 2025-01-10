@@ -43,37 +43,31 @@ if add_selectbox == "Contact info":
 if add_selectbox == "Models":
     db_path = 'db.db' 
     conn = sqlite3.connect(db_path)
-    st.write('connected')
-    #sql_query = """SELECT name FROM sqlite_master WHERE type='table';"""
     cursor = conn.cursor()
-    #cursor.execute(sql_query)
-    #st.write("ALL TABLES")
-    #st.write(cursor.fetchall())
-
-    #cursor.execute("""SELECT 'polls_files' from sqlite_master;""")
-    #st.write("table: polls files")
-    #st.write(cursor.fetchall()) 
-
     cursor.execute("""SELECT * from polls_files """)
     st.write("table: polls files2")
     dff=pd.read_sql("""SELECT * from polls_files """, conn)
     st.dataframe(dff)
-    #st.write(cursor.fetchall()) 
-     
-    #dff = pd.read_sql_query("SELECT * WHERE type='table'", conn)
-    #st.dataframe(dff)
-    #aa = conn.query('select * from db')
-    #st.dataframe(aa)
-    #sql_query = """SELECT name FROM sqlite_master  
-    #    WHERE type='table';"""
-    #database = pd.read_sql(sql_query, conn) 
-    #cur = conn.cursor()
-    #cur.execute(sql_query)
-    #row = cur.fetchall()
+    conn.close()
+
+    selected = st.selectbox('Choose an EOP:', ('xpol', 'ypol', 'dX', 'dY', 'UT1-UTC')) 
+    eop = ['xpol', 'ypol', 'dX', 'dY', 'UT1-UTC']
+    if selected == 'xpol':
+         val = 'xp'
+    if selected == 'ypol':
+         val = 'yp'
+    if selected == 'dX':
+         val = 'dx'
+    if selected == 'dY':
+         val = 'dy'
+    if selected == 'UT1-UTC:
+         val = 'dt' 
+    st.subheader(f'Files for {selected})
+    df2 = dff[df['param']==val]
+    st.radio(label='',options = df2.values)
     
-    #print(row)
-    #conn.close()
-    #pass
+
+    
 else:
     pass
 # try:
