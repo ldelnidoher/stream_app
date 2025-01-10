@@ -60,7 +60,7 @@ if add_selectbox == "Models":
          val = 'dx'
     if selected == 'dY':
          val = 'dy'
-    if selected == 'UT1-UTC:
+    if selected == 'UT1-UTC':
          val = 'dt' 
     st.subheader(f'Files for {selected})
     df2 = dff[df['param']==val]
