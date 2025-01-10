@@ -68,10 +68,10 @@ if add_selectbox == "Models":
     st.dataframe(df2)
     date = st.selectbox(label = 'Select a publication date:', options = df2.pub_date.values, help = 'Equivalent to day 0 of prediction')
     df3 = df2['pub_date'].loc[df2['pub_date']==date]
-    st.dataframe(df2)
+    st.dataframe(df3) 
     #col1, col2 = st.columns([1,1])
     #    with col1:
-    st.write('Results', df3)
+    #st.write('Results', df3)
     #pdate = st.radio(label='Publication date:',options = df2.pub_date.values)
      
     #pred = df2['values'].drop_duplicates()
