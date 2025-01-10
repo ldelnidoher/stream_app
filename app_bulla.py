@@ -66,7 +66,7 @@ if add_selectbox == "Models":
      
     df2 = dff[dff['param']==val]
     st.dataframe(df2)
-    st.write(df2.info())
+    st.write(df2.type())
     date = st.selectbox(label = 'Select a publication date:', options = df2.pub_date.values, help = 'Equivalent to day 0 of prediction')
     df3 = df2['pub_date'][df2['pub_date']==date]
     st.write(df3.info())
