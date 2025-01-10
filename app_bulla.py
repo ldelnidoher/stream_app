@@ -78,7 +78,7 @@ if add_selectbox == "Models":
      
     df2 = dff[dff['param']==val]
     st.write('Filters:') 
-    col1,col2,col3 = st.columns([1,1])
+    col1,col2,col3 = st.columns(3)
     with col1:
          years = st.selectbox(label = '1.- Select a year:', options = list(set(df2.year.values)))
          df3 = df2[df2['year']==years]
