@@ -44,19 +44,21 @@ if add_selectbox == "Models":
     db_path = 'db.db' 
     conn = sqlite3.connect(db_path)
     st.write('connected')
-    sql_query = """SELECT name FROM sqlite_master WHERE type='table';"""
-    cursor = conn.cursor()
-    cursor.execute(sql_query)
-    st.write("ALL TABLES")
-    st.write(cursor.fetchall())
+    #sql_query = """SELECT name FROM sqlite_master WHERE type='table';"""
+    #cursor = conn.cursor()
+    #cursor.execute(sql_query)
+    #st.write("ALL TABLES")
+    #st.write(cursor.fetchall())
 
-    cursor.execute("""SELECT 'polls_files' from sqlite_master;""")
-    st.write("table: polls files")
-    st.write(cursor.fetchall()) 
+    #cursor.execute("""SELECT 'polls_files' from sqlite_master;""")
+    #st.write("table: polls files")
+    #st.write(cursor.fetchall()) 
 
     cursor.execute("""SELECT * from polls_files """)
     st.write("table: polls files2")
-    st.write(cursor.fetchall()) 
+    dff=pd.read_sql("""SELECT * from polls_files """, conn)
+    st.dataframe(dff)
+    #st.write(cursor.fetchall()) 
      
     #dff = pd.read_sql_query("SELECT * WHERE type='table'", conn)
     #st.dataframe(dff)
