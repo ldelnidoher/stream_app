@@ -44,7 +44,8 @@ if add_selectbox == "Models":
     db_path = 'db.db'
      
     conn = sqlite3.connect(db_path)
-    st.dataframe(conn)
+    dff = pd.read_sql_query("SELECT * FROM table_name, conn")
+    st.dataframe(dff)
     #aa = conn.query('select * from db')
     #st.dataframe(aa)
     #sql_query = """SELECT name FROM sqlite_master  
