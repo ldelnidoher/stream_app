@@ -65,13 +65,16 @@ if add_selectbox == "Models":
     st.subheader(f'Files for {selected}')
      
     df2 = dff[dff['param']==val]
+    date = st.selectbox(label = 'Select a publication date:', options = df2.pub_date.values, help = 'Equivalent to day 0 of prediction')
+    df3 = df2['pubdate'].loc[df2['pubdate']==date]
+    st.write('Results', df3)
     #pdate = st.radio(label='Publication date:',options = df2.pub_date.values)
      
-    pred = df2['values'].drop_duplicates()
+    #pred = df2['values'].drop_duplicates()
     
-    pred_choice = st.selectbox('select a date',df2.pub_date.values)
-    years = df2['pub_date'].loc[df2['pub_date'] == pred_choice]
-    years_choice = st.selectbox('', years)
+    #pred_choice = st.selectbox('select a date',df2.pub_date.values)
+    #years = df2['pub_date'].loc[df2['pub_date'] == pred_choice]
+    #years_choice = st.selectbox('', years)
     #eam = df2['type_EAM'].loc[df2['values'] == pred_choice]
     #eam_choice = st.selectbox('', eam) 
      
