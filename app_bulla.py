@@ -95,17 +95,16 @@ if add_selectbox == "Models":
     conv2 = (df5[df5['type_EAM'] == 1])["values"].values
     conv_dates = ((df5[df5['type_EAM'] == 0])["pub_date"].values)[0]
     epochs = (df_mjd[df_mjd["pub_date"] == conv_dates])["values"].iloc[0]
-    st.write(epochs) 
      
      
     with col1:
         st.write('Without EAM')
         #st.dataframe(df5[df5['type_EAM'] == 0],hide_index = True, column_order = ("pub_date","values"))
-        st.dataframe(conv1)
+        st.dataframe({'Epoch [mjd]':epochs, 'Value [as]':conv1})
     with col2:
         st.write('With EAM')
         #st.dataframe(df5[df5['type_EAM'] == 1], hide_index = True, column_order = ("pub_date","values"))
-        st.dataframe(conv2)
+        st.dataframe(st.dataframe({'Epoch [mjd]':epochs, 'Value [as]':conv2}))
     #pdate = st.radio(label='Publication date:',options = df2.pub_date.values)
      
     #pred = df2['values'].drop_duplicates()
