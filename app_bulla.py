@@ -46,7 +46,6 @@ if add_selectbox == "Models":
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute("""SELECT * from polls_files """)
-    st.write("table: polls files2")
     dff=pd.read_sql("""SELECT * from polls_files """, conn)
     conn.close()
 
@@ -105,7 +104,7 @@ if add_selectbox == "Models":
          txt = 's'
      
 
-   st.dataframe(data = {'Date':dates_fmt,'Epoch [mjd]':epochs, f'w/o EAM {txt}':conv1, f'w/ EAM {txt}':conv2})
+    st.dataframe(data = {'Date':dates_fmt,'Epoch [mjd]':epochs, f'w/o EAM {txt}':conv1, f'w/ EAM {txt}':conv2})
      
     #pred = df2['values'].drop_duplicates()
     
