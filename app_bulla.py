@@ -111,12 +111,12 @@ if add_selectbox == "EOP predictions":
     df = pd.DataFrame({'Date':dates_fmt,'Epoch [MJD]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, index = (['Day'+str(v) for v in range(11)]))
     st.dataframe(df, use_container_width = True)
      
-    np.savetxt('param_txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}],delimiter=' \t', header = '#Date | Epoch [MJD] | w/o EAM | w/EAM)
+    np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter=' \t', header = '#Date | Epoch [MJD] | w/o EAM | w/EAM')
     if selected == 'UT1-UTC'
          st = 'dut1'
     else:
          st = selected
-    st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'{selected}_{epochs[0]}.txt', data = param_txt)
+    st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'{selected}_{epochs[0]}.txt', data = 'param.txt')
      
     fig = go.Figure()
     for j in range(1,3):
