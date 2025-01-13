@@ -91,8 +91,8 @@ if add_selectbox == "Models":
          df5 = df4[df4['day']==days]
     col1, col2 = st.columns([1,1])
 
-    conv1 = (df5[df5['type_EAM'] == 0])["values"].values
-    conv2 = (df5[df5['type_EAM'] == 1])["values"].values
+    conv1 = (df5[df5['type_EAM'] == 0])["values"].values.tolist()
+    conv2 = (df5[df5['type_EAM'] == 1])["values"].values.tolist()
     conv_dates = ((df5[df5['type_EAM'] == 0])["pub_date"].values)[0]
     epochs = (df_mjd[df_mjd["pub_date"] == conv_dates])["values"].iloc[0]
     epochs = [int(float(item)) for item in epochs.split(',')] 
