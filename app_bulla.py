@@ -99,7 +99,7 @@ if add_selectbox == "Models":
     dates_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in epochs]
     if val in {'xp','yp'}:
          txt = 'as'
-    if val in {'dx','dy'}
+    if val in {'dx','dy'}:
          txt = 'mas'
     else:
          txt = 's'
