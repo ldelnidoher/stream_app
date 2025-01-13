@@ -4,6 +4,7 @@ import pandas as pd
 import requests
 import time
 import datetime
+from astropy.time import Time
 import os
 #from main_ba import *
 import matplotlib.pyplot as plt
@@ -47,9 +48,7 @@ if add_selectbox == "Models":
     cursor.execute("""SELECT * from polls_files """)
     st.write("table: polls files2")
     dff=pd.read_sql("""SELECT * from polls_files """, conn)
-    st.dataframe(dff)
     conn.close()
-
 
     dates = dff['pub_date'].values
     year = [s[:4] for s in dates]
@@ -98,17 +97,16 @@ if add_selectbox == "Models":
     epochs = [int(float(item)) for item in epochs.split(',')] 
     conv1 =  [float(item) for item in conv1.split(',')] 
     conv2 =  [float(item) for item in conv2.split(',')]  
-    
-     
+    dates_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in epochs]
      
     with col1:
         st.write('Without EAM')
         #st.dataframe(df5[df5['type_EAM'] == 0],hide_index = True, column_order = ("pub_date","values"))
-        st.dataframe(data = {'Epoch [mjd]':epochs, 'Value [as]':conv1})
+        st.dataframe(data = {'Date':dates_fmt,'Epoch [mjd]':epochs, 'Value [as]':conv1})
     with col2:
         st.write('With EAM')
         #st.dataframe(df5[df5['type_EAM'] == 1], hide_index = True, column_order = ("pub_date","values"))
-        st.dataframe(data = {'Epoch [mjd]':epochs, 'Value [as]':conv2})
+        st.dataframe(data = {'Date':dates_fmt, 'Epoch':epochs, 'Value':conv2})
     #pdate = st.radio(label='Publication date:',options = df2.pub_date.values)
      
     #pred = df2['values'].drop_duplicates()
