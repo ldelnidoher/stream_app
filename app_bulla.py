@@ -105,7 +105,7 @@ if add_selectbox == "EOP predictions":
     else:
          txt = 'as'
      
-    df = pd.DataFrame({'Date':dates_fmt,'Epoch [MJD]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2})
+    df = pd.DataFrame({'Date':dates_fmt,'Epoch [MJD]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, index = (['Day'+str(v) for v in range(11)]))
     st.dataframe(df, use_container_width = True)
 
     fig = go.Figure()
