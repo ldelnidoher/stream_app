@@ -117,11 +117,11 @@ if add_selectbox == "EOP predictions":
     f.close()
      
     if selected == 'UT1-UTC':
-         st = 'dut1'
+         string = 'dut1'
     else:
-         st = selected
+         string = selected
          
-    st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'{selected}_{epochs[0]}.txt', data = lista)
+    st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.txt', data = lista)
      
     fig = go.Figure()
     for j in range(1,3):
