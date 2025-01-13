@@ -112,7 +112,7 @@ if add_selectbox == "EOP predictions":
     st.dataframe(df, use_container_width = True)
      
     np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter=' \t', header = '#Date | Epoch [MJD] | w/o EAM | w/EAM')
-    if selected == 'UT1-UTC'
+    if selected == 'UT1-UTC':
          st = 'dut1'
     else:
          st = selected
