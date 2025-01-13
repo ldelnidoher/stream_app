@@ -61,7 +61,7 @@ if add_selectbox == "EOP predictions":
     dff.insert(2, column = 'day', value = day)
      
     
-    
+    st.title('Short-term EOP predictions: 10 days')
     selected = st.selectbox('Choose an EOP:', ('xpol', 'ypol', 'dX', 'dY', 'UT1-UTC')) 
     eop = ['xpol', 'ypol', 'dX', 'dY', 'UT1-UTC']
     if selected == 'xpol':
