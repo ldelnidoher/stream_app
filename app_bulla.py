@@ -94,8 +94,8 @@ if add_selectbox == "Models":
     conv1 = (df5[df5['type_EAM'] == 0])["values"].values
     conv2 = (df5[df5['type_EAM'] == 1])["values"].values
     conv_dates = ((df5[df5['type_EAM'] == 0])["pub_date"].values)[0]
-    epochs = (df_mjd[df_mjd["pub_date"] == conv_dates])[['type_EAM'] == 0]
-    st.dataframe(epochs) 
+    epochs = (df_mjd[df_mjd["pub_date"] == conv_dates].values)[0]
+    st.write(epochs) 
      
      
     with col1:
