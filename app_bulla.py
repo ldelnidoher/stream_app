@@ -62,7 +62,7 @@ if add_selectbox == "EOP predictions":
      
     
     st.title('Short-term EOP predictions: 10 days')
-    selected = st.selectbox('Choose an EOP:', ('xpol', 'ypol', 'dX', 'dY', 'UT1-UTC')) 
+    selected = st.selectbox('Choose an EOP:', ('xpol', 'ypol', 'dX', 'dY', 'UT1-UTC'),) 
     eop = ['xpol', 'ypol', 'dX', 'dY', 'UT1-UTC']
     if selected == 'xpol':
          val = 'xp'
@@ -74,7 +74,7 @@ if add_selectbox == "EOP predictions":
          val = 'dy'
     if selected == 'UT1-UTC':
          val = 'dt' 
-    st.subheader(f'Files for {selected}')
+    st.subheader(f'Predictions for {selected:}')
      
     df2 = dff[dff['param']==val]
     df_mjd = dff[dff['param'] == 'mj']
