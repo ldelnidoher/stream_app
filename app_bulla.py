@@ -100,20 +100,33 @@ if add_selectbox == "EOP predictions":
     dates_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in epochs]
     if val in 'dt':
          txt = 's'
+         fm = '% .9f'
     if val in {'dx','dy'}:
          txt = 'mas'
+         fm = '% 5f'
     else:
          txt = 'as'
+         fm = '% .8f'
      
     df = pd.DataFrame({'Date':dates_fmt,'Epoch [MJD]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, index = (['Day'+str(v) for v in range(11)]))
     st.dataframe(df, use_container_width = True)
-
+     
+    np.savetxt('param_txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}],delimiter=' \t', header = '#Date | Epoch [MJD] | w/o EAM | w/EAM)
+    if selected == 'UT1-UTC'
+         st = 'dut1'
+    else:
+         st = selected
+    st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'{selected}_{epochs[0]}.txt', data = param_txt)
+     
     fig = go.Figure()
     for j in range(1,3):
          fig.add_trace(go.Scatter(
              x = df['Epoch [MJD]'],y = df[df.columns[-j]],
              mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
+         
    
+    
+     
     fig.update_layout(legend_title_text = "Models")
     fig.update_xaxes(title_text="MJD")
     fig.update_yaxes(title_text=f"{txt}")
