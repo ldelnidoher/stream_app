@@ -105,18 +105,20 @@ if add_selectbox == "EOP predictions":
     else:
          txt = 'as'
      
+    df = pd.DataFrame({'Date':dates_fmt,'Epoch [MJD]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2})
+    st.dataframe(df, use_container_width = True)
 
-    st.dataframe(data = {'Date':dates_fmt,'Epoch [mjd]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, use_container_width = True)
-     
-    #pred = df2['values'].drop_duplicates()
-    
-    #pred_choice = st.selectbox('select a date',df2.pub_date.values)
-    #years = df2['pub_date'].loc[df2['pub_date'] == pred_choice]
-    #years_choice = st.selectbox('', years)
-    #eam = df2['type_EAM'].loc[df2['values'] == pred_choice]
-    #eam_choice = st.selectbox('', eam) 
-     
-    #st.write('results', pred)
+    fig = go.Figure()
+    for j in range(1,3):
+    fig.add_trace(go.Scatter(
+        x = df['Epoch [MJD]'],y = df[df.columns[-j]],
+        mode = 'lines+markers', marker = dict(size = 2.5), line = dict(width = .75),name = df.columns[-j]))
+   
+    fig.update_layout(legend_title_text = "Models")
+    fig.update_xaxes(title_text="MJD")
+    fig.update_yaxes(title_text=f"txt")
+
+    st.plotly_chart(fig, use_container_width=True)
      
  
     
