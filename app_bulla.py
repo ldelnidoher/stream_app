@@ -104,7 +104,7 @@ if add_selectbox == "Models":
          txt = 's'
      
 
-    st.dataframe(data = {'Date':dates_fmt,'Epoch [mjd]':epochs, f'w/o EAM {txt}':conv1, f'w/ EAM {txt}':conv2})
+    st.dataframe(data = {'Date':dates_fmt,'Epoch [mjd]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, use_container_width = True)
      
     #pred = df2['values'].drop_duplicates()
     
