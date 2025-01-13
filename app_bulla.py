@@ -96,12 +96,12 @@ if add_selectbox == "Models":
     conv1 =  [float(item) for item in conv1.split(',')] 
     conv2 =  [float(item) for item in conv2.split(',')]  
     dates_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in epochs]
-    if val in {'xp','yp'}:
-         txt = 'as'
+    if val in 'dt':
+         txt = 's'
     if val in {'dx','dy'}:
          txt = 'mas'
     else:
-         txt = 's'
+         txt = 'as'
      
 
     st.dataframe(data = {'Date':dates_fmt,'Epoch [mjd]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, use_container_width = True)
