@@ -89,12 +89,19 @@ if add_selectbox == "Models":
          days = st.selectbox(label = '3.- Select a day:', options = list(set(df4.day.values)))
          df5 = df4[df4['day']==days]
     col1, col2 = st.columns([1,1])
+
+    conv1 = (df5[df5['type_EAM'] == 0])["values"].values
+    conv2 = (df5[df5['type_EAM'] == 1])["values"].values
+    conv_dates = ((df5[df5['type_EAM'] == 0])["pub_date"].values)[0]
+     
     with col1:
         st.write('Without EAM')
-        st.dataframe(df5[df5['type_EAM'] == 0],hide_index = True, column_order = ("pub_date","values"))
+        #st.dataframe(df5[df5['type_EAM'] == 0],hide_index = True, column_order = ("pub_date","values"))
+        st.dataframe(conv1)
     with col2:
         st.write('With EAM')
-        st.dataframe(df5[df5['type_EAM'] == 1])
+        #st.dataframe(df5[df5['type_EAM'] == 1], hide_index = True, column_order = ("pub_date","values"))
+        st.dataframe(conv2)
     #pdate = st.radio(label='Publication date:',options = df2.pub_date.values)
      
     #pred = df2['values'].drop_duplicates()
