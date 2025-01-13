@@ -112,11 +112,11 @@ if add_selectbox == "EOP predictions":
     for j in range(1,3):
          fig.add_trace(go.Scatter(
              x = df['Epoch [MJD]'],y = df[df.columns[-j]],
-             mode = 'lines+markers', marker = dict(size = 2.5), line = dict(width = .75),name = df.columns[-j]))
+             mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
    
     fig.update_layout(legend_title_text = "Models")
     fig.update_xaxes(title_text="MJD")
-    fig.update_yaxes(title_text=f"txt")
+    fig.update_yaxes(title_text=f"{txt}")
 
     st.plotly_chart(fig, use_container_width=True)
      
