@@ -91,7 +91,7 @@ if add_selectbox == "Models":
     col1, col2 = st.columns([1,1])
     with col1:
         st.write('Without EAM')
-        st.dataframe(df5[df5['type_EAM'] == 0],hide_index = True, column_order = ('values'))
+        st.dataframe(df5[df5['type_EAM'] == 0],hide_index = True, column_order = ("pub_date","values"))
     with col2:
         st.write('With EAM')
         st.dataframe(df5[df5['type_EAM'] == 1])
