@@ -88,7 +88,6 @@ if add_selectbox == "Models":
     with col3:
          days = st.selectbox(label = '3.- Select a day:', options = list(set(df4.day.values)))
          df5 = df4[df4['day']==days]
-    col1, col2 = st.columns(2)
 
     conv1 = (df5[df5['type_EAM'] == 0])["values"].iloc[0]
     conv2 = (df5[df5['type_EAM'] == 1])["values"].iloc[0]
@@ -98,16 +97,15 @@ if add_selectbox == "Models":
     conv1 =  [float(item) for item in conv1.split(',')] 
     conv2 =  [float(item) for item in conv2.split(',')]  
     dates_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in epochs]
+    if val in {'xp','yp'}:
+         txt = 'as'
+    if val in {'dx','dy'}
+         txt = 'mas'
+    else:
+         txt = 's'
      
-    with col1:
-        st.write('Without EAM')
-        #st.dataframe(df5[df5['type_EAM'] == 0],hide_index = True, column_order = ("pub_date","values"))
-        st.dataframe(data = {'Date':dates_fmt,'Epoch [mjd]':epochs, 'Value [as]':conv1})
-    with col2:
-        st.write('With EAM')
-        #st.dataframe(df5[df5['type_EAM'] == 1], hide_index = True, column_order = ("pub_date","values"))
-        st.dataframe(data = {'Date':dates_fmt, 'Epoch':epochs, 'Value':conv2})
-    #pdate = st.radio(label='Publication date:',options = df2.pub_date.values)
+
+   st.dataframe(data = {'Date':dates_fmt,'Epoch [mjd]':epochs, f'w/o EAM {txt}':conv1, f'w/ EAM {txt}':conv2})
      
     #pred = df2['values'].drop_duplicates()
     
