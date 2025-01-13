@@ -42,7 +42,9 @@ st.components.v1.html(custom_html)
 add_selectbox = st.sidebar.radio('Choose data to show:',
                                  ('EOP predictions','Contact info'))
 if add_selectbox == "Contact info":
-    pass
+    st.markdown('UAVAC: https://web.ua.es/en/uavac/')
+    st.markdown('IGN Geodesy: https://www.ign.es/web/ign/portal/gds-area-geodesia) 
+    st.markdown('RAEGE: https://raege.eu/')
 if add_selectbox == "EOP predictions":
     db_path = 'db.db' 
     conn = sqlite3.connect(db_path)
