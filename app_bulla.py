@@ -77,6 +77,7 @@ if add_selectbox == "Models":
     st.subheader(f'Files for {selected}')
      
     df2 = dff[dff['param']==val]
+    df_mjd = dff[dff['param'] == 'mj']
     st.write('Filters:') 
     col1,col2,col3 = st.columns(3)
     with col1:
@@ -93,6 +94,9 @@ if add_selectbox == "Models":
     conv1 = (df5[df5['type_EAM'] == 0])["values"].values
     conv2 = (df5[df5['type_EAM'] == 1])["values"].values
     conv_dates = ((df5[df5['type_EAM'] == 0])["pub_date"].values)[0]
+    epochs = df_mjd[["pub_date"] == conv_dates].values
+    st.write(epochs) 
+     
      
     with col1:
         st.write('Without EAM')
