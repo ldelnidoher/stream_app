@@ -137,8 +137,13 @@ if add_selectbox == "EOP predictions":
     fig.update_yaxes(title_text=f"{txt}")
 
     st.plotly_chart(fig, use_container_width=True)
-     
- 
+
+    st.write('Input data for the prediction models:') 
+    col1, col2 = st.columns(2)
+    with col1: 
+         st.link_button(label = "Link to IERS EOP 20 C04 series",url = "https://datacenter.iers.org/data/latestVersion/EOP_20_C04_IAU2000A_one_file_1962-now.txt")
+    with col2:
+         st.link_button(label = "Link to ESMGFZ repository:",url = "http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=e0fff81f-dcae-469e-8e0a-eb10caf2975b")
     
 
     
