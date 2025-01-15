@@ -130,7 +130,12 @@ if add_selectbox == "EOP predictions":
     else:
          string = selected
          
-    st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.txt', data = lista)
+    col1,col2 = st.columns([1,1])
+    with col1:
+         st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.txt', data = lista)
+    with col2:
+         st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.csv', data = df.to_csv())
+     
      
     fig = go.Figure()
     for j in range(1,3):
