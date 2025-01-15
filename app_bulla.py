@@ -115,7 +115,9 @@ if add_selectbox == "EOP predictions":
          fm = '% .8f'
      
     df = pd.DataFrame({'Date':dates_fmt,'Epoch [MJD]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, index = (['Day'+str(v) for v in range(11)]))
-    st.dataframe(df.style.background_gradient(cmap='Oranges'), use_container_width = True)
+    s = df.style.set_table_styles([{"selector":"thead",
+                                    "props":"background-color:#fb6a00;},])
+    st.dataframe(s, use_container_width = True)
      
     np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter=' \t', header = 'Date | Epoch [MJD] | w/o EAM | w/EAM')
     f = open('param.txt','r') 
