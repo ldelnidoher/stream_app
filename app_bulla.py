@@ -115,7 +115,7 @@ if add_selectbox == "EOP predictions":
          fm = '% .8f'
      
     df = pd.DataFrame({'Date':dates_fmt,'Epoch [MJD]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, index = (['Day'+str(v) for v in range(11)]))
-    styles = [dict(selector="th", props=[('background-color','#fb6a00')]] 
+    styles = [dict(selector="th", props=[('background-color','#fb6a00')])] 
     s = df.style.set_table_styles(styles)
     st.dataframe(s, use_container_width = True)
      
