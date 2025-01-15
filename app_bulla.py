@@ -13,9 +13,9 @@ import plotly.graph_objects as go
 import sqlite3
 
 
-text1 = "The prediction of the parameters was calculated using Machine Learning algorithms. [IERS EOP 20 C04]
-     ('https://datacenter.iers.org/data/latestVersion/EOP_20_C04_IAU2000A_one_file_1962-now.txt') and [GFZ Effective Angular
-     Momentum Functions](http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=e0fff81f-dcae-469e-8e0a-eb10caf2975b) were employed as input data."
+text1 = 'The prediction of the parameters was calculated using Machine Learning algorithms. [IERS EOP 20 C04]
+     (https://datacenter.iers.org/data/latestVersion/EOP_20_C04_IAU2000A_one_file_1962-now.txt) and [GFZ Effective Angular
+     Momentum Functions](http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=e0fff81f-dcae-469e-8e0a-eb10caf2975b) were employed as input data.'
 
 st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':earth_africa:')
 
