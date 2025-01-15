@@ -130,7 +130,7 @@ if add_selectbox == "EOP predictions":
     else:
          string = selected
          
-    col1,col2 = st.columns([0.5,0.5],gap = 'small')
+    col1,col2 = st.columns([0.2,0.2],gap = 'small')
     with col1:
          st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.txt', data = lista)
     with col2:
