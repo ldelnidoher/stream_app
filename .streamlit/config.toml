@@ -1,8 +1,9 @@
 [theme]
 base="light"
 primaryColor="#fb6a00"
-backgroundColor="#edf3f9"
+backgroundColor="#f1f4f9"
 secondaryBackgroundColor="#b2d6fb"
+
 
 [secrets]
 files = [ "~/.streamlit/secrets.toml", "~/stream_app/.streamlit/secrets.toml",]
