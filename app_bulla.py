@@ -143,7 +143,6 @@ if add_selectbox == "EOP predictions":
              x = df['Epoch [MJD]'],y = df[df.columns[-j]],
              mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
 
-    fig.update_layout(paper_bgcolor="#fb9a5a")
     fig.update_layout(legend_title_text = "Models")
     fig.update_xaxes(title_text="MJD")
     fig.update_yaxes(title_text=f"{txt}")
