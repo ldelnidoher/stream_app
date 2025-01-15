@@ -67,6 +67,7 @@ if add_selectbox == "EOP predictions":
     st.title('Short-term EOP predictions: 10 days')
     st.write(text1)
     st.markdown(text2) 
+    st.divider() 
     selected = st.selectbox('Choose an EOP:', ('xpol', 'ypol', 'dX', 'dY', 'UT1-UTC'),) 
     eop = ['xpol', 'ypol', 'dX', 'dY', 'UT1-UTC']
     if selected == 'xpol':
