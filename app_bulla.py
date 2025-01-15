@@ -140,8 +140,8 @@ if add_selectbox == "EOP predictions":
     fig = go.Figure()
     for j in range(1,3):
          fig.add_trace(go.Scatter(
-             x = df['Epoch [MJD]'],y = df[df.columns[-j]],
-             mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j],title = 'Predictions'))
+             x = df['Epoch [MJD]'],y = df[df.columns[-j]],title = 'Predictions',
+             mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
          
    
     
