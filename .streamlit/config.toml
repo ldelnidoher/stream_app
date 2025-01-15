@@ -1,8 +1,9 @@
 [theme]
 base="light"
 primaryColor="#fb6a00"
-backgroundColor="#f1f4f9"
+backgroundColor="#f6f6ff"
 secondaryBackgroundColor="#b2d6fb"
+
 
 
 [secrets]
