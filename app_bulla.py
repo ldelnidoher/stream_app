@@ -112,7 +112,7 @@ if add_selectbox == "EOP predictions":
         if val in {'dx','dy'}:
              txt = 'mas'
              fm = '% 5f'
-        else:
+        if val in {'xp','yp'}:
              txt = 'as'
              fm = '% .8f'
          
