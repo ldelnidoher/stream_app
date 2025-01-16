@@ -151,7 +151,8 @@ if add_selectbox == "EOP predictions":
     fig.update_yaxes(title_text=f"{txt}")
     
     st.plotly_chart(fig, use_container_width=True)
-
+     
+    st.divider() 
 else:
     pass
 # try:
