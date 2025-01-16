@@ -48,112 +48,117 @@ if add_selectbox == "Contact info":
     st.markdown('IGN Geodesy: [link](https://www.ign.es/web/ign/portal/gds-area-geodesia)')
     st.markdown('RAEGE: [link](https://raege.eu/)')
 if add_selectbox == "EOP predictions":
-    db_path = 'db.db' 
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-    cursor.execute("""SELECT * from polls_files """)
-    dff=pd.read_sql("""SELECT * from polls_files """, conn)
-    conn.close()
-
-    dates = dff['pub_date'].values
-    year = [s[:4] for s in dates]
-    month = [m[5:7] for m in dates]
-    day = [d[8:10] for d in dates]
+    try:
+        db_path = 'db.db' 
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("""SELECT * from polls_files """)
+        dff=pd.read_sql("""SELECT * from polls_files """, conn)
+        conn.close()
     
-    dff.insert(0, column = 'year', value = year)
-    dff.insert(1, column = 'month', value = month)
-    dff.insert(2, column = 'day', value = day)
-     
-    
-    st.title('Short-term EOP predictions: 10 days')
-    st.write(text1)
-    st.markdown(text2) 
-    st.divider() 
-    selected = st.selectbox('Choose an EOP:', ('xpol', 'ypol', 'dX', 'dY', 'UT1-UTC'),) 
-    eop = ['xpol', 'ypol', 'dX', 'dY', 'UT1-UTC']
-    if selected == 'xpol':
-         val = 'xp'
-    if selected == 'ypol':
-         val = 'yp'
-    if selected == 'dX':
-         val = 'dx'
-    if selected == 'dY':
-         val = 'dy'
-    if selected == 'UT1-UTC':
-         val = 'dt' 
-    st.subheader(f'Predictions for {selected:}')
-    st.write(text3) 
-
-     
-    df2 = dff[dff['param']==val]
-    df_mjd = dff[dff['param'] == 'mj']
-    st.write('Filters:') 
-    col1,col2,col3 = st.columns(3)
-    with col1:
-         years = st.selectbox(label = '1.- Select a year:', options = list(set(df2.year.values)))
-         df3 = df2[df2['year']==years]
-    with col2:
-         months = st.selectbox(label = '2.- Select a month:', options = list(set(df3.month.values)))
-         df4 = df3[df3['month']==months]
-    with col3:
-         days = st.selectbox(label = '3.- Select a day:', options = list(set(df4.day.values)))
-         df5 = df4[df4['day']==days]
-
-    conv1 = (df5[df5['type_EAM'] == 0])["values"].iloc[0]
-    conv2 = (df5[df5['type_EAM'] == 1])["values"].iloc[0]
-    conv_dates = ((df5[df5['type_EAM'] == 0])["pub_date"].values)[0]
-    epochs = (df_mjd[df_mjd["pub_date"] == conv_dates])["values"].iloc[0]
-    epochs = [int(float(item)) for item in epochs.split(',')] 
-    conv1 =  [float(item) for item in conv1.split(',')] 
-    conv2 =  [float(item) for item in conv2.split(',')]  
-    dates_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in epochs]
-    if val in 'dt':
-         txt = 's'
-         fm = '% .9f'
-    if val in {'dx','dy'}:
-         txt = 'mas'
-         fm = '% 5f'
-    else:
-         txt = 'as'
-         fm = '% .8f'
-     
-    df = pd.DataFrame({'Date':dates_fmt,'Epoch [MJD]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, index = (['Day'+str(v) for v in range(11)]))
-    styles = [dict(selector="", props=[('border','2px solid #fb9a5a')]), dict(selector="th", props=[("background-color","#b2d6fb"),('color','black')])] 
-    s = df.style.set_table_styles(styles)
-    st.table(s)
-     
-    np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter=' \t', header = 'Date | Epoch [MJD] | w/o EAM | w/EAM')
-    f = open('param.txt','r') 
-    lista =f.read()
-    f.close()
-     
-    if selected == 'UT1-UTC':
-         string = 'dut1'
-    else:
-         string = selected
+        dates = dff['pub_date'].values
+        year = [s[:4] for s in dates]
+        month = [m[5:7] for m in dates]
+        day = [d[8:10] for d in dates]
+        
+        dff.insert(0, column = 'year', value = year)
+        dff.insert(1, column = 'month', value = month)
+        dff.insert(2, column = 'day', value = day)
          
-    col1,col2 = st.columns([0.2,0.8],gap = 'small')
-    with col1:
-         st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.txt', data = lista)
-    with col2:
-         st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.csv', data = df.to_csv(index = False))
-     
-     
-    fig = go.Figure()
-    for j in range(1,3):
-         fig.add_trace(go.Scatter(
-             x = df['Epoch [MJD]'],y = df[df.columns[-j]],
-             mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
-    fig.add_shape(type="rect", xref="paper", yref="paper",x0=-0.07, y0=-0.25, x1=1.13, y1=1.1, line=dict(color="#fb9a5a",width=2))
-    fig.update_layout(legend_title_text = "Models")
-    fig.update_xaxes(title_text="MJD")
-    fig.update_yaxes(title_text=f"{txt}")
+        
+        st.title('Short-term EOP predictions: 10 days')
+        st.write(text1)
+        st.markdown(text2) 
+        st.divider() 
+        selected = st.selectbox('Choose an EOP:', ('xpol', 'ypol', 'dX', 'dY', 'UT1-UTC'),) 
+        eop = ['xpol', 'ypol', 'dX', 'dY', 'UT1-UTC']
+        if selected == 'xpol':
+             val = 'xp'
+        if selected == 'ypol':
+             val = 'yp'
+        if selected == 'dX':
+             val = 'dx'
+        if selected == 'dY':
+             val = 'dy'
+        if selected == 'UT1-UTC':
+             val = 'dt' 
+        st.subheader(f'Predictions for {selected:}')
+        st.write(text3) 
     
-    st.plotly_chart(fig, use_container_width=True)
-     
-    st.divider() 
-else:
-    pass
+         
+        df2 = dff[dff['param']==val]
+        df_mjd = dff[dff['param'] == 'mj']
+        st.write('Filters:') 
+        col1,col2,col3 = st.columns(3)
+        with col1:
+             years = st.selectbox(label = '1.- Select a year:', options = list(set(df2.year.values)))
+             df3 = df2[df2['year']==years]
+        with col2:
+             months = st.selectbox(label = '2.- Select a month:', options = list(set(df3.month.values)))
+             df4 = df3[df3['month']==months]
+        with col3:
+             days = st.selectbox(label = '3.- Select a day:', options = list(set(df4.day.values)))
+             df5 = df4[df4['day']==days]
+    
+        conv1 = (df5[df5['type_EAM'] == 0])["values"].iloc[0]
+        conv2 = (df5[df5['type_EAM'] == 1])["values"].iloc[0]
+        conv_dates = ((df5[df5['type_EAM'] == 0])["pub_date"].values)[0]
+        epochs = (df_mjd[df_mjd["pub_date"] == conv_dates])["values"].iloc[0]
+        epochs = [int(float(item)) for item in epochs.split(',')] 
+        conv1 =  [float(item) for item in conv1.split(',')] 
+        conv2 =  [float(item) for item in conv2.split(',')]  
+        dates_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in epochs]
+        if val in 'dt':
+             txt = 's'
+             fm = '% .9f'
+        if val in {'dx','dy'}:
+             txt = 'mas'
+             fm = '% 5f'
+        else:
+             txt = 'as'
+             fm = '% .8f'
+         
+        df = pd.DataFrame({'Date':dates_fmt,'Epoch [MJD]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, index = (['Day'+str(v) for v in range(11)]))
+        styles = [dict(selector="", props=[('border','2px solid #fb9a5a')]), dict(selector="th", props=[("background-color","#b2d6fb"),('color','black')])] 
+        s = df.style.set_table_styles(styles)
+        st.table(s)
+         
+        np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter=' \t', header = 'Date | Epoch [MJD] | w/o EAM | w/EAM')
+        f = open('param.txt','r') 
+        lista =f.read()
+        f.close()
+         
+        if selected == 'UT1-UTC':
+             string = 'dut1'
+        else:
+             string = selected
+             
+        col1,col2 = st.columns([0.2,0.8],gap = 'small')
+        with col1:
+             st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.txt', data = lista)
+        with col2:
+             st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.csv', data = df.to_csv(index = False))
+         
+         
+        fig = go.Figure()
+        for j in range(1,3):
+             fig.add_trace(go.Scatter(
+                 x = df['Epoch [MJD]'],y = df[df.columns[-j]],
+                 mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
+        fig.add_shape(type="rect", xref="paper", yref="paper",x0=-0.07, y0=-0.25, x1=1.13, y1=1.1, line=dict(color="#fb9a5a",width=2))
+        fig.update_layout(legend_title_text = "Models")
+        fig.update_xaxes(title_text="MJD")
+        fig.update_yaxes(title_text=f"{txt}")
+        
+        st.plotly_chart(fig, use_container_width=True)
+         
+        st.divider() 
+    
+    except:
+        with st.spinner(text="Uploading. This process might take a few minutes..."):
+            time.sleep(15)
+            st.rerun()
+
 # try:
 
 #     # if chosen == "Predictions":
@@ -368,10 +373,10 @@ else:
 #         st.download_button(label = f'Download {ans2} data',data = datos, file_name = f'{ans2}_{ans1}.txt')
 
          
-    d = datetime.datetime.now()
-    d = d.replace(microsecond=0)
-     
-    st.write(f'Last updated: {d} UTC')
+d = datetime.datetime.now()
+d = d.replace(microsecond=0)
+ 
+st.write(f'Last updated: {d} UTC')
     
 #except:
 #    with st.spinner(text="Data is currently being updated. This process might take a few minutes..."):
