@@ -49,6 +49,7 @@ if add_selectbox == "EOP predictions":
     try:
         db_path = 'db.db' 
         conn = sqlite3.connect(db_path)
+        st.write('connected') 
         cursor = conn.cursor()
         cursor.execute("""SELECT * from polls_files """)
         dff=pd.read_sql("""SELECT * from polls_files """, conn)
