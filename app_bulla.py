@@ -143,7 +143,7 @@ if add_selectbox == "EOP predictions":
              fig.add_trace(go.Scatter(
                  x = df['Epoch [MJD]'],y = df[df.columns[-j]],
                  mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
-        fig.add_shape(type="rect", xref="paper", yref="paper",x0=-0.3, y0=-0.25, x1=1, y1=1.1, line=dict(color="#fb9a5a",width=2))
+        fig.add_shape(type="rect", xref="paper", yref="paper",x0=-0.1, y0=-0.25, x1=1, y1=1.1, line=dict(color="#fb9a5a",width=2))
         fig.update_layout(legend_title_text = "Models")
         fig.update_xaxes(title_text="MJD")
         fig.update_yaxes(title_text=f"{txt}")
