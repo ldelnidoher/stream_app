@@ -97,7 +97,8 @@ if add_selectbox == "EOP predictions":
         with col3:
              days = st.selectbox(label = '3.- Select a day:', options = list(set(df4.day.values)))
              df5 = df4[df4['day']==days]
-        dd = list(set(df4.day.values)).sort(reverse = True)       
+        dd = list(set(df4.day.values))
+        dd.sort(reverse = True) 
         st.write(dd) 
         conv1 = (df5[df5['type_EAM'] == 0])["values"].iloc[0]
         conv2 = (df5[df5['type_EAM'] == 1])["values"].iloc[0]
