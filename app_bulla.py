@@ -47,7 +47,7 @@ if add_selectbox == "Contact info":
     st.markdown('RAEGE: [link](https://raege.eu/)')
 if add_selectbox == "EOP predictions":
     try:
-        db_path = 'db.sqlite3' 
+        db_path = 'db.db' 
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         cursor.execute("""SELECT * from polls_files """)
