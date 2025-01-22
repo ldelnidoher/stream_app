@@ -89,7 +89,7 @@ if add_selectbox == "EOP predictions":
         st.write('Filters:') 
         col1,col2,col3 = st.columns(3)
         with col1:
-             years = st.selectbox(label = '1.- Select a year:', options = list(set(df2.year.values)))
+             years = st.selectbox(label = '1.- Select a year:', options = list(set(df2.year.sort_values(by = 'year,ascending = False).values)))
              df3 = df2[df2['year']==years]
         with col2:
              months = st.selectbox(label = '2.- Select a month:', options = list(set(df3.month.values)))
@@ -97,9 +97,7 @@ if add_selectbox == "EOP predictions":
         with col3:
              days = st.selectbox(label = '3.- Select a day:', options = list(set(df4.day.values)))
              df5 = df4[df4['day']==days]
-        dd = list(set(df4.day.values))
-        dd.sort(reverse = True) 
-        st.write(dd) 
+        
         conv1 = (df5[df5['type_EAM'] == 0])["values"].iloc[0]
         conv2 = (df5[df5['type_EAM'] == 1])["values"].iloc[0]
         conv_dates = ((df5[df5['type_EAM'] == 0])["pub_date"].values)[0]
