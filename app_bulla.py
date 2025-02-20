@@ -191,8 +191,8 @@ if menu == "PREDICTION MODELS":
     st.write('For the dUT1 prediction, the data is altered by removing the leap seconds. Afterwards, a model is trained using KRR to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final dUT1 prediction.')
     #st.image('esquema_noeam.png',output_format = 'png')
     html2 = """
-    <div class="banner">
-         <img src="esquema_noeam.png" >
+    <div>
+         <https://github.com/ldelnidoher/stream_app/blob/main/esquema_noeam.png?raw=true" >
     </div>"""
     st.components.v1.html(html2)
  
