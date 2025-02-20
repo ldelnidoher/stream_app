@@ -50,7 +50,7 @@ menu = option_menu(menu_title = None,
                    menu_icon = None,
                    styles = {
                         "container:{"background-color":"F6F6FF"},
-                        "nav-link": {"font-size": "25px", "text-align": "center"},
+                        "nav-link": {"font-size": "25px", "text-align": "center"}},
                   )
 st.divider()
 
