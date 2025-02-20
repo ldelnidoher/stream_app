@@ -193,7 +193,7 @@ if menu == "PREDICTION MODELS":
     st.write('-For the **dUT1** prediction, the data is altered by removing the leap seconds. Afterwards, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final **dUT1** prediction.')
     st.image('esquema_noeam.png',output_format = 'png')
 
-def displayPDF(file):
+    file = "esquema.pdf" 
     with open(file, "rb") as f:
         base64_pdf = base64.b64encode(f.read()).decode("utf-8")
     pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf"></iframe>'
