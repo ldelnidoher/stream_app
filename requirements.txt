@@ -4,3 +4,4 @@ scikit-learn
 scipy
 datetime
 astropy
+streamlit-option-menu
