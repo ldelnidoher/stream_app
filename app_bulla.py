@@ -193,7 +193,20 @@ if menu == "PREDICTION MODELS":
     html2 = """
     <div class="image">
          <https://github.com/ldelnidoher/stream_app/blob/main/esquema_noeam.png?raw=true" alt="Model1">
-    </div>"""
+    </div>
+    <style>
+         <center>
+              .banner {
+                  width: 100%;
+                  height: 70px;
+                  overflow: hidden;
+              }
+              .banner img {
+                  width: 75%;
+                  object-fit: cover;
+              }
+         </center>
+    </style>
     st.components.v1.html(html2)
  
 
