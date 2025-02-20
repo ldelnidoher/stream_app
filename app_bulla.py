@@ -192,9 +192,9 @@ if menu == "PREDICTION MODELS":
     st.write('-For the **dX** prediction, the **xFCN** component is calculated, and alongside dX they are used to train a model using **KRR** to predict dX. Idem **dY**.')
     st.write('-For the **dUT1** prediction, the data is preprocessed by removing the leap seconds. Afterwards, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final dUT1 prediction.')
     st.image('esquema.png',output_format = 'png', use_container_width = False)
-
+    st.divider()
     st.subheader("Prediction models using EAM")
-    st.write("-------------")
+    st.write(". . .")
     st.image('esquema_eam.png',output_format = 'png', use_container_width = False) 
    
 
