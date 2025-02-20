@@ -205,7 +205,7 @@ if menu == "PREDICTION MODELS":
                  overflow: hidden;
              }
              .banner img {
-                 width: 75%;
+                 width: 100%;
                  object-fit: cover;
              }
         </center>
