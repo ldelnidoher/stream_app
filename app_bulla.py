@@ -206,7 +206,6 @@ if menu == "PREDICTION MODELS":
              .image img {
                  width: 100%;
                  heigth: 100%
-                 object-fit: cover;
              }
         </center>
     </style>
