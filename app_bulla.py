@@ -192,7 +192,7 @@ if menu == "PREDICTION MODELS":
     #st.image('esquema_noeam.png',output_format = 'png')
     html2 = """
     <div class="image">
-         <https://github.com/ldelnidoher/stream_app/blob/main/esquema_noeam.png?raw=true" alt="Model1">
+         <https://github.com/ldelnidoher/stream_app/blob/main/esquema_noeam.png" alt="Model1">
     </div>
     <style>
          <center>
