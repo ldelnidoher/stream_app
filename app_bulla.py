@@ -193,7 +193,7 @@ if menu == "PREDICTION MODELS":
     html2 = """
     <div class="banner">
          <img src="esquema_noeam.png" >
-    </div>
+    </div>"""
     st.components.v1.html(html2)
  
 
