@@ -194,7 +194,7 @@ if menu == "PREDICTION MODELS":
     #st.image('esquema_noeam.png',output_format = 'png')
 
     custom_html2 = """
-    <div class="banner">
+    <div class="image">
          <img src="https://github.com/ldelnidoher/stream_app/blob/main/esquema_noeam.png?raw=true" alt="Banner Image">
     </div>
 
