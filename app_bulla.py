@@ -193,28 +193,10 @@ if menu == "PREDICTION MODELS":
     st.write('-For the **dUT1** prediction, the data is preprocessed by removing the leap seconds. Afterwards, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final **dUT1** prediction.')
     st.image('esquema_noeam.png',output_format = 'png', use_container_width = False)
 
-     
-    custom_html2 = """
-    <div class="image">
-         <img src="https://github.com/ldelnidoher/stream_app/blob/main/esquema_noeam.png?raw=true" alt="Im Image">
-    </div>
-    <style>
-         <center>
-             .image {
-                 width: 100%;
-             }
-             .image img {
-                 width: 100%;
-                 heigth: 100%
-             }
-        </center>
-    </style>
-    """
-    #st.components.v1.html(custom_html2)
-
- 
-
-
+    st.subheader("Prediction models using EAM")
+    st.write("-------------")
+    st.image('esquema_eam.png',output_format = 'png', use_container_width = False) 
+   
 
 d = datetime.datetime.now()
 d = d.replace(microsecond=0)
