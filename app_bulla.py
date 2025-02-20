@@ -207,6 +207,7 @@ if menu == "PREDICTION MODELS":
               }
          </center>
     </style>
+    """
     st.components.v1.html(html2)
  
 
