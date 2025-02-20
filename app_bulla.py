@@ -194,21 +194,35 @@ if menu == "PREDICTION MODELS":
     <div class="image">
          <https://github.com/ldelnidoher/stream_app/blob/main/esquema_noeam.png" alt="Model1">
     </div>
-    <style>
-         <center>
-              .banner {
-                  width: 100%;
-                  height: 70px;
-                  overflow: hidden;
-              }
-              .banner img {
-                  width: 75%;
-                  object-fit: cover;
-              }
-         </center>
-    </style>
-    """
-    st.components.v1.html(html2)
+    file_ = open("esquema_noeam.png", "rb")
+    contents = file_.read()
+    data_url = base64.b64encode(contents).decode("utf-8")
+    file_.close()
+
+
+    st.components.v1.html(
+    f"""
+    <!DOCTYPE html>
+    <html lang="en">
+       <head>
+          <script>
+             function loadImg(data_url)
+             {{
+             var itemPrev = document.getElementById("ItemPreview");
+             itemPrev.src = "data:image/png;base64," + data_url;
+             }}
+          </script>
+          <meta charset="UTF-8">
+          <title>Test Image</title>
+       </head>
+        body onload="loadImg('{data_url}')">
+           img id="ItemPreview" src="">
+       </body>
+    </html>
+    """,
+        height=200,
+    )
+    
  
 
 
