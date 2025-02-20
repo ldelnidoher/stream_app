@@ -45,7 +45,7 @@ st.components.v1.html(custom_html)
 #add_selectbox = st.sidebar.radio('Choose data to show:',
 #                                 ('EOP predictions','Contact info'))
 menu = option_menu(menu_title = None,
-                   options=["EOP PREDICTIONS", "PREDICTION MODELS", "ABOUT US"],
+                   options=[<ins>"EOP PREDICTIONS"<ins>, "PREDICTION MODELS", "ABOUT US"],
                    orientation = "horizontal",
                    menu_icon = None,
                    styles = {
