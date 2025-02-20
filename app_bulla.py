@@ -190,10 +190,7 @@ if menu == "PREDICTION MODELS":
     st.write('-For the **dX** prediction, the **xFCN** component is calculated, and alongside **dX**, a model is trained using **KRR** to predict dX. Idem **dY**.')
     st.write('-For the **dUT1** prediction, the data is altered by removing the leap seconds. Afterwards, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final **dUT1** prediction.')
     #st.image('esquema_noeam.png',output_format = 'png')
-    html2 = """
-    <div class="image">
-         <https://github.com/ldelnidoher/stream_app/blob/main/esquema_noeam.png" alt="Model1">
-    </div>
+
     file_ = open("esquema_noeam.png", "rb")
     contents = file_.read()
     data_url = base64.b64encode(contents).decode("utf-8")
