@@ -197,19 +197,7 @@ if menu == "PREDICTION MODELS":
     <div class="banner">
          <img src="https://github.com/ldelnidoher/stream_app/blob/main/esquema_noeam.png?raw=true" alt="Banner Image">
     </div>
-    <style>
-         <center>
-             .banner {
-                 width: 100%;
-                 height: 70px;
-                 overflow: hidden;
-             }
-             .banner img {
-                 width: 100%;
-                 object-fit: cover;
-             }
-        </center>
-    </style>
+
     """
     st.components.v1.html(custom_html2)
     
