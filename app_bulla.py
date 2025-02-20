@@ -49,8 +49,9 @@ menu = option_menu(menu_title = None,
                    orientation = "horizontal",
                    menu_icon = None,
                    styles = {
-                        "container": {"background-color": "#B2D6FB" },
-                        "nav-link": {"font-size": "16px", "text-align": "center"}
+                        "container": {"background-color": "#FFC498" },
+                        "nav-link": {"font-size": "16px", "text-align": "center"},
+                        "nav-link-selected": {"background-color": #FB6A00", "font-size": "18px",
                         },
                   )
 st.divider()
