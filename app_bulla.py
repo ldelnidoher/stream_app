@@ -201,7 +201,6 @@ if menu == "PREDICTION MODELS":
          <center>
              .image {
                  width: 100%;
-                 height: 70px;
                  overflow: hidden;
              }
              .image img {
