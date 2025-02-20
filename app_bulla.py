@@ -63,12 +63,7 @@ if menu == "ABOUT US":
     st.markdown('IGN Geodesy: [link](https://www.ign.es/web/ign/portal/gds-area-geodesia)')
     st.markdown('RAEGE: [link](https://raege.eu/)')
 
-if menu == "PREDICTION MODELS":
-     st.subheader("Prediction models without EAM")
-     st.write('For xpol prediction, each component is preprocessed by applying Singular Spectrum Analysis in order to obtain a reconstructed time series and the residual noise time series. Using the KRR algorithm, two models are trained: one to predict the reconstructed time series and the other to predict the noise. Both predictions are then added to generate the final xpol prediction. Idem ypol.')
-     st.write('For the dX prediction, the xFCN component is calculated, and alongside dX, a model is trained using KRR to predict dX. Idem dY.')
-     st.write('For the dUT1 prediction, the data is altered by removing the leap seconds. Afterwards, a model is trained using KRR to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final dUT1 prediction.')
-     st.image('esquema_noeam.png')
+
      
 if menu == "EOP PREDICTIONS":
     try:
@@ -188,7 +183,13 @@ if menu == "EOP PREDICTIONS":
         with st.spinner(text="Uploading. This process might take a few minutes..."):
             time.sleep(15)
             st.rerun()
-
+             
+if menu == "PREDICTION MODELS":
+    st.subheader("Prediction models without EAM")
+    st.write('For xpol prediction, each component is preprocessed by applying Singular Spectrum Analysis in order to obtain a reconstructed time series and the residual noise time series. Using the KRR algorithm, two models are trained: one to predict the reconstructed time series and the other to predict the noise. Both predictions are then added to generate the final xpol prediction. Idem ypol.')
+    st.write('For the dX prediction, the xFCN component is calculated, and alongside dX, a model is trained using KRR to predict dX. Idem dY.')
+    st.write('For the dUT1 prediction, the data is altered by removing the leap seconds. Afterwards, a model is trained using KRR to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final dUT1 prediction.')
+    st.image('esquema_noeam.png')
 
 
 
