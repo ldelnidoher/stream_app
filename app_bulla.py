@@ -191,13 +191,8 @@ if menu == "PREDICTION MODELS":
     st.write('-For **xpol** prediction, each component is preprocessed by applying **Singular Spectrum Analysis (SSA)** in order to obtain a reconstructed time series and the residual noise time series. Using the **KRR** algorithm, two models are trained: one to predict the reconstructed time series and the other to predict the noise. Both predictions are then added to generate the final xpol prediction. Idem **ypol**.')
     st.write('-For the **dX** prediction, the **xFCN** component is calculated, and alongside **dX**, a model is trained using **KRR** to predict dX. Idem **dY**.')
     st.write('-For the **dUT1** prediction, the data is altered by removing the leap seconds. Afterwards, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final **dUT1** prediction.')
-    st.image('esquema_noeam.png',output_format = 'png')
+    st.image('esquema_noeam.png',output_format = 'png',width = "400 px")
 
-    file = "esquema.pdf" 
-    with open(file, "rb") as f:
-        base64_pdf = base64.b64encode(f.read()).decode("utf-8")
-    pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf"></iframe>'
-    st.markdown(pdf_display, unsafe_allow_html=True) 
      
     custom_html2 = """
     <div class="image">
