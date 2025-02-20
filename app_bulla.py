@@ -193,34 +193,8 @@ if menu == "PREDICTION MODELS":
     st.write('-For the **dUT1** prediction, the data is altered by removing the leap seconds. Afterwards, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final **dUT1** prediction.')
     #st.image('esquema_noeam.png',output_format = 'png')
 
-    file_ = open("esquema_noeam.png", "rb")
-    contents = file_.read()
-    data_url = base64.b64encode(contents).decode("utf-8")
-    file_.close()
-
-
-    st.components.v1.html(
-    f"""
-    <!DOCTYPE html>
-    <html lang="en">
-       <head>
-          <script>
-             function loadImg(data_url)
-             {{
-             var itemPrev = document.getElementById("ItemPreview");
-             itemPrev.src = "data:image/png;base64," + data_url;
-             }}
-          </script>
-          <meta charset="UTF-8">
-          <title>Test Image</title>
-       </head>
-        body onload="loadImg('{data_url}')">
-           img id="ItemPreview" src="">
-       </body>
-    </html>
-    """,
-        height=200,
-    )
+    st.components.v1.html(custom_html)
+    
     
  
 
