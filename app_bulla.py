@@ -212,8 +212,7 @@ if menu == "PREDICTION MODELS":
     </style>
     """
     st.components.v1.html(custom_html2)
-    
-    
+
  
 
 
