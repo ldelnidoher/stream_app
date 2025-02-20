@@ -189,8 +189,13 @@ if menu == "PREDICTION MODELS":
     st.write('For xpol prediction, each component is preprocessed by applying Singular Spectrum Analysis in order to obtain a reconstructed time series and the residual noise time series. Using the KRR algorithm, two models are trained: one to predict the reconstructed time series and the other to predict the noise. Both predictions are then added to generate the final xpol prediction. Idem ypol.')
     st.write('For the dX prediction, the xFCN component is calculated, and alongside dX, a model is trained using KRR to predict dX. Idem dY.')
     st.write('For the dUT1 prediction, the data is altered by removing the leap seconds. Afterwards, a model is trained using KRR to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final dUT1 prediction.')
-    st.image('esquema_noeam.png',output_format = 'png')
-
+    #st.image('esquema_noeam.png',output_format = 'png')
+    html2 = """
+    <div class="banner">
+         <img src="esquema_noeam.png" >
+    </div>
+    st.components.v1.html(html2)
+ 
 
 
 
