@@ -49,7 +49,7 @@ menu = option_menu(menu_title = None,
                    orientation = "horizontal",
                    menu_icon = None,
                    styles = {
-                        "container:{"background-color":"F6F6FF"},
+                        "container: {"background-color": "#F6F6FF"},
                         "nav-link": {"font-size": "25px", "text-align": "center"}},
                   )
 st.divider()
