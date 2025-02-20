@@ -46,7 +46,7 @@ st.components.v1.html(custom_html)
 #                                 ('EOP predictions','Contact info'))
 menu = option_menu(menu_title = None, options=["EOP predictions", "Prediction models", "About us"],
                             orientation = "horizontal")
-if menu = "Prediction models":
+if menu == "Prediction models":
          pass
 if menu == "About us":
     st.markdown('UAVAC: [link](https://web.ua.es/en/uavac/)')
