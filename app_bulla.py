@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import altair as alt
 import plotly.graph_objects as go
 import sqlite3
-
+from streamlit_option_menu import option_menu
 
 text1 = 'The prediction of the parameters is calculated using **Machine Learning** algorithms. The prediction horizon extends 10 days into the future, in addition to the day on which the calculations are conducted, referred to as Day 0.'
 text2 = '[IERS EOP 20 C04](https://www.iers.org/IERS/EN/DataProducts/EarthOrientationData/eop.html) and [GFZ Effective Angular Momentum Functions](http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=e0fff81f-dcae-469e-8e0a-eb10caf2975b) are employed as input data.'
@@ -37,15 +37,22 @@ custom_html = """
 """
 st.components.v1.html(custom_html)
 
+
+
+
+
+
 #add_selectbox = st.sidebar.radio('Choose data to show:',
-#("Predictions", "Past predictions", "Models","Prueba","Contact info"))
-add_selectbox = st.sidebar.radio('Choose data to show:',
-                                 ('EOP predictions','Contact info'))
-if add_selectbox == "Contact info":
+#                                 ('EOP predictions','Contact info'))
+menu = option_menu(menu_title = None, options=["EOP predictions", "Prediction models", "About us"],
+                            orientation = "horizontal")
+if menu = "Prediction models":
+         pass
+if menu == "About us":
     st.markdown('UAVAC: [link](https://web.ua.es/en/uavac/)')
     st.markdown('IGN Geodesy: [link](https://www.ign.es/web/ign/portal/gds-area-geodesia)')
     st.markdown('RAEGE: [link](https://raege.eu/)')
-if add_selectbox == "EOP predictions":
+if menu == "EOP predictions":
     try:
         db_path = 'db.db' 
         conn = sqlite3.connect(db_path)
@@ -157,8 +164,8 @@ if add_selectbox == "EOP predictions":
         
         st.plotly_chart(fig, use_container_width=True)
          
-        st.divider() 
-    
+        st.divider()   
+         
     except:
         with st.spinner(text="Uploading. This process might take a few minutes..."):
             time.sleep(15)
