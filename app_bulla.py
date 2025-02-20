@@ -187,6 +187,7 @@ if menu == "EOP PREDICTIONS":
             st.rerun()
              
 if menu == "PREDICTION MODELS":
+    st.header("Short-term EOP predictions: 10 days")
     st.subheader("Prediction models without EAM")
     st.write('-For **xpol** prediction, each component is preprocessed by applying **Singular Spectrum Analysis (SSA)** in order to obtain a reconstructed time series and the residual noise time series. Using the **KRR** algorithm, two models are trained: one to predict the reconstructed time series and the other to predict the noise. Both predictions are then added to generate the final xpol prediction. Idem **ypol**.')
     st.write('-For the **dX** prediction, the **xFCN** component is calculated, and alongside dX they are used to train a model using **KRR** to predict dX. Idem **dY**.')
