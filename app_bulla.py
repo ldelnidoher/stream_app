@@ -44,15 +44,23 @@ st.components.v1.html(custom_html)
 
 #add_selectbox = st.sidebar.radio('Choose data to show:',
 #                                 ('EOP predictions','Contact info'))
-menu = option_menu(menu_title = None, options=["EOP predictions", "Prediction models", "About us"],
-                            orientation = "horizontal")
-if menu == "Prediction models":
+menu = option_menu(menu_title = None,
+                   options=["EOP PREDICTIONS", "PREDICTION MODELS", "ABOUT US"],
+                   orientation = "horizontal",
+                   menu_icon = None,
+                   styles = {
+                        "container:{"background-color":"F6F6FF"},
+                        "nav-link": {"font-size": "25px", "text-align": "center"},
+                  )
+st.divider()
+
+if menu == "PREDICTION MODELS":
          pass
-if menu == "About us":
+if menu == "ABOUT US":
     st.markdown('UAVAC: [link](https://web.ua.es/en/uavac/)')
     st.markdown('IGN Geodesy: [link](https://www.ign.es/web/ign/portal/gds-area-geodesia)')
     st.markdown('RAEGE: [link](https://raege.eu/)')
-if menu == "EOP predictions":
+if menu == "EOP PREDICTIONS":
     try:
         db_path = 'db.db' 
         conn = sqlite3.connect(db_path)
