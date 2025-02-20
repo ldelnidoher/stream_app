@@ -49,12 +49,12 @@ menu = option_menu(menu_title = None,
                    orientation = "horizontal",
                    menu_icon = None,
                    styles = {
-                        "container": {"background-color": "#F6F6FF", "border": "2px solid #B2D6FB" },
+                        "container": {"background-color": "#B2D6FB" },
                         "nav-link": {"font-size": "16px", "text-align": "center"}
                         },
                   )
 st.divider()
-st.divider()
+
 
 if menu == "PREDICTION MODELS":
          pass
