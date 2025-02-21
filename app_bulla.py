@@ -217,7 +217,7 @@ d = datetime.datetime.now().date()
 #d = d.replace(hour = 0, minute= 0, second = 0, microsecond=0)
 
 columns = st.columns(3, gap = "large")
-with columns[3]:
+with columns[2]:
     st.button("Scroll to Top", on_click=scroll, type = 'tertiary' )
 with columns[0]:
     st.write(f'Last updated: {d}')
