@@ -12,6 +12,9 @@ import sqlite3
 from streamlit_option_menu import option_menu
 from streamlit_scroll_to_top import scroll_to_here
 
+def scroll():
+    st.session_state.scroll_to_top = True
+
 if 'scroll_to_top' not in st.session_state:
     st.session_state.scroll_to_top = False
 
@@ -19,8 +22,7 @@ if st.session_state.scroll_to_top:
     scroll_to_here(0, key='top')  # Scroll to the top of the page
     st.session_state.scroll_to_top = False  # Reset the state after scrolling
 
-def scroll():
-    st.session_state.scroll_to_top = True
+
 
 text1 = 'The prediction of the parameters is calculated using **Machine Learning** algorithms. The prediction horizon extends 10 days into the future, in addition to the day on which the calculations are conducted, referred to as Day 0.'
 text2 = '[IERS EOP 20 C04](https://www.iers.org/IERS/EN/DataProducts/EarthOrientationData/eop.html) and [GFZ Effective Angular Momentum Functions](http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=e0fff81f-dcae-469e-8e0a-eb10caf2975b) are employed as input data.'
