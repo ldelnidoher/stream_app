@@ -220,7 +220,7 @@ columns = st.columns([0.9,0.1], gap = "small")
 with columns[0]:
     st.write(f'Last updated: {d}')
 with columns[1]:
-    st.button(':arrow_upward: Scroll to top :arrow_upward:', on_click=scroll, type = 'secondary' )
+    st.button('Scroll to top', on_click=scroll, type = 'secondary' )
 
     
      
