@@ -216,7 +216,7 @@ if menu == "PREDICTION MODELS":
 d = datetime.datetime.now().date()
 #d = d.replace(hour = 0, minute= 0, second = 0, microsecond=0)
 
-columns = st.columns([0.93,0.07], gap = "small")
+columns = st.columns([0.92,0.06], gap = "small")
 with columns[0]:
     st.write(f'Last updated: {d}')
 with columns[1]:
