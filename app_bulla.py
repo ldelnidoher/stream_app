@@ -216,11 +216,12 @@ if menu == "PREDICTION MODELS":
 d = datetime.datetime.now().date()
 #d = d.replace(hour = 0, minute= 0, second = 0, microsecond=0)
 
-columns = st.columns(3, gap = "small")
-with columns[2]:
-    st.button("Scroll to Top", on_click=scroll, type = 'tertiary' )
+columns = st.columns([0.8,0.2], gap = "small")
 with columns[0]:
     st.write(f'Last updated: {d}')
+with columns[1]:
+    st.button("Scroll to Top", on_click=scroll, type = 'tertiary' )
+
     
      
 
