@@ -211,14 +211,16 @@ if menu == "PREDICTION MODELS":
     st.write(". . .")
     st.image('esquema_eam.png',output_format = 'png', use_container_width = False) 
 
-columns = st.columns((1,1,10,1))
-with columns[3]:
-    st.button("Scroll to Top", on_click=scroll, type = 'primary' )
+
      
 d = datetime.datetime.now()
-d = d.replace(microsecond=0)
- 
-st.write(f'Last updated: {d} UTC')
+d = d.replace(hour = 0, minute= 0, second = 0, microsecond=0)
+
+columns = st.columns((1,1,10,1))
+with columns[3]:
+    st.button("Scroll to Top", on_click=scroll, type = 'tertiary' )
+with columns[0]:
+    st.write(f'Last updated: {d} UTC')
     
      
 
