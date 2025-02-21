@@ -213,7 +213,7 @@ if menu == "PREDICTION MODELS":
 
 columns = st.columns((1,1,10,1))
 with columns[3]:
-    st.button("Scroll to Top", on_click=scroll, type = 'tertiary' )
+    st.button("Scroll to Top", on_click=scroll, type = 'secondary' )
      
 d = datetime.datetime.now()
 d = d.replace(microsecond=0)
