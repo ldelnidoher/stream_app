@@ -216,7 +216,7 @@ if menu == "PREDICTION MODELS":
 d = datetime.datetime.now().date()
 #d = d.replace(hour = 0, minute= 0, second = 0, microsecond=0)
 
-columns = st.columns(3, gap = "large")
+columns = st.columns(3, gap = "small")
 with columns[2]:
     st.button("Scroll to Top", on_click=scroll, type = 'tertiary' )
 with columns[0]:
