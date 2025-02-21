@@ -5,3 +5,4 @@ scipy
 datetime
 astropy
 streamlit-option-menu
+streamlit-scroll-to-top
