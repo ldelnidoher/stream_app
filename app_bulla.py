@@ -86,7 +86,7 @@ if menu == "EOP PREDICTIONS":
         dff.insert(2, column = 'day', value = day)
          
         
-        st.title('Short-term EOP predictions: 10 days')
+        st.header('Short-term EOP predictions: 10 days')
         st.write(text1)
         st.markdown(text2) 
         st.divider() 
