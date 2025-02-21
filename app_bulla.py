@@ -12,14 +12,6 @@ import sqlite3
 from streamlit_option_menu import option_menu
 from streamlit_scroll_to_top import scroll_to_here
 
-
-
-text1 = 'The prediction of the parameters is calculated using **Machine Learning** algorithms. The prediction horizon extends 10 days into the future, in addition to the day on which the calculations are conducted, referred to as Day 0.'
-text2 = '[IERS EOP 20 C04](https://www.iers.org/IERS/EN/DataProducts/EarthOrientationData/eop.html) and [GFZ Effective Angular Momentum Functions](http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=e0fff81f-dcae-469e-8e0a-eb10caf2975b) are employed as input data.'
-text3 = 'Two predictive models are applied. **w/o EAM** utilises only EOP data as input whereas **w/ EAM** includes both EOP data and Effective Angular Momentum data.'
-
-st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':earth_africa:')
-
 if 'scroll_to_top' not in st.session_state:
     st.session_state.scroll_to_top = False
 
@@ -30,7 +22,11 @@ if st.session_state.scroll_to_top:
 def scroll():
     st.session_state.scroll_to_top = True
 
+text1 = 'The prediction of the parameters is calculated using **Machine Learning** algorithms. The prediction horizon extends 10 days into the future, in addition to the day on which the calculations are conducted, referred to as Day 0.'
+text2 = '[IERS EOP 20 C04](https://www.iers.org/IERS/EN/DataProducts/EarthOrientationData/eop.html) and [GFZ Effective Angular Momentum Functions](http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=e0fff81f-dcae-469e-8e0a-eb10caf2975b) are employed as input data.'
+text3 = 'Two predictive models are applied. **w/o EAM** utilises only EOP data as input whereas **w/ EAM** includes both EOP data and Effective Angular Momentum data.'
 
+st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':earth_africa:')
 
 custom_html = """
 <div class="banner">
@@ -210,13 +206,10 @@ if menu == "PREDICTION MODELS":
     st.subheader("Prediction models using EAM")
     st.write(". . .")
     st.image('esquema_eam.png',output_format = 'png', use_container_width = False) 
-   
-    
-st.button("Scroll to Top", on_click=scroll)
-     
-#if st.button("Scroll to Top 2"):
-#    st.session_state.scroll_to_top = True
-#    st.rerun()
+
+columns = st.columns((1,1,10,1))
+with columns[3]:
+    st.button("Scroll to Top", on_click=scroll, type = 'tertiary' )
      
 d = datetime.datetime.now()
 d = d.replace(microsecond=0)
