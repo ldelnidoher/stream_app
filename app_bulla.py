@@ -20,6 +20,18 @@ text3 = 'Two predictive models are applied. **w/o EAM** utilises only EOP data a
 
 st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':earth_africa:')
 
+if 'scroll_to_top' not in st.session_state:
+    st.session_state.scroll_to_top = False
+
+if st.session_state.scroll_to_top:
+    scroll_to_here(0, key='top')  # Scroll to the top of the page
+    st.session_state.scroll_to_top = False  # Reset the state after scrolling
+
+def scroll():
+    st.session_state.scroll_to_top = True
+
+
+
 custom_html = """
 <div class="banner">
      <img src="https://github.com/ldelnidoher/stream_app/blob/main/logos.png?raw=true" alt="Banner Image">
@@ -43,15 +55,7 @@ st.components.v1.html(custom_html)
 
 
 
-if 'scroll_to_top' not in st.session_state:
-    st.session_state.scroll_to_top = False
 
-if st.session_state.scroll_to_top:
-    scroll_to_here(0, key='top')  # Scroll to the top of the page
-    st.session_state.scroll_to_top = False  # Reset the state after scrolling
-
-def scroll():
-    st.session_state.scroll_to_top = True
 
 #add_selectbox = st.sidebar.radio('Choose data to show:',
 #                                 ('EOP predictions','Contact info'))
