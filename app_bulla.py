@@ -10,7 +10,8 @@ import altair as alt
 import plotly.graph_objects as go
 import sqlite3
 from streamlit_option_menu import option_menu
-import base64
+from streamlit_scroll_to_top import scroll_to_here
+
 
 
 text1 = 'The prediction of the parameters is calculated using **Machine Learning** algorithms. The prediction horizon extends 10 days into the future, in addition to the day on which the calculations are conducted, referred to as Day 0.'
@@ -198,7 +199,27 @@ if menu == "PREDICTION MODELS":
     st.write(". . .")
     st.image('esquema_eam.png',output_format = 'png', use_container_width = False) 
    
+if 'scroll_to_top' not in st.session_state:
+    st.session_state.scroll_to_top = False
+    
+if 'scroll_to_header' not in st.session_state:
+    st.session_state.scroll_to_header = False
 
+if st.session_state.scroll_to_top:
+    scroll_to_here(0, key='top')  # Scroll to the top of the page
+    st.session_state.scroll_to_top = False  # Reset the state after scrolling
+
+def scroll():
+    st.session_state.scroll_to_top = True
+    
+def scrollheader():
+    st.session_state.scroll_to_header = True
+st.button("Scroll to Top", on_click=scroll)
+     
+if st.button("Scroll to Top 2"):
+    st.session_state.scroll_to_top = True
+    st.rerun()
+     
 d = datetime.datetime.now()
 d = d.replace(microsecond=0)
  
