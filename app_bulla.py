@@ -121,17 +121,17 @@ if menu == "EOP PREDICTIONS":
         with col1:
              ll = list(set(df2.year.values))
              ll.sort(reverse=False)
-             years = st.selectbox(label = '1.- Select a year:', options = ll, index = max(ll))
+             years = st.selectbox(label = '1.- Select a year:', options = ll, index = ll[-1])
              df3 = df2[df2['year']==years]
         with col2:
              ll = list(set(df3.month.values))
              ll.sort(reverse=False)
-             months = st.selectbox(label = '2.- Select a month:', options = ll, index = max(ll))
+             months = st.selectbox(label = '2.- Select a month:', options = ll, index = ll[-1])
              df4 = df3[df3['month']==months]
         with col3:
              ll = list(set(df4.day.values))
              ll.sort(reverse=False)
-             days = st.selectbox(label = '3.- Select a day:', options = ll, index = max(ll))
+             days = st.selectbox(label = '3.- Select a day:', options = ll, index = ll[-1])
              df5 = df4[df4['day']==days]
         
         conv1 = (df5[df5['type_EAM'] == 0])["values"].iloc[0]
