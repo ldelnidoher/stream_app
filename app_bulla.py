@@ -157,7 +157,7 @@ if menu == "EOP PREDICTIONS":
         s = df.style.set_table_styles(styles)
         st.table(s)
          
-        np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter=' \t', header = 'Date | Epoch [MJD] | w/o EAM | w/EAM')
+        np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter=' \t', header = '|    Date    |    Epoch [MJD]    |    w/o EAM    |    w/EAM    |')
         f = open('param.txt','r') 
         lista =f.read()
         f.close()
@@ -179,14 +179,12 @@ if menu == "EOP PREDICTIONS":
              fig.add_trace(go.Scatter(
                  x = df['Epoch [MJD]'],y = df[df.columns[-j]],
                  mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
-        #fig.add_shape(type="rect", xref="paper", yref="paper",x0=-0.07, y0=-0.25, x1=1, y1=1.1, line=dict(color="#fb9a5a",width=2))
          
         fig.update_layout(legend_title_text = "Models")
         fig.update_xaxes(title_text="MJD")
         fig.update_yaxes(title_text=f"{txt}")
         
         st.plotly_chart(fig, use_container_width=True)
-         
         st.divider()   
          
     except:
@@ -210,10 +208,8 @@ if menu == "PREDICTION MODELS":
     st.write("-For the **dUT1** prediction, the data is preprocessed by removing the leap seconds. Afterwards, alongside with zEAM, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final dUT1 prediction.")
     st.image('esquema_eam.png',output_format = 'png', use_container_width = False) 
 
-
      
 d = datetime.datetime.now().date()
-#d = d.replace(hour = 0, minute= 0, second = 0, microsecond=0)
 
 columns = st.columns([0.9,0.1], gap = "small")
 with columns[0]:
