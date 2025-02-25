@@ -53,12 +53,6 @@ custom_html = """
 st.components.v1.html(custom_html)
 
 
-
-
-
-
-#add_selectbox = st.sidebar.radio('Choose data to show:',
-#                                 ('EOP predictions','Contact info'))
 menu = option_menu(menu_title = None,
                    options=["EOP PREDICTIONS", "PREDICTION MODELS", "ABOUT US"],
                    orientation = "horizontal",
@@ -70,7 +64,6 @@ menu = option_menu(menu_title = None,
                         },
                   )
 st.divider()
-
 
 
 if menu == "ABOUT US":
@@ -127,18 +120,18 @@ if menu == "EOP PREDICTIONS":
         col1,col2,col3 = st.columns(3)
         with col1:
              ll = list(set(df2.year.values))
-             ll.sort(reverse=True)
-             years = st.selectbox(label = '1.- Select a year:', options = ll )
+             ll.sort(reverse=False)
+             years = st.selectbox(label = '1.- Select a year:', options = ll, index = max(ll))
              df3 = df2[df2['year']==years]
         with col2:
              ll = list(set(df3.month.values))
-             ll.sort(reverse=True)
-             months = st.selectbox(label = '2.- Select a month:', options = ll)
+             ll.sort(reverse=False)
+             months = st.selectbox(label = '2.- Select a month:', options = ll, index = max(ll))
              df4 = df3[df3['month']==months]
         with col3:
              ll = list(set(df4.day.values))
-             ll.sort(reverse=True)
-             days = st.selectbox(label = '3.- Select a day:', options = ll)
+             ll.sort(reverse=False)
+             days = st.selectbox(label = '3.- Select a day:', options = ll, index = max(ll))
              df5 = df4[df4['day']==days]
         
         conv1 = (df5[df5['type_EAM'] == 0])["values"].iloc[0]
