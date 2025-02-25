@@ -157,11 +157,11 @@ if menu == "EOP PREDICTIONS":
         s = df.style.set_table_styles(styles)
         st.table(s)
          
-        np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter=' \t', header = '|    Date    |    Epoch [MJD]    |    w/o EAM    |    w/EAM    |')
+        np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter=' \t', header = '       Date        |  Epoch  |    w/o EAM   |    w/EAM    ')
         f = open('param.txt','r') 
         lista =f.read()
         f.close()
-         
+        
         if selected == 'UT1-UTC':
              string = 'dut1'
         else:
