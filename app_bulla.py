@@ -156,8 +156,11 @@ if menu == "EOP PREDICTIONS":
         styles = [dict(selector="", props=[('border','2px solid #fb9a5a')]), dict(selector="th", props=[("background-color","#b2d6fb"),('color','black')])] 
         s = df.style.set_table_styles(styles)
         st.table(s)
-         
-        np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter='   \t', header = '    Date [YY-MM-DD]   | Epoch[MJD] | w/o EAM [{txt}] |    w/EAM  [{txt}]')
+
+        l = len(txt)
+        if l<3:
+            txt = txt+(' '*(3-l))
+        np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter='   \t', header = f'    Date [YY-MM-DD]   | Epoch[MJD] | w/o EAM [{txt}] |    w/EAM  [{txt}]')
         f = open('param.txt','r') 
         lista =f.read()
         f.close()
