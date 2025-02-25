@@ -152,15 +152,17 @@ if menu == "EOP PREDICTIONS":
              txt = 'as'
              fm = '% .8f'
          
-        df = pd.DataFrame({'Date':dates_fmt,'Epoch [MJD]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, index = (['Day'+str(v) for v in range(11)]))
+        df = pd.DataFrame({'Date [YY-MM-DD]':dates_fmt,'Epoch [MJD]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, index = (['Day'+str(v) for v in range(11)]))
         styles = [dict(selector="", props=[('border','2px solid #fb9a5a')]), dict(selector="th", props=[("background-color","#b2d6fb"),('color','black')])] 
         s = df.style.set_table_styles(styles)
         st.table(s)
          
-        np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter=' \t', header = '       Date        |  Epoch  |    w/o EAM   |    w/EAM    ')
+        np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter='   \t', header = '    Date [YY-MM-DD]   | Epoch[MJD] | w/o EAM [{txt}] |    w/EAM  [{txt}]')
         f = open('param.txt','r') 
         lista =f.read()
         f.close()
+
+        
         
         if selected == 'UT1-UTC':
              string = 'dut1'
