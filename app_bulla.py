@@ -159,7 +159,7 @@ if menu == "EOP PREDICTIONS":
 
         l = len(txt)
         if l<3:
-            txt = txt+(' '*(2-l))+'
+            txt = txt+(' '*(2-l))
         txt = txt+']'
         np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter='   \t', header = f'   Date [YY-MM-DD]  | Epoch[MJD] | w/o EAM [{txt} |    w/EAM  [{txt}')
         f = open('param.txt','r') 
