@@ -74,9 +74,10 @@ st.divider()
 
 
 if menu == "ABOUT US":
-    st.markdown('VLBI Analysis Center of the University of Alicante: [UAVAC](https://web.ua.es/en/uavac/)')
-    st.markdown('Geodesy Area of the Spanish National Geographic Institute: [IGN Geodesy](https://www.ign.es/web/ign/portal/gds-area-geodesia)')
-    st.markdown('Atlantic Network of Space Geodetic Stations: [RAEGE](https://raege.eu/)')
+    st.write("We are a team of scientists working in collaboration from:")
+    st.markdown('- VLBI Analysis Center of the University of Alicante: [UAVAC](https://web.ua.es/en/uavac/)')
+    st.markdown('- Geodesy Area of the Spanish National Geographic Institute: [IGN Geodesy](https://www.ign.es/web/ign/portal/gds-area-geodesia)')
+    st.markdown('- Atlantic Network of Space Geodetic Stations: [RAEGE](https://raege.eu/)')
 
 
 
