@@ -15,7 +15,7 @@ from streamlit_scroll_to_top import scroll_to_here
 
 st.set_page_config(layout = 'wide', page_title='EOP prediction', page_icon = ':earth_africa:')
 
-
+#Creating a "scroll to top of the page" button
 if 'scroll_to_top' not in st.session_state:
     st.session_state.scroll_to_top = False
 
@@ -31,7 +31,7 @@ text2 = '[IERS EOP 20 C04](https://www.iers.org/IERS/EN/DataProducts/EarthOrient
 text3 = 'Two predictive models are applied. **w/o EAM** utilises only EOP data as input whereas **w/ EAM** includes both EOP data and Effective Angular Momentum data.'
 
 
-
+#Banner image
 custom_html = """
 <div class="banner">
      <img src="https://github.com/ldelnidoher/stream_app/blob/main/logos.png?raw=true" alt="Banner Image">
@@ -52,7 +52,7 @@ custom_html = """
 """
 st.components.v1.html(custom_html)
 
-
+#Menu on top of the page
 menu = option_menu(menu_title = None,
                    options=["EOP PREDICTIONS", "PREDICTION MODELS", "ABOUT US"],
                    orientation = "horizontal",
@@ -65,7 +65,7 @@ menu = option_menu(menu_title = None,
                   )
 st.divider()
 
-
+#About us page
 if menu == "ABOUT US":
     st.write("We are a team of scientists working in collaboration from:")
     st.markdown('- VLBI Analysis Center of the University of Alicante: [UAVAC](https://web.ua.es/en/uavac/)')
@@ -74,16 +74,18 @@ if menu == "ABOUT US":
 
 
 
-     
+#EOP predictions page     
 if menu == "EOP PREDICTIONS":
     try:
+        #Connection to db database where all predictions are stored
         db_path = 'db.db' 
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         cursor.execute("""SELECT * from polls_files """)
-        dff=pd.read_sql("""SELECT * from polls_files """, conn)
+        dff=pd.read_sql("""SELECT * from polls_files """, conn)  #DataFrame with all the prediction data from the database
         conn.close()
-    
+
+        #For easy access to the desired file, we will filter it by year, then month and finally day.
         dates = dff['pub_date'].values
         year = [s[:4] for s in dates]
         month = [m[5:7] for m in dates]
@@ -93,12 +95,12 @@ if menu == "EOP PREDICTIONS":
         dff.insert(1, column = 'month', value = month)
         dff.insert(2, column = 'day', value = day)
          
-        
+        #Filter the files for the user
         st.header('Short-term EOP predictions: 10 days')
         st.write(text1)
         st.markdown(text2) 
         st.divider() 
-        selected = st.selectbox('Choose an EOP:', ('xpol', 'ypol', 'dX', 'dY', 'UT1-UTC'),) 
+        selected = st.selectbox('Choose an EOP:', ('xpol', 'ypol', 'dX', 'dY', 'UT1-UTC'),)  #choosing a parameter
         eop = ['xpol', 'ypol', 'dX', 'dY', 'UT1-UTC']
         if selected == 'xpol':
              val = 'xp'
@@ -134,6 +136,7 @@ if menu == "EOP PREDICTIONS":
              days = st.selectbox(label = '3.- Select a day:', options = ll, index = ll.index(max(ll)))
              df5 = df4[df4['day']==days]
         
+        #Reading the data of the chosen prediction epoch
         conv1 = (df5[df5['type_EAM'] == 0])["values"].iloc[0]
         conv2 = (df5[df5['type_EAM'] == 1])["values"].iloc[0]
         conv_dates = ((df5[df5['type_EAM'] == 0])["pub_date"].values)[0]
@@ -151,12 +154,14 @@ if menu == "EOP PREDICTIONS":
         if val in {'xp','yp'}:
              txt = 'as'
              fm = '% .8f'
-         
+
+        #Visualization of the predictions for the chosen epoch in a table format
         df = pd.DataFrame({'Date [YY-MM-DD]':dates_fmt,'Epoch [MJD]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, index = (['Day'+str(v) for v in range(11)]))
         styles = [dict(selector="", props=[('border','2px solid #fb9a5a')]), dict(selector="th", props=[("background-color","#b2d6fb"),('color','black')])] 
         s = df.style.set_table_styles(styles)
         st.table(s)
 
+        #Creating .txt and .csv files with the predictions for the chosen epoch
         l = len(txt)
         if l<3:
             txt = txt+']'+(' '*(2-l))
@@ -167,8 +172,6 @@ if menu == "EOP PREDICTIONS":
         lista =f.read()
         f.close()
 
-        
-        
         if selected == 'UT1-UTC':
              string = 'dut1'
         else:
@@ -180,7 +183,7 @@ if menu == "EOP PREDICTIONS":
         with col2:
              st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.csv', data = df.to_csv(index = False))
          
-         
+        #Visualization of the chosen data in an interactive plot 
         fig = go.Figure()
         for j in range(1,3):
              fig.add_trace(go.Scatter(
@@ -193,12 +196,14 @@ if menu == "EOP PREDICTIONS":
         
         st.plotly_chart(fig, use_container_width=True)
         st.divider()   
-         
+
+    #Error message
     except:
         with st.spinner(text="Uploading. This process might take a few minutes..."):
             time.sleep(15)
             st.rerun()
-             
+
+#Prediction models theory page
 if menu == "PREDICTION MODELS":
     st.header("Short-term EOP predictions: 10 days")
     st.subheader("Prediction models without EAM")
@@ -219,7 +224,7 @@ if menu == "PREDICTION MODELS":
 d = datetime.datetime.now().date()
 
 columns = st.columns([0.9,0.1], gap = "small")
-with columns[0]:
+with columns[0]: 
     st.write(f'Last updated: {d}')
 with columns[1]:
     st.button('Scroll to top', on_click=scroll, type = 'secondary' )
