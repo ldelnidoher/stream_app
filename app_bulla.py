@@ -199,24 +199,30 @@ if menu == "EOP PREDICTIONS":
         
         
         #Construction of historic data
-        df_hist_no = pd.DataFrame(data = [], columns = ['pub_date','xp','yp','dt','dx','dy'])
-        df_no = df2[df2['type_EAM'] == 0].sort_values('pub_date')
-        df_hist_no.pub_date = df_no.pub_date
-        df_hist_no.xp = df_no['values']
+        # df_aux_no = pd.DataFrame(data = [], columns = ['pub_date','mj','xp','yp','dt','dx','dy'])
+        # df_no = df2[df2['type_EAM'] == 0].sort_values('pub_date')
+        # df_aux_no.pub_date = df_no.pub_date
+
+        # df_aux_si = pd.DataFrame(data = [], columns = ['pub_date','mj','xp','yp','dt','dx','dy'])
+        # df_si = df2[df2['type_EAM'] == 1].sort_values('pub_date')
+        # df_aux_si.pub_date = df_si.pub_date
         
-        df_hist_si = pd.DataFrame(data = [], columns = ['pub_date','xp','yp','dt','dx','dy'])
-        df_si = df2[df2['type_EAM'] == 1].sort_values('pub_date')
-        df_hist_si.pub_date = df_si.pub_date
-        df_hist_si.xp = df_si['values']
+        # for item in ['mj','xp','yp','dx','dy','dt']:
+        #     df_aux = dff[dff['param']==item]
+            
+        #     df_no = df_aux[df_aux['type_EAM'] == 0].sort_values('pub_date')
+        #     df_aux_no[item] = df_no['values'].values
+            
+        #     df_si = df_aux[df_aux['type_EAM'] == 1].sort_values('pub_date')
+        #     df_aux_si[item] = df_si['values'].values
         
-        for item in ['yp','dx','dy','dt']:
-            df_aux = dff[dff['param']==item]
+        # #Change df format for a row per day:
+        # df_no_final = pd.DataFrame(data = [], columns = ['pub_date','xp','yp','dt','dx','dy'])
+        # df_si_final = pd.DataFrame(data = [], columns = ['pub_date','xp','yp','dt','dx','dy'])
+        
+        # # for i in range(len(df_aux_no)):
             
-            df_no = df_aux[df_aux['type_EAM'] == 0].sort_values('pub_date')
-            df_hist_no[item] = df_no['values'].values
-            
-            df_si = df_aux[df_aux['type_EAM'] == 1].sort_values('pub_date')
-            df_hist_si[item] = df_si['values'].values
+        
     #Error message
     except:
         with st.spinner(text="Uploading. This process might take a few minutes..."):
