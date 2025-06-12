@@ -195,8 +195,28 @@ if menu == "EOP PREDICTIONS":
         fig.update_yaxes(title_text=f"{txt}")
         
         st.plotly_chart(fig, use_container_width=True)
-        st.divider()   
-
+        st.divider()  
+        
+        
+        #Construction of historic data
+        df_hist_no = pd.DataFrame(data = [], columns = ['pub_date','xp','yp','dt','dx','dy'])
+        df_no = df2[df2['type_EAM'] == 0].sort_values('pub_date')
+        df_hist_no.pub_date = df_no.pub_date
+        df_hist_no.xp = df_no['values']
+        
+        df_hist_si = pd.DataFrame(data = [], columns = ['pub_date','xp','yp','dt','dx','dy'])
+        df_si = df2[df2['type_EAM'] == 1].sort_values('pub_date')
+        df_hist_si.pub_date = df_si.pub_date
+        df_hist_si.xp = df_si['values']
+        
+        for item in ['yp','dx','dy','dt']:
+            df_aux = dff[dff['param']==item]
+            
+            df_no = df_aux[df_aux['type_EAM'] == 0].sort_values('pub_date')
+            df_hist_no[item] = df_no['values'].values
+            
+            df_si = df_aux[df_aux['type_EAM'] == 1].sort_values('pub_date')
+            df_hist_si[item] = df_si['values'].values
     #Error message
     except:
         with st.spinner(text="Uploading. This process might take a few minutes..."):
