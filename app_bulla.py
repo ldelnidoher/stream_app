@@ -157,21 +157,22 @@ if menu == "EOP PREDICTIONS":
         lista_si = f.read()
         f.close()
 
-        
-        st.write('Historic predictions for all EOPs using w/o EAM models:')
-        col1,col2 = st.columns([0.1,0.9],gap = 'small')
+        col1,col2 = st.columns([0.5,0.5],gap = 'small')
         with col1:
-             st.download_button(label =':arrow_heading_down: .txt file :arrow_heading_down:', file_name = f'history_no_eam.txt', data = lista_no)
+            st.write('Historic predictions for all EOPs using w/o EAM models:')
+            col3,col4 = st.columns([0.1,0.9],gap = 'small')
+            with col3:
+                 st.download_button(label =':arrow_heading_down: .txt file :arrow_heading_down:', file_name = f'history_no_eam.txt', data = lista_no)
+            with col4:
+                 st.download_button(label =':arrow_heading_down: .csv file :arrow_heading_down:', file_name = f'history_no_eam.csv', data = df_no_hist.to_csv(index = False))
         with col2:
-             st.download_button(label =':arrow_heading_down: .csv file :arrow_heading_down:', file_name = f'history_no_eam.csv', data = df_no_hist.to_csv(index = False))
-
-        st.write('Historic predictions for all EOPs using w/ EAM models:')
-        col1,col2 = st.columns([0.1,0.9],gap = 'small')
-        with col1:
-             st.download_button(label =':arrow_heading_down: .txt file :arrow_heading_down:', file_name = f'history_with_eam.txt', data = lista_si)
-        with col2:
-             st.download_button(label =':arrow_heading_down: .csv file :arrow_heading_down:', file_name = f'history_with_eam.csv', data = df_si_hist.to_csv(index = False)) 
-             
+            st.write('Historic predictions for all EOPs using w/ EAM models:')
+            col3,col4 = st.columns([0.1,0.9],gap = 'small')
+            with col3:
+                 st.download_button(label =':arrow_heading_down: .txt file :arrow_heading_down:', file_name = f'history_with_eam.txt', data = lista_si)
+            with col4:
+                 st.download_button(label =':arrow_heading_down: .csv file :arrow_heading_down:', file_name = f'history_with_eam.csv', data = df_si_hist.to_csv(index = False)) 
+                 
              
         st.divider() 
         st.write('Filtering results by epoch and parameter:')
