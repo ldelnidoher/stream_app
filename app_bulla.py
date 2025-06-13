@@ -155,15 +155,15 @@ if menu == "EOP PREDICTIONS":
         
         col1,col2 = st.columns([0.2,0.8],gap = 'small')
         with col1:
-             st.download_button(label =':arrow_heading_down: Historic w/o EAM as .txt :arrow_heading_down:', file_name = f'historic_no_eam.txt', data = lista_no, type = 'secondary')
+             st.download_button(label =':arrow_heading_down: Historic w/o EAM as .txt :arrow_heading_down:', file_name = f'historic_no_eam.txt', data = lista_no, type = 'tertiary')
         with col2:
-             st.download_button(label =':arrow_heading_down: Historic w/o EAM as .csv :arrow_heading_down:', file_name = f'historic_no_eam.csv', data = df_no_hist.to_csv(index = False), type = 'secondary')
+             st.download_button(label =':arrow_heading_down: Historic w/o EAM as .csv :arrow_heading_down:', file_name = f'historic_no_eam.csv', data = df_no_hist.to_csv(index = False), type = 'tertiary')
              
         col1,col2 = st.columns([0.2,0.8],gap = 'small')
         with col1:
-             st.download_button(label =':arrow_heading_down: Historic w/EAM as .txt :arrow_heading_down:', file_name = f'historic_with_eam.txt', data = lista_si, type = 'secondary')
+             st.download_button(label =':arrow_heading_down: Historic w/EAM as .txt :arrow_heading_down:', file_name = f'historic_with_eam.txt', data = lista_si, type = 'tertiary')
         with col2:
-             st.download_button(label =':arrow_heading_down: Historic w/EAM as .csv :arrow_heading_down:', file_name = f'historic_with_eam.csv', data = df_si_hist.to_csv(index = False), type = 'secondary') 
+             st.download_button(label =':arrow_heading_down: Historic w/EAM as .csv :arrow_heading_down:', file_name = f'historic_with_eam.csv', data = df_si_hist.to_csv(index = False), type = 'tertiary') 
              
              
         st.divider() 
@@ -294,7 +294,7 @@ columns = st.columns([0.9,0.1], gap = "small")
 with columns[0]: 
     st.write(f'Last updated: {d}')
 with columns[1]:
-    st.button('Scroll to top', on_click=scroll, type = 'secondary' )
+    st.button('Scroll to top', on_click=scroll, type = 'tertiary' )
 
     
      
