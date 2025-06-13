@@ -263,7 +263,7 @@ if menu == "EOP PREDICTIONS":
          
         fig.update_layout(legend_title_text = "Models")
         fig.update_xaxes(title_text="MJD")
-        fig.update_yaxes(title_text=f"{txt}")
+        fig.update_yaxes(title_text=f"[{txt}")
         
         st.plotly_chart(fig, use_container_width=True)
         st.divider()  
