@@ -156,16 +156,17 @@ if menu == "EOP PREDICTIONS":
         f = open('historic_with_eam.txt','r') 
         lista_si = f.read()
         f.close()
+
         
-        col1,col2 = st.columns([0.2,0.8],gap = 'small')
         st.write('Historic predictions for all EOPs using w/o EAM models:')
+        col1,col2 = st.columns([0.1,0.9],gap = 'small')
         with col1:
              st.download_button(label =':arrow_heading_down: .txt file :arrow_heading_down:', file_name = f'history_no_eam.txt', data = lista_no)
         with col2:
              st.download_button(label =':arrow_heading_down: .csv file :arrow_heading_down:', file_name = f'history_no_eam.csv', data = df_no_hist.to_csv(index = False))
-             
-        col1,col2 = st.columns([0.2,0.8],gap = 'small')
+
         st.write('Historic predictions for all EOPs using w/ EAM models:')
+        col1,col2 = st.columns([0.1,0.9],gap = 'small')
         with col1:
              st.download_button(label =':arrow_heading_down: .txt file :arrow_heading_down:', file_name = f'history_with_eam.txt', data = lista_si)
         with col2:
@@ -173,6 +174,7 @@ if menu == "EOP PREDICTIONS":
              
              
         st.divider() 
+        st.write('Filtering results by epoch and parameter:')
         selected = st.selectbox('Choose an EOP:', ('xpol', 'ypol', 'dX', 'dY', 'UT1-UTC'),)  #choosing a parameter
         eop = ['xpol', 'ypol', 'dX', 'dY', 'UT1-UTC']
         if selected == 'xpol':
