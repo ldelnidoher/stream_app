@@ -147,7 +147,7 @@ if menu == "EOP PREDICTIONS":
         #Filter the files for the user
         st.header('Short-term EOP predictions: 10 days')
         st.write(text1)
-        st.markdown(text2) st.write(text3)
+        st.markdown(text3) 
 
         f = open('historic_no_eam.txt','r') 
         lista_no = f.read()
