@@ -149,6 +149,8 @@ if menu == "EOP PREDICTIONS":
         st.write(text1)
         st.markdown(text3) 
 
+
+        st.subheader('Historical records:')
         f = open('historic_no_eam.txt','r') 
         lista_no = f.read()
         f.close()
