@@ -255,6 +255,7 @@ if menu == "EOP PREDICTIONS":
              st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.csv', data = df.to_csv(index = False))
          
         #Visualization of the chosen data in an interactive plot 
+        st.write('Interactive plot:')
         fig = go.Figure()
         for j in range(1,3):
              fig.add_trace(go.Scatter(
