@@ -137,6 +137,14 @@ if menu == "EOP PREDICTIONS":
         np.savetxt('historic_no_eam.txt',df_no_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = f'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ')   
         np.savetxt('historic_with_eam.txt',df_si_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = f'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ')   
 
+        
+        
+        ##############################################################################################################
+        #Filter the files for the user
+        st.header('Short-term EOP predictions: 10 days')
+        st.write(text1)
+        st.markdown(text2) 
+        
         f = open('historic_no_eam.txt','r') 
         lista_no = f.read()
         f.close()
@@ -147,21 +155,17 @@ if menu == "EOP PREDICTIONS":
         
         col1,col2 = st.columns([0.2,0.8],gap = 'small')
         with col1:
-             st.download_button(label =':arrow_heading_down: Save all EOPs w/o EAM as .txt :arrow_heading_down:', file_name = f'historic_no_eam.txt', data = lista_no)
+             st.download_button(label =':arrow_heading_down: Historic w/o EAM as .txt :arrow_heading_down:', file_name = f'historic_no_eam.txt', data = lista_no)
         with col2:
-             st.download_button(label =':arrow_heading_down: Save all EOPs w/o EAM as .csv :arrow_heading_down:', file_name = f'historic_no_eam.csv', data = df_no_hist.to_csv(index = False))
+             st.download_button(label =':arrow_heading_down: Historic w/o EAM as .csv :arrow_heading_down:', file_name = f'historic_no_eam.csv', data = df_no_hist.to_csv(index = False))
              
         col1,col2 = st.columns([0.2,0.8],gap = 'small')
         with col1:
-             st.download_button(label =':arrow_heading_down: Save all EOPs w/EAM as .txt :arrow_heading_down:', file_name = f'historic_with_eam.txt', data = lista_si)
+             st.download_button(label =':arrow_heading_down: Historic w/EAM as .txt :arrow_heading_down:', file_name = f'historic_with_eam.txt', data = lista_si)
         with col2:
-             st.download_button(label =':arrow_heading_down: Save all EOPs w/EAM as .csv :arrow_heading_down:', file_name = f'historic_with_eam.csv', data = df_si_hist.to_csv(index = False)) 
-        
-        
-        #Filter the files for the user
-        st.header('Short-term EOP predictions: 10 days')
-        st.write(text1)
-        st.markdown(text2) 
+             st.download_button(label =':arrow_heading_down: Historic w/EAM as .csv :arrow_heading_down:', file_name = f'historic_with_eam.csv', data = df_si_hist.to_csv(index = False)) 
+             
+             
         st.divider() 
         selected = st.selectbox('Choose an EOP:', ('xpol', 'ypol', 'dX', 'dY', 'UT1-UTC'),)  #choosing a parameter
         eop = ['xpol', 'ypol', 'dX', 'dY', 'UT1-UTC']
