@@ -28,7 +28,7 @@ def scroll():
 
 text1 = 'The prediction of the parameters is calculated using **Machine Learning** algorithms. The prediction horizon extends 10 days into the future, in addition to the day on which the calculations are conducted, referred to as Day 0.'
 text2 = '[IERS EOP 20 C04, IERS Bulletin A](https://www.iers.org/IERS/EN/DataProducts/EarthOrientationData/eop.html) and [GFZ Effective Angular Momentum Functions](http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=e0fff81f-dcae-469e-8e0a-eb10caf2975b) are employed as input data.'
-text3 = 'Two predictive models are applied. **w/o EAM** utilises only EOP data as input whereas **w/ EAM** includes both EOP data and Effective Angular Momentum data.'
+text3 = text2+' Two predictive models are applied. **w/o EAM** utilises only EOP data as input whereas **w/ EAM** includes both EOP data and Effective Angular Momentum data.'
 
 
 #Banner image
@@ -147,9 +147,8 @@ if menu == "EOP PREDICTIONS":
         #Filter the files for the user
         st.header('Short-term EOP predictions: 10 days')
         st.write(text1)
-        st.markdown(text2) 
-        st.write(text3)
-        st.write('prueba')
+        st.markdown(text2) st.write(text3)
+
         f = open('historic_no_eam.txt','r') 
         lista_no = f.read()
         f.close()
