@@ -149,6 +149,8 @@ if menu == "EOP PREDICTIONS":
         st.write(text1)
         st.markdown(text2) 
         
+        st.write(text3)
+        
         f = open('historic_no_eam.txt','r') 
         lista_no = f.read()
         f.close()
@@ -184,7 +186,7 @@ if menu == "EOP PREDICTIONS":
         if selected == 'UT1-UTC':
              val = 'dt' 
         st.subheader(f'Predictions for {selected:}')
-        st.write(text3) 
+        # st.write(text3) 
     
          
         df2 = dff[dff['param']==val]
