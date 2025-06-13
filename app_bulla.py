@@ -199,30 +199,68 @@ if menu == "EOP PREDICTIONS":
         
         
         #Construction of historic data
-        # df_aux_no = pd.DataFrame(data = [], columns = ['pub_date','mj','xp','yp','dt','dx','dy'])
-        # df_no = df2[df2['type_EAM'] == 0].sort_values('pub_date')
-        # df_aux_no.pub_date = df_no.pub_date
+        df_aux_no = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
+        df_no = df2[df2['type_EAM'] == 0].sort_values('pub_date')
+        df_aux_no.pub_date = df_no.pub_date
 
-        # df_aux_si = pd.DataFrame(data = [], columns = ['pub_date','mj','xp','yp','dt','dx','dy'])
-        # df_si = df2[df2['type_EAM'] == 1].sort_values('pub_date')
-        # df_aux_si.pub_date = df_si.pub_date
+        df_aux_si = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
+        df_si = df2[df2['type_EAM'] == 1].sort_values('pub_date')
+        df_aux_si.pub_date = df_si.pub_date
         
-        # for item in ['mj','xp','yp','dx','dy','dt']:
-        #     df_aux = dff[dff['param']==item]
+        for item in ['mj','xp','yp','dx','dy','dt']:
+            df_aux = dff[dff['param']==item]
             
-        #     df_no = df_aux[df_aux['type_EAM'] == 0].sort_values('pub_date')
-        #     df_aux_no[item] = df_no['values'].values
+            df_no = df_aux[df_aux['type_EAM'] == 0].sort_values('pub_date')
+            df_aux_no[item] = df_no['values'].values
             
-        #     df_si = df_aux[df_aux['type_EAM'] == 1].sort_values('pub_date')
-        #     df_aux_si[item] = df_si['values'].values
+            df_si = df_aux[df_aux['type_EAM'] == 1].sort_values('pub_date')
+            df_aux_si[item] = df_si['values'].values
         
-        # #Change df format for a row per day:
-        # df_no_final = pd.DataFrame(data = [], columns = ['pub_date','xp','yp','dt','dx','dy'])
-        # df_si_final = pd.DataFrame(data = [], columns = ['pub_date','xp','yp','dt','dx','dy'])
+        #Change df format for a row per day:
+        df_no_hist = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
+        df_si_hist = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
         
-        # # for i in range(len(df_aux_no)):
+        for i in range(len(df_aux_no)):
+            sample_no = df_aux_no.iloc[i]
+            aux_no = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
+            sample_si = df_aux_si.iloc[i]
+            aux_si = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
+            for it in ['mj','xp','yp','dt','dx','dy']:
+                aux_no[it] = list(map(float,sample_no[it].split(',')))
+                aux_si[it] = list(map(float,sample_si[it].split(',')))
+                # df_no_hist = pd.concat([df_no_hist,[np.nan]*7])
+            df_no_hist = pd.concat([df_no_hist,aux_no])
+            df_si_hist = pd.concat([df_si_hist,aux_si])
             
+        df_no_hist.dop = df_no_hist.index
+        df_si_hist.dop = df_si_hist.index
         
+        dates_hist_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in df_no_hist['mj'].values]
+        df_no_hist.pub_date = dates_hist_fmt
+        df_si_hist.pub_date = dates_hist_fmt
+           
+        np.savetxt('historic_no_eam.txt',df_no_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = f'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ')   
+        np.savetxt('historic_with_eam.txt',df_si_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = f'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ')   
+
+        f = open('historic_no_eam.txt','r') 
+        lista_no = f.read()
+        f.close()
+        
+        f = open('historic_with_eam.txt','r') 
+        lista_si = f.read()
+        f.close()
+        
+        col1,col2 = st.columns([0.2,0.8],gap = 'small')
+        with col1:
+             st.download_button(label =':arrow_heading_down: Save all EOPs w/o EAM as .txt :arrow_heading_down:', file_name = f'historic_no_eam.txt', data = lista_no)
+        with col2:
+             st.download_button(label =':arrow_heading_down: Save all EOPs w/o EAM as .csv :arrow_heading_down:', file_name = f'historic_no_eam.csv', data = df_no_hist.to_csv(index = False))
+             
+        col1,col2 = st.columns([0.2,0.8],gap = 'small')
+        with col1:
+             st.download_button(label =':arrow_heading_down: Save all EOPs w/EAM as .txt :arrow_heading_down:', file_name = f'historic_with_eam.txt', data = lista_si)
+        with col2:
+             st.download_button(label =':arrow_heading_down: Save all EOPs w/EAM as .csv :arrow_heading_down:', file_name = f'historic_with_eam.csv', data = df_si_hist.to_csv(index = False)) 
     #Error message
     except:
         with st.spinner(text="Uploading. This process might take a few minutes..."):
