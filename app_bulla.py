@@ -148,9 +148,8 @@ if menu == "EOP PREDICTIONS":
         st.header('Short-term EOP predictions: 10 days')
         st.write(text1)
         st.markdown(text2) 
-        
         st.write(text3)
-        
+        st.write('prueba')
         f = open('historic_no_eam.txt','r') 
         lista_no = f.read()
         f.close()
