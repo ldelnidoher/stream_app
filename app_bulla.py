@@ -177,6 +177,7 @@ if menu == "EOP PREDICTIONS":
                  
              
         st.divider() 
+        st.subheader('Results by parameter:')
         st.write('Filtering results by epoch and parameter:')
         selected = st.selectbox('Choose an EOP:', ('xpol', 'ypol', 'dX', 'dY', 'UT1-UTC'),)  #choosing a parameter
         eop = ['xpol', 'ypol', 'dX', 'dY', 'UT1-UTC']
@@ -190,7 +191,7 @@ if menu == "EOP PREDICTIONS":
              val = 'dy'
         if selected == 'UT1-UTC':
              val = 'dt' 
-        st.subheader(f'Predictions for {selected:}')
+        st.write(f'**Predictions for {selected:}**')
         # st.write(text3) 
     
          
