@@ -133,9 +133,13 @@ if menu == "EOP PREDICTIONS":
         dates_hist_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in df_no_hist['mj'].values]
         df_no_hist.pub_date = dates_hist_fmt
         df_si_hist.pub_date = dates_hist_fmt
-           
-        np.savetxt('historic_no_eam.txt',df_no_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = f'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ')   
-        np.savetxt('historic_with_eam.txt',df_si_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = f'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ')   
+        
+        ls = ['Date [YY-MM-DD]','Epoch[MJD]','Prediction day','xpol[as]','ypol[as]','dUT1[s]','dX[mas]','dY[mas]']
+        df_no_hist.rename(columns = ls)
+        df_si_hist.rename(columns = ls)
+        
+        np.savetxt('historic_no_eam.txt',df_no_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ')   
+        np.savetxt('historic_with_eam.txt',df_si_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ')   
 
         
         
