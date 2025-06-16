@@ -163,14 +163,14 @@ if menu == "EOP PREDICTIONS":
         col1,col2 = st.columns([0.5,0.5],gap = 'small')
         with col1:
             st.write('Historic predictions for all EOPs using w/o EAM models:')
-            col3,col4 = st.columns([0.2,0.8],gap = 'small')
+            col3,col4 = st.columns([0.3,0.7],gap = 'small')
             with col3:
                  st.download_button(label =':arrow_heading_down: .txt file :arrow_heading_down:', file_name = f'history_no_eam.txt', data = lista_no)
             with col4:
                  st.download_button(label =':arrow_heading_down: .csv file :arrow_heading_down:', file_name = f'history_no_eam.csv', data = df_no_hist.to_csv(index = False))
         with col2:
             st.write('Historic predictions for all EOPs using w/ EAM models:')
-            col3,col4 = st.columns([0.2,0.8],gap = 'small')
+            col3,col4 = st.columns([0.3,0.7],gap = 'small')
             with col3:
                  st.download_button(label =':arrow_heading_down: .txt file :arrow_heading_down:', file_name = f'history_with_eam.txt', data = lista_si)
             with col4:
