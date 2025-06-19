@@ -144,7 +144,7 @@ if menu == "EOP PREDICTIONS":
         st.write(f'**Predictions for {selected:}**')
         # st.write(text3) 
     
-        
+
         df2 = dff[dff['param']==val]
         df_mjd = dff[dff['param'] == 'mj']
         st.write('Filters:') 
@@ -197,7 +197,7 @@ if menu == "EOP PREDICTIONS":
         st.table(s)
 
         #Creating .txt and .csv files with the predictions for the chosen epoch
-        string, lista = create_download(df,selected,txt,fm)
+        # string, lista = create_download(df,selected,txt,fm)
         
         # col1,col2 = st.columns([0.2,0.8],gap = 'small')
         # with col1:
@@ -213,21 +213,22 @@ if menu == "EOP PREDICTIONS":
         else: 
             lim = 3
             
+
         fig = go.Figure()
-        for j in range(1,3):
+        for j in range(1,lim):
              fig.add_trace(go.Scatter(
                  x = df['Epoch [MJD]'],y = df[df.columns[-j]],
                  mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
          
         fig.update_layout(legend_title_text = "Models")
         fig.update_xaxes(title_text="MJD")
-        fig.update_yaxes(title_text=f"[{txt}")
-        
+        fig.update_yaxes(title_text=f"[{txt}]")
+
+
         st.plotly_chart(fig, use_container_width=True)
         st.divider()  
         
-            
-            
+                    
         
     #Error message
     except:
