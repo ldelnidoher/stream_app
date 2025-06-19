@@ -181,15 +181,17 @@ if menu == "EOP PREDICTIONS":
             dff2 = dff_aux[dff_aux['param'] == val]
             dff_mjd= dff_aux[dff_aux['param'] == 'mj']
             
-            dff3 = dff2[dff2['year']==years]
-            dff4 = dff3[dff3['month']==months]
-            dff5 = dff4[dff4['day']==days]
+            if (years in dff2['year'].values and months in dff2['month'].values and day in dff2['day'].values):
+                dff3 = dff2[dff2['year']==years]
+                dff4 = dff3[dff3['month']==months]
+                dff5 = dff4[dff4['day']==days]
+                
+                df_new, txt_new, fm_new = create_df(val, dff5, dff_mjd)
+                
+                df = pd.concat([df,df_new[df_new.columns[-2:]]],axis = 1, ignore_index = False)
+                df.columns = pd.Index(['Date [YY-MM-DD]', 'Epoch [MJD]', 'w/o EAM [mas]', 'w/ EAM [mas]','NEW w/o EAM [mas]', 'NEW w/ EAM [mas]'], dtype='object')
+                t = True
             
-            df_new, txt_new, fm_new = create_df(val, dff5, dff_mjd)
-            
-            df = pd.concat([df,df_new[df_new.columns[-2:]]],axis = 1, ignore_index = False)
-            df.columns = pd.Index(['Date [YY-MM-DD]', 'Epoch [MJD]', 'w/o EAM [mas]', 'w/ EAM [mas]','NEW w/o EAM [mas]', 'NEW w/ EAM [mas]'], dtype='object')
-        
         #Visualization of the predictions for the chosen epoch in a table format
         styles = [dict(selector="", props=[('border','2px solid #fb9a5a')]), dict(selector="th", props=[("background-color","#b2d6fb"),('color','black')])] 
         s = df.style.set_table_styles(styles)
@@ -207,10 +209,10 @@ if menu == "EOP PREDICTIONS":
         #Visualization of the chosen data in an interactive plot 
         st.write('Interactive plot:')
         
-        if val not in {'dx','dy'}:
-            lim = 3
-        else: 
+        if val in {'dx','dy'} and t:
             lim = 5
+        else: 
+            lim = 3
             
         fig = go.Figure()
         for j in range(1,lim):
