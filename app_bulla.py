@@ -144,7 +144,8 @@ if menu == "EOP PREDICTIONS":
         st.write(f'**Predictions for {selected:}**')
         # st.write(text3) 
     
-
+        selected = 'dX'
+        val = 'dx'
         df2 = dff[dff['param']==val]
         df_mjd = dff[dff['param'] == 'mj']
         st.write('Filters:') 
@@ -167,6 +168,27 @@ if menu == "EOP PREDICTIONS":
         
         df, txt, fm = create_df(val,df5,df_mjd)
         
+        if val in {'dx','dy'}:
+            db_path = 'db.db' 
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+            cursor.execute("""SELECT * from polls_files_new """)
+            dff_aux=pd.read_sql("""SELECT * from polls_files_new """, conn)  #DataFrame with all the prediction data from the database
+            conn.close()
+
+            #For easy access to the desired file, we will filter it by year, then month and finally day.
+            dff_aux = separate_dates(dff_aux)
+            dff2 = dff_aux[dff_aux['param'] == val]
+            dff_mjd= dff_aux[dff_aux['param'] == 'mj']
+            
+            dff3 = dff2[dff2['year']==years]
+            dff4 = dff3[dff3['month']==months]
+            dff5 = dff4[dff4['day']==days]
+            
+            df_new, txt_new, fm_new = create_df(val, dff5, dff_mjd)
+            
+            df = pd.concat([df,df_new[df_new.columns[-2:]]],axis = 1, ignore_index = False)
+            df.columns = pd.Index(['Date [YY-MM-DD]', 'Epoch [MJD]', 'w/o EAM [mas]', 'w/ EAM [mas]','NEW w/o EAM [mas]', 'NEW w/ EAM [mas]'], dtype='object')
         
         #Visualization of the predictions for the chosen epoch in a table format
         styles = [dict(selector="", props=[('border','2px solid #fb9a5a')]), dict(selector="th", props=[("background-color","#b2d6fb"),('color','black')])] 
@@ -176,16 +198,22 @@ if menu == "EOP PREDICTIONS":
         #Creating .txt and .csv files with the predictions for the chosen epoch
         string, lista = create_download(df,selected,txt,fm)
         
-        col1,col2 = st.columns([0.2,0.8],gap = 'small')
-        with col1:
-             st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.txt', data = lista)
-        with col2:
-             st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.csv', data = df.to_csv(index = False))
+        # col1,col2 = st.columns([0.2,0.8],gap = 'small')
+        # with col1:
+        #      st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.txt', data = lista)
+        # with col2:
+        #      st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.csv', data = df.to_csv(index = False))
          
         #Visualization of the chosen data in an interactive plot 
         st.write('Interactive plot:')
+        
+        if val not in {'dx','dy'}:
+            lim = 3
+        else: 
+            lim = 5
+            
         fig = go.Figure()
-        for j in range(1,3):
+        for j in range(1,lim):
              fig.add_trace(go.Scatter(
                  x = df['Epoch [MJD]'],y = df[df.columns[-j]],
                  mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
