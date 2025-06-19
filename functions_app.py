@@ -1,0 +1,118 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jun 19 10:33:18 2025
+
+@author: lddelnido
+"""
+import streamlit as st
+import numpy as np
+import pandas as pd
+import time
+import datetime
+from astropy.time import Time
+import sqlite3
+
+
+def separate_dates(df):
+    dates = df['pub_date'].values
+    year = [s[:4] for s in dates]
+    month = [m[5:7] for m in dates]
+    day = [d[8:10] for d in dates]
+    
+    df.insert(0, column = 'year', value = year)
+    df.insert(1, column = 'month', value = month)
+    df.insert(2, column = 'day', value = day)
+    return df
+
+def create_df(val,df5,df_mjd):
+    #Reading the data of the chosen prediction epoch
+    conv1 = (df5[df5['type_EAM'] == 0])["values"].iloc[0]
+    conv2 = (df5[df5['type_EAM'] == 1])["values"].iloc[0]
+    conv_dates = ((df5[df5['type_EAM'] == 0])["pub_date"].values)[0]
+    epochs = (df_mjd[df_mjd["pub_date"] == conv_dates])["values"].iloc[0]
+    epochs = [int(float(item)) for item in epochs.split(',')] 
+    conv1 =  [float(item) for item in conv1.split(',')] 
+    conv2 =  [float(item) for item in conv2.split(',')]  
+    dates_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in epochs]
+    if val in 'dt':
+         txt = 's'
+         fm = '% .9f'
+    if val in {'dx','dy'}:
+         txt = 'mas'
+         fm = '% 5f'
+    if val in {'xp','yp'}:
+         txt = 'as'
+         fm = '% .8f'
+         
+    df_final = pd.DataFrame({'Date [YY-MM-DD]':dates_fmt,'Epoch [MJD]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, index = (['Day'+str(v) for v in range(11)]))     
+    return df_final, txt, fm
+
+def create_download(df,selected,txt,fm):
+    l = len(txt)
+    if l<3:
+        txt = txt+']'+(' '*(2-l))
+    else:
+        txt = txt+']'
+    np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter='   \t', header = f'  Date [YY-MM-DD]  |  Epoch[MJD]  |  w/o EAM [{txt}  |    w/EAM  [{txt}')
+    f = open('param.txt','r') 
+    lista =f.read()
+    f.close()
+
+    if selected == 'UT1-UTC':
+         string = 'dut1'
+    else:
+         string = selected
+         
+    return string, lista
+
+
+def history(dff):
+    df_aux_no = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
+    df_no = dff[dff['type_EAM'] == 0].sort_values('pub_date')
+    df_aux_no.pub_date = (df_no[df_no['param']=='xp']).pub_date
+
+    df_aux_si = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
+    df_si = dff[dff['type_EAM'] == 1].sort_values('pub_date')
+    df_aux_si.pub_date = (df_si[df_si['param']=='xp']).pub_date
+    
+    for item in ['mj','xp','yp','dx','dy','dt']:
+        d1 = df_no[df_no['param']==item]
+        d2 = df_si[df_si['param']==item]
+        
+        df_aux_no[item] = d1['values'].values
+        df_aux_si[item] = d2['values'].values
+    
+    #Change df format for a row per day:
+    df_no_hist = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
+    df_si_hist = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
+    
+    for i in range(len(df_aux_no)):
+        sample_no = df_aux_no.iloc[i]
+        aux_no = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
+        sample_si = df_aux_si.iloc[i]
+        aux_si = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
+        for it in ['mj','xp','yp','dt','dx','dy']:
+            aux_no[it] = list(map(float,sample_no[it].split(',')))
+            aux_si[it] = list(map(float,sample_si[it].split(',')))
+            # df_no_hist = pd.concat([df_no_hist,[np.nan]*7])
+        df_no_hist = pd.concat([df_no_hist,aux_no])
+        df_si_hist = pd.concat([df_si_hist,aux_si])
+        
+    df_no_hist.dop = df_no_hist.index
+    df_si_hist.dop = df_si_hist.index
+    
+    dates_hist_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in df_no_hist['mj'].values]
+    df_no_hist.pub_date = dates_hist_fmt
+    df_si_hist.pub_date = dates_hist_fmt
+    
+    ls = {'pub_date':'Date [YY-MM-DD]','mj':'Epoch[MJD]','dop':'Prediction day','xp':'xpol[as]','yp':'ypol[as]','dt':'dUT1[s]','dx':'dX[mas]','dy':'dY[mas]'}
+    df_no_hist = df_no_hist.rename(ls, axis = 1)
+    df_si_hist = df_si_hist.rename(ls, axis = 1)
+    
+    np.savetxt('history_no_eam.txt',df_no_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ')   
+    np.savetxt('history_with_eam.txt',df_si_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ')   
+
+    return df_no_hist, df_si_hist
+        
+        
+        
