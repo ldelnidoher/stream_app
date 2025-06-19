@@ -206,8 +206,6 @@ if menu == "EOP PREDICTIONS":
         #      st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.csv', data = df.to_csv(index = False))
          
         #Visualization of the chosen data in an interactive plot 
-        st.write(val, str(t) )
-        
         st.write('Interactive plot:')
         
         if val in {'dx','dy'} and t:
@@ -223,7 +221,6 @@ if menu == "EOP PREDICTIONS":
         fig.update_layout(legend_title_text = "Models")
         fig.update_xaxes(title_text="MJD")
         fig.update_yaxes(title_text=f"[{txt}]")
-        fig.show()
 
         st.plotly_chart(fig, use_container_width=True)
         st.divider()  
