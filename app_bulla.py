@@ -144,8 +144,7 @@ if menu == "EOP PREDICTIONS":
         st.write(f'**Predictions for {selected:}**')
         # st.write(text3) 
     
-        selected = 'dX'
-        val = 'dx'
+        
         df2 = dff[dff['param']==val]
         df_mjd = dff[dff['param'] == 'mj']
         st.write('Filters:') 
@@ -181,7 +180,7 @@ if menu == "EOP PREDICTIONS":
             dff2 = dff_aux[dff_aux['param'] == val]
             dff_mjd= dff_aux[dff_aux['param'] == 'mj']
             
-            if (years in dff2['year'].values and months in dff2['month'].values and day in dff2['day'].values):
+            if (years in dff2['year'].values and months in dff2['month'].values and days in dff2['day'].values):
                 dff3 = dff2[dff2['year']==years]
                 dff4 = dff3[dff3['month']==months]
                 dff5 = dff4[dff4['day']==days]
