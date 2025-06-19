@@ -206,7 +206,8 @@ if menu == "EOP PREDICTIONS":
         #      st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.csv', data = df.to_csv(index = False))
          
         #Visualization of the chosen data in an interactive plot 
-        st.write(val, t )
+        st.write(val, str(t) )
+        
         st.write('Interactive plot:')
         
         if val in {'dx','dy'} and t:
