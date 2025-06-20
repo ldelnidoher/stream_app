@@ -47,13 +47,16 @@ def create_df(val,df5,df_mjd):
     df_final = pd.DataFrame({'Date [YY-MM-DD]':dates_fmt,'Epoch [MJD]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, index = (['Day'+str(v) for v in range(11)]))     
     return df_final, txt, fm
 
-def create_download(df,selected,txt,fm):
+def create_download(df,selected,txt,fm,t):
     l = len(txt)
     if l<3:
         txt = txt+']'+(' '*(2-l))
     else:
         txt = txt+']'
-    np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter='   \t', header = f'  Date [YY-MM-DD]  |  Epoch[MJD]  |  w/o EAM [{txt}  |    w/EAM  [{txt}')
+    if t:
+        np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}',f'{fm}',f'{fm}'], delimiter='   \t', header = f'   Date [YY-MM-DD]  |  Epoch[MJD]  | w/o EAM [{txt}  | w/EAM  [{txt} |NEW w/o EAM [{txt}| NEW w/EAM  [{txt}')
+    else:
+        np.savetxt('param.txt',df, fmt = ['% s','%5d',f'{fm}',f'{fm}'], delimiter='   \t', header = f'  Date [YY-MM-DD]  |  Epoch[MJD]  |  w/o EAM [{txt}  |    w/EAM  [{txt}')
     f = open('param.txt','r') 
     lista =f.read()
     f.close()

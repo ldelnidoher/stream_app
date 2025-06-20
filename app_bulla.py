@@ -26,10 +26,11 @@ def scroll():
     st.session_state.scroll_to_top = True
 
 
+#here we store the larger texts so the code doesn't get too overcrowded
 text1 = 'The prediction of the parameters is calculated using **Machine Learning** algorithms. The prediction horizon extends 10 days into the future, in addition to the day on which the calculations are conducted, referred to as Day 0.'
 text2 = '[IERS EOP 20 C04, IERS Bulletin A](https://www.iers.org/IERS/EN/DataProducts/EarthOrientationData/eop.html) and [GFZ Effective Angular Momentum Functions](http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=e0fff81f-dcae-469e-8e0a-eb10caf2975b) are employed as input data.'
 text3 = text2+' Two predictive models are applied. **w/o EAM** utilises only EOP data as input whereas **w/ EAM** includes both EOP data and Effective Angular Momentum data.'
-
+text4 = 'Here we present a compilation of all the predictions, calculated every Wednesday, in a single file. As two different prediction models are used, two separate files are provided.'
 
 #Banner image
 custom_html = """
@@ -101,6 +102,7 @@ if menu == "EOP PREDICTIONS":
         st.divider()
         
         st.subheader('Historical records:')
+        st.write(text4)
         f = open('historic_no_eam.txt','r') 
         lista_no = f.read()
         f.close()
@@ -108,7 +110,7 @@ if menu == "EOP PREDICTIONS":
         f = open('historic_with_eam.txt','r') 
         lista_si = f.read()
         f.close()
-
+        
         col1,col2 = st.columns([0.5,0.5],gap = 'small')
         with col1:
             st.write('Historic predictions for all EOPs using **w/o EAM models**:')
@@ -167,6 +169,7 @@ if menu == "EOP PREDICTIONS":
         
         df, txt, fm = create_df(val,df5,df_mjd)
         
+        t = False
         if val in {'dx','dy'}:
             db_path = 'db.db' 
             conn = sqlite3.connect(db_path)
@@ -197,15 +200,17 @@ if menu == "EOP PREDICTIONS":
         st.table(s)
 
         #Creating .txt and .csv files with the predictions for the chosen epoch
-        # string, lista = create_download(df,selected,txt,fm)
+        string, lista = create_download(df,selected,txt,fm,t)
+        d = df['Epoch [MJD]'].iloc[0]
         
-        # col1,col2 = st.columns([0.2,0.8],gap = 'small')
-        # with col1:
-        #      st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.txt', data = lista)
-        # with col2:
-        #      st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = f'{string}_{epochs[0]}.csv', data = df.to_csv(index = False))
+        col1,col2 = st.columns([0.2,0.8],gap = 'small')
+        with col1:
+              st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'{string}_{d}.txt', data = lista)
+        with col2:
+              st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = f'{string}_{d}.csv', data = df.to_csv(index = False))
          
         #Visualization of the chosen data in an interactive plot 
+        
         st.write('Interactive plot:')
         
         if val in {'dx','dy'} and t:
