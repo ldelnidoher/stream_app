@@ -249,7 +249,8 @@ if menu == "PREDICTION MODELS":
     st.markdown('- For **xpol** prediction, each component is preprocessed by applying **Singular Spectrum Analysis (SSA)** in order to obtain a reconstructed time series and the residual noise time series. Using the **Kernel Ridge Regression (KRR)** algorithm, two models are trained: one to predict the reconstructed time series and the other to predict the noise. Both predictions are then added to generate the final xpol prediction. Idem **ypol**.')
     st.markdown('- For the **dX** prediction, the **Free Core Nutation (FCN)** x component (xFCN) is calculated, and alongside dX they are used to train a model using **KRR** to predict dX. Idem **dY**.')
     st.markdown('- For the **dUT1** prediction, the data is preprocessed by removing the leap seconds. Afterwards, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final dUT1 prediction.')
-    st.image('esquema.png',output_format = 'png', use_container_width = False)
+    url = 'https://github.com/ldelnidoher/stream_app/blob/d96b9356e65ab39e2da50f92a9ddf37790d6f755/esquema.png')
+    st.image(url,output_format = "PNG", use_container_width = False) 
     st.divider()
 
     st.subheader("Prediction models using EAM")
@@ -257,9 +258,7 @@ if menu == "PREDICTION MODELS":
     st.markdown("- For **xpol** prediction, each component is preprocessed by applying **Singular Spectrum Analysis (SSA)** in order to obtain a reconstructed time series and the residual noise time series. Using this parameters alongside xEAM a model is trained using **Kernel Ridge Regression (KRR)** algorithm to predict xpol. Idem **ypol**.")
     st.markdown("- For the **dX** prediction, the **Free Core Nutation (FCN)** x component (xFCN) is calculated, and alongside dX and xEAM they are used to train a model using **KRR** to predict dX. Idem **dY**.")
     st.markdown("- For the **dUT1** prediction, the data is preprocessed by removing the leap seconds. Afterwards, alongside with zEAM, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final dUT1 prediction.")
-    url = 'https://github.com/ldelnidoher/stream_app/blob/d96b9356e65ab39e2da50f92a9ddf37790d6f755/esquema.png'
-    st.image(url,output_format = 'PNG', use_container_width = False) 
-
+    st.image('esquema2.png',output_format = 'png', use_container_width = False)
      
 d = datetime.datetime.now().date()
 
