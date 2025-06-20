@@ -91,6 +91,8 @@ if menu == "EOP PREDICTIONS":
         
         #Construction of historic data
         df_no_hist, df_si_hist = history(dff)
+        np.savetxt('history_no_eam.txt',df_no_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ')   
+        np.savetxt('history_with_eam.txt',df_si_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ') 
         
         
         ##############################################################################################################

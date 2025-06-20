@@ -111,9 +111,7 @@ def history(dff):
     ls = {'pub_date':'Date [YY-MM-DD]','mj':'Epoch[MJD]','dop':'Prediction day','xp':'xpol[as]','yp':'ypol[as]','dt':'dUT1[s]','dx':'dX[mas]','dy':'dY[mas]'}
     df_no_hist = df_no_hist.rename(ls, axis = 1)
     df_si_hist = df_si_hist.rename(ls, axis = 1)
-    
-    np.savetxt('history_no_eam.txt',df_no_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ')   
-    np.savetxt('history_with_eam.txt',df_si_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ')   
+  
 
     return df_no_hist, df_si_hist
         
