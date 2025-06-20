@@ -250,7 +250,7 @@ if menu == "PREDICTION MODELS":
     st.markdown('- For the **dX** prediction, the **Free Core Nutation (FCN)** x component (xFCN) is calculated, and alongside dX they are used to train a model using **KRR** to predict dX. Idem **dY**.')
     st.markdown('- For the **dUT1** prediction, the data is preprocessed by removing the leap seconds. Afterwards, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final dUT1 prediction.')
     #url = 'https://github.com/ldelnidoher/stream_app/blob/d96b9356e65ab39e2da50f92a9ddf37790d6f755/esquema.png'
-    st.image('https://github.com/ldelnidoher/stream_app/main/esquema.png',output_format = 'PNG', use_container_width = False) 
+    st.image('esquema.png',output_format = 'PNG',width = 1450) 
     st.divider()
 
     st.subheader("Prediction models using EAM")
