@@ -86,11 +86,18 @@ if menu == "EOP PREDICTIONS":
         dff=pd.read_sql("""SELECT * from polls_files """, conn)  #DataFrame with all the prediction data from the database
         conn.close()
 
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("""SELECT * from polls_files_new """)
+        dff_aux=pd.read_sql("""SELECT * from polls_files_new """, conn)  #DataFrame with all the prediction data from the database
+        conn.close()
+        
         #For easy access to the desired file, we will filter it by year, then month and finally day.
         dff = separate_dates(dff)
+        dff_aux = separate_dates(dff_aux)
         
         #Construction of historic data
-        df_no_hist, df_si_hist = history(dff)
+        df_no_hist, df_si_hist = history(dff,dff_aux)
        
         
         
@@ -104,8 +111,8 @@ if menu == "EOP PREDICTIONS":
         
         st.subheader('Historical records:')
         st.write(text4)
-        np.savetxt('history_no_eam.txt',df_no_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ')   
-        np.savetxt('history_with_eam.txt',df_si_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]  ') 
+        np.savetxt('history_no_eam.txt',df_no_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f', '% .5f','% .5f'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]     |   dX_new[mas]  |   dY_new[mas]  ')   
+        np.savetxt('history_with_eam.txt',df_si_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f', '% .5f','% .5f'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]     |   dY[mas]     |   dX_new[mas]  |   dY_new[mas]  ') 
         
         f = open('history_no_eam.txt','r') 
         lista_no = f.read()
@@ -175,15 +182,9 @@ if menu == "EOP PREDICTIONS":
         
         t = False
         if val in {'dx','dy'}:
-            db_path = 'db.db' 
-            conn = sqlite3.connect(db_path)
-            cursor = conn.cursor()
-            cursor.execute("""SELECT * from polls_files_new """)
-            dff_aux=pd.read_sql("""SELECT * from polls_files_new """, conn)  #DataFrame with all the prediction data from the database
-            conn.close()
 
             #For easy access to the desired file, we will filter it by year, then month and finally day.
-            dff_aux = separate_dates(dff_aux)
+            
             dff2 = dff_aux[dff_aux['param'] == val]
             dff_mjd= dff_aux[dff_aux['param'] == 'mj']
             
