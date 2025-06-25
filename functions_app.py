@@ -163,8 +163,8 @@ def history(dff,dff2):
     a1,a2 = history2(dff2)
     
     dd = len(df_no_hist)-len(a1)
-    aux = np.concatenate((np.array([np.nan]*dd),a1['dX_new[mas]'].values))
-    aux2 = np.concatenate((np.array([np.nan]*dd),a1['dY_new[mas]'].values))
+    aux = np.concatenate((np.array(['nan    ']*dd),a1['dX_new[mas]'].values))
+    aux2 = np.concatenate((np.array(['nan    ']*dd),a1['dY_new[mas]'].values))
     df_no_hist.insert(8,'dX_new[mas]',aux)
     df_no_hist.insert(9,'dY_new[mas]',aux)
     
