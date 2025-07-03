@@ -55,7 +55,7 @@ st.components.v1.html(custom_html)
 
 #Menu on top of the page
 menu = option_menu(menu_title = None,
-                   options=["EOP PREDICTIONS", "PREDICTION MODELS", "ABOUT US"],
+                   options=["EOP PREDICTIONS", "FCN MODEL", "EOP PREDICTION MODELS", "ABOUT US"],
                    orientation = "horizontal",
                    menu_icon = None,
                    styles = {
@@ -243,8 +243,54 @@ if menu == "EOP PREDICTIONS":
             time.sleep(15)
             st.rerun()
 
+if menu == "FCN MODEL":
+    try:
+        #Connection to db database where all predictions are stored
+        db_path = 'db.db' 
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("""SELECT * from polls_fcn_cpo """)
+        dff=pd.read_sql("""SELECT * from polls_fcn_cpo """, conn)  #DataFrame with all the prediction data from the database
+        conn.close()
+
+        df_fcn, fm = fcn_cpo(dff)
+        
+        np.savetxt('fcn_cpo.txt',df_fcn,fmt = fm, delimiter = '   \t', header = 'Date [YY-MM-DD]    |  Epoch [MJD] |    Ac [muas]   |   As [muas]  |    X0 [muas]  |    Y0 [muas]  |    dX [muas]   |   dY [muas]')
+        
+        f = open('fcn_cpo.txt','r')
+        ls = f.read()
+        f.close()
+        
+        #Plot
+        fig = go.Figure()
+        for j in [6,7]:
+            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'], y = df_fcn[df_fcn.columns[j]], mode = 'lines+markers',marker = dict(size = 5), line = dict(width = 1.5),name = df_fcn.columns[j]))
+        fig.update_layout(legend_title_text = "CPOs")
+        fig.update_xaxes(title_text="Date")
+        fig.update_yaxes(title_text="[muas]")
+
+        st.plotly_chart(fig, use_container_width=True)
+        
+        
+        #Create .txt and .csv files:
+        col1,col2 = st.columns([0.2,0.8],gap = 'small')
+        with col1:
+              st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'fcn_cpo.txt', data = ls)
+        with col2:
+              st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = f'fcn_cpo.csv', data = df_fcn.to_csv(index = False))
+             
+        st.divider()  
+
+        
+    #Error message
+    except:
+        with st.spinner(text="Uploading. This process might take a few minutes..."):
+            time.sleep(15)
+            st.rerun()        
+
+
 #Prediction models theory page
-if menu == "PREDICTION MODELS":
+if menu == " EOP PREDICTION MODELS":
     st.header("Short-term EOP predictions: 10 days")
     st.subheader("Prediction models without EAM")
     st.markdown('- For **xpol** prediction, each component is preprocessed by applying **Singular Spectrum Analysis (SSA)** in order to obtain a reconstructed time series and the residual noise time series. Using the **Kernel Ridge Regression (KRR)** algorithm, two models are trained: one to predict the reconstructed time series and the other to predict the noise. Both predictions are then added to generate the final xpol prediction. Idem **ypol**.')
@@ -265,6 +311,7 @@ d = datetime.datetime.now().date()
 
 columns = st.columns([0.9,0.1], gap = "small")
 with columns[0]: 
+
     st.write(f'Last updated: {d}')
 with columns[1]:
     st.button('Scroll to top', on_click=scroll)

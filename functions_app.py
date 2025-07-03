@@ -176,4 +176,19 @@ def history(dff,dff2):
     
     return df_no_hist, df_si_hist
     
-    
+
+def fcn_cpo(dff):
+    df = pd.DataFrame(data = [], columns = ['dt','mj','ac','as','x0','y0','dx','dy'])
+    for i in range(len(dff)):
+        aa = dff.iloc[i]
+        val = [float(x) for x in aa['values'].split(',')]
+        df[aa.param] = val
+        
+        if aa.param == 'mj':
+            inter = [(Time(x, format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for x in val]
+            df.dt = inter
+    df = df.rename({'dt':'Date [YY-MM-DD]','mj':'Epoch [MJD]','ac':'Ac [muas]','as':'As [muas]','x0':'X0 [muas]','y0':'Y0 [muas]','dx':'dX [muas]','dy':'dY [muas]'},axis = 1) 
+    fm = ['% s','%5d','% .4f','% .4f','% .4f','% .4f','% .4f','% .4f']    
+    return df, fm
+        
+        
