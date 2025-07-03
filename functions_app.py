@@ -11,6 +11,7 @@ import time
 import datetime
 from astropy.time import Time
 import sqlite3
+import requests
 
 
 def separate_dates(df):
@@ -191,4 +192,18 @@ def fcn_cpo(dff):
     fm = ['% s','%5d','% .4f','% .4f','% .4f','% .4f','% .4f','% .4f']    
     return df, fm
         
-        
+ 
+def read_iers():
+    r = requests.get("https://datacenter.iers.org/data/latestVersion/EOP_20u23_C04_one_file_1962-now.txt")
+    datos = r.text
+    cont,j = 0,0
+    while cont<6:
+        if datos[j] =='\n':
+            cont+=1
+        j+=1
+    datos=datos[j:]
+    lista = datos.split("\n")
+    aux = [lista[i].split() for i in range(len(lista)-1)]   #last value is an empty line
+    dx = [1e6*float(aux[i][8]) for i in range(len(aux))]
+    dy = [1e6*float(aux[i][9]) for i in range(len(aux))]
+    return dx,dy
