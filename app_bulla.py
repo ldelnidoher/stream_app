@@ -320,12 +320,14 @@ if menu == "EOP ESTIMATIONS":
         st.write(text5+f' *(last updated: {upt})*.')
         
         st.subheader("Interactive plot")
+        
+        i = (df_fcn[df_fcn['Date [YY-MM-DD]'] =='1998-01-01 00:00:00'].index)[0]
         with st.container(border = True):
             fig = go.Figure()
-            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][18000:len(dx_c04)], y = dx_c04[18000:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u23 C04'))
-            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][18000:len(dy_c04)], y = dy_c04[18000:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
-            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][18000:], y = df_fcn[df_fcn.columns[6]][18000:], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dX'))
-            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][18000:], y = df_fcn[df_fcn.columns[7]][18000:], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dY'))
+            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:len(dx_c04)], y = dx_c04[i:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u23 C04'))
+            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:len(dy_c04)], y = dy_c04[i:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
+            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:], y = df_fcn[df_fcn.columns[6]][i:], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dX'))
+            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:], y = df_fcn[df_fcn.columns[7]][i:], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dY'))
             fig.update_layout(title = 'CPOs solutions',
                               title_font_color = '#fb9a5a',
                               title_font_size = 28,
@@ -365,7 +367,7 @@ if menu == "EOP ESTIMATIONS":
         
         #Create .txt and .csv files:
         st.subheader('Data files')
-        st.write('Here you can download all the solutions of this model: amplitudes (Ac, As), constant offsets (X0, Y0) and the celestial polar offsets:')
+        st.write('Here you can download all the solutions of this model since 1962-01-01: amplitudes (Ac, As), constant offsets (X0, Y0) and the celestial polar offsets:')
         col1,col2 = st.columns([0.2,0.8],gap = 'small')
         with col1:
               st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'fcn_cpo.txt', data = ls)
