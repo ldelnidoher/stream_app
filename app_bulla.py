@@ -233,7 +233,23 @@ if menu == "EOP PREDICTIONS":
                 for j in range(1,lim):
                      fig.add_trace(go.Scatter(x = df['Epoch [MJD]'],y = df[df.columns[-j]],mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
                  
-                fig.update_layout(legend_title_text = "Models", title_font_color = '#fb9a5a',title = f'{selected}',)
+                # fig.update_layout(legend_title_text = "Models")
+                fig.update_layout(title = f'{selected}',
+                                  title_font_color = '#fb9a5a',
+                                  title_font_shadow = 'auto',
+                                  title_font_size = 28,
+                                  title_font_textcase = 'upper',
+                                  title_font_weight = 20,
+                                  title_x = .5
+                                  # title_xanchor = 'center',
+                                  # title_yanchor = 'top',
+                                    )
+                fig.update_layout(legend_title_text = 'Models',
+                                  legend_bordercolor = '#fb9a5a',
+                                  legend_borderwidth = 1.5,
+                                  legend_font_size = 14,
+                                  legend_title_font_size = 18
+                                  )
                 fig.update_xaxes(title_text="MJD")
                 fig.update_yaxes(title_text=f"[{txt}]")
 
@@ -292,17 +308,34 @@ if menu == "EOP ESTIMATIONS":
         st.write(text5+f' *(last updated: {upt})*.')
         
         st.subheader("Interactive plot")
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][:len(dx_c04)], y = dx_c04, mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u23 C04'))
-        fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][:len(dy_c04)], y = dy_c04, mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
-        fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'], y = df_fcn[df_fcn.columns[6]], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dX'))
-        fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'], y = df_fcn[df_fcn.columns[7]], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dY'))
-        fig.update_layout(legend_title_text = "CPOs")
-        fig.update_xaxes(title_text="Date")
-        fig.update_yaxes(title_text="[muas]")
+        with st.container(border = True):
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][:len(dx_c04)], y = dx_c04, mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u23 C04'))
+            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][:len(dy_c04)], y = dy_c04, mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
+            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'], y = df_fcn[df_fcn.columns[6]], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dX'))
+            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'], y = df_fcn[df_fcn.columns[7]], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dY'))
+            fig.update_layout(title = 'CPOs solutions',
+                              title_font_color = '#fb9a5a',
+                              title_font_shadow = 'auto',
+                              title_font_size = 28,
+                              title_font_textcase = 'upper',
+                              title_font_weight = 20,
+                              title_x = .5
+                              # title_xanchor = 'center',
+                              # title_yanchor = 'top',
+                                )
+            fig.update_layout(legend_title_text = 'Parameters',
+                              legend_bordercolor = '#fb9a5a',
+                              legend_borderwidth = 1.5,
+                              legend_font_size = 14,
+                              legend_title_font_size = 18
+                              )
+            fig.update_xaxes(title_text="Date")
+            fig.update_yaxes(title_text="[muas]")
+    
+            st.plotly_chart(fig, use_container_width=True)
+            
 
-        st.plotly_chart(fig, use_container_width=True)
-        st.divider()
         
         #Create .txt and .csv files:
         st.subheader('Data files')
