@@ -341,23 +341,23 @@ if menu == "EOP ESTIMATIONS":
                               legend_title_font_size = 18
                               )
             fig.update_layout(plot_bgcolor = '#fff')
-            # fig.update_xaxes(title_text="Date",
-            #                  tickfont_size = 14,
-            #                  ticks = 'outside',
-            #                  minor_ticks = 'outside',
-            #                  minor_dtick = 1,
-            #                  tickcolor = '#d1d1d1',
-            #                  )
+            fig.update_xaxes(title_text="Date",
+                              tickfont_size = 14,
+                              ticks = 'outside',
+                              minor_ticks = 'outside',
+                              minor_dtick = 1,
+                              tickcolor = '#d1d1d1',
+                              )
             
-            # fig.update_yaxes(title_text="muas",
-            #                  tickfont_size = 14,
-            #                  ticks = 'outside',
-            #                  tickcolor = '#d1d1d1',
-            #                  minor_ticks = 'outside',
-            #                  gridcolor = '#d1d1d1',
-            #                  minor_showgrid = True,
-            #                  minor_griddash = 'dot'
-            #                  )
+            fig.update_yaxes(title_text="muas",
+                              tickfont_size = 14,
+                              ticks = 'outside',
+                              tickcolor = '#d1d1d1',
+                              minor_ticks = 'outside',
+                              gridcolor = '#d1d1d1',
+                              minor_showgrid = True,
+                              minor_griddash = 'dot'
+                              )
     
             st.plotly_chart(fig, use_container_width=True)
             
