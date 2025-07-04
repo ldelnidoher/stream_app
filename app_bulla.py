@@ -237,7 +237,6 @@ if menu == "EOP PREDICTIONS":
                 fig.update_layout(title = f'{selected}',
                                   title_font_color = '#fb9a5a',
                                   title_font_size = 28,
-                                  title_font_textcase = 'upper',
                                   title_font_weight = 20,
                                   title_x = .5
                                   # title_xanchor = 'center',
@@ -317,7 +316,6 @@ if menu == "EOP ESTIMATIONS":
             fig.update_layout(title = 'CPOs solutions',
                               title_font_color = '#fb9a5a',
                               title_font_size = 28,
-                              title_font_textcase = 'upper',
                               title_font_weight = 20,
                               title_x = .5
                               # title_xanchor = 'center',
