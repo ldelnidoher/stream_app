@@ -108,6 +108,7 @@ if menu == "EOP PREDICTIONS":
             ##############################################################################################################
             #Filter the files for the user
             st.header('Short-term EOP predictions: 10 days')
+            st.subheader('Introduction')
             st.write(text1+f' *(Last updated: {upt})*')
             st.markdown(text3) 
     
@@ -227,17 +228,17 @@ if menu == "EOP PREDICTIONS":
             else: 
                 lim = 3
                 
-    
-            fig = go.Figure()
-            for j in range(1,lim):
-                 fig.add_trace(go.Scatter(x = df['Epoch [MJD]'],y = df[df.columns[-j]],mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
-             
-            fig.update_layout(legend_title_text = "Models")
-            fig.update_xaxes(title_text="MJD")
-            fig.update_yaxes(title_text=f"[{txt}]")
-    
-            st.plotly_chart(fig, use_container_width=True)
-            st.divider()  
+            with st.container(border = True):
+                fig = go.Figure()
+                for j in range(1,lim):
+                     fig.add_trace(go.Scatter(x = df['Epoch [MJD]'],y = df[df.columns[-j]],mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
+                 
+                fig.update_layout(legend_title_text = "Models", title_font_color = '#fb9a5a',title = f'{selected}',)
+                fig.update_xaxes(title_text="MJD")
+                fig.update_yaxes(title_text=f"[{txt}]")
+
+                st.plotly_chart(fig, use_container_width=True)
+                
             
                         
             
