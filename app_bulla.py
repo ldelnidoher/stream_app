@@ -250,6 +250,7 @@ if menu == "EOP PREDICTIONS":
                                   legend_font_size = 14,
                                   legend_title_font_size = 18
                                   )
+                fig.update_layout(plot_bgcolor = '#fff')
                 fig.update_xaxes(title_text="MJD")
                 fig.update_yaxes(title_text=f"[{txt}]")
 
@@ -330,6 +331,7 @@ if menu == "EOP ESTIMATIONS":
                               legend_font_size = 14,
                               legend_title_font_size = 18
                               )
+            fig.update_layout(plot_bgcolor = '#fff')
             fig.update_xaxes(title_text="Date")
             fig.update_yaxes(title_text="[muas]")
     
