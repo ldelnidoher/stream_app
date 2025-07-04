@@ -345,7 +345,7 @@ if menu == "EOP ESTIMATIONS":
                               tickfont_size = 14,
                               ticks = 'outside',
                               minor_ticks = 'outside',
-                              minor_dtick = 1,
+
                               tickcolor = '#d1d1d1',
                               )
             
