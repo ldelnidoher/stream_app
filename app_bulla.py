@@ -249,7 +249,8 @@ if menu == "EOP PREDICTIONS":
                                   legend_title_font_size = 18
                                   )
                 fig.update_layout(plot_bgcolor = '#fff')
-                fig.update_xaxes(title_text="MJD")
+                fig.update_xaxes(title_text="MJD",
+                                 rangeselector_font_size = 16)
                 fig.update_yaxes(title_text=f"[{txt}]")
 
                 st.plotly_chart(fig, use_container_width=True)
