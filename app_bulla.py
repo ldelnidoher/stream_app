@@ -236,7 +236,6 @@ if menu == "EOP PREDICTIONS":
                 # fig.update_layout(legend_title_text = "Models")
                 fig.update_layout(title = f'{selected}',
                                   title_font_color = '#fb9a5a',
-                                  title_font_shadow = 'auto',
                                   title_font_size = 28,
                                   title_font_textcase = 'upper',
                                   title_font_weight = 20,
@@ -317,7 +316,6 @@ if menu == "EOP ESTIMATIONS":
             fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'], y = df_fcn[df_fcn.columns[7]], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dY'))
             fig.update_layout(title = 'CPOs solutions',
                               title_font_color = '#fb9a5a',
-                              title_font_shadow = 'auto',
                               title_font_size = 28,
                               title_font_textcase = 'upper',
                               title_font_weight = 20,
