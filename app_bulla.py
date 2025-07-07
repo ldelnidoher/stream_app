@@ -231,7 +231,7 @@ if menu == "EOP PREDICTIONS":
             with st.container(border = True):
                 fig = go.Figure()
                 for j in range(1,lim):
-                     fig.add_trace(go.Scatter(x = df['Epoch [MJD]'],y = df[df.columns[-j]],mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
+                     fig.add_trace(go.Scatter(x = df['Date [YY-MM-DD]'],y = df[df.columns[-j]],mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
                  
                 # fig.update_layout(legend_title_text = "Models")
                 fig.update_layout(title = f'{selected}',
