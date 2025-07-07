@@ -57,7 +57,7 @@ st.components.v1.html(custom_html)
 
 #Menu on top of the page
 menu = option_menu(menu_title = None,
-                   options=["EOP PREDICTIONS", "EOP ESTIMATIONS", "ABOUT US"],
+                   options=["EOP PREDICTIONS", "PREDICTION MODELS","ABOUT US"],
                    orientation = "horizontal",
                    menu_icon = None,
                    styles = {
@@ -78,7 +78,7 @@ if menu == "ABOUT US":
 
 #EOP predictions page     
 if menu == "EOP PREDICTIONS":
-    tab1, tab2 = st.tabs(["**PREDICTION DATA**","**PREDICTION MODELS**"])
+    tab1, tab2 = st.tabs(["**MACHINE LEARNING PREDICTION**", "**FCN-CPOs PREDICTION**"])
     with tab1:
         try:
             #Connection to db database where all predictions are stored
@@ -247,7 +247,7 @@ if menu == "EOP PREDICTIONS":
                                   legend_title_font_size = 18
                                   )
                 fig.update_layout(plot_bgcolor = '#fff')
-                fig.update_xaxes(title_text="MJD",
+                fig.update_xaxes(title_text="Date",
                                  tickfont_size = 14,
                                  ticks = 'outside',
                                  minor_ticks = 'outside',
@@ -275,116 +275,118 @@ if menu == "EOP PREDICTIONS":
             with st.spinner(text="Uploading. This process might take a few minutes..."):
                 time.sleep(15)
                 st.rerun()
-    with tab2: 
-        st.header("Short-term EOP predictions: 10 days")
-        st.subheader("Prediction models without EAM")
-        st.markdown('- For **xpol** prediction, each component is preprocessed by applying **Singular Spectrum Analysis (SSA)** in order to obtain a reconstructed time series and the residual noise time series. Using the **Kernel Ridge Regression (KRR)** algorithm, two models are trained: one to predict the reconstructed time series and the other to predict the noise. Both predictions are then added to generate the final xpol prediction. Idem **ypol**.')
-        st.markdown('- For the **dX** prediction, the **Free Core Nutation (FCN)** x component (xFCN) is calculated, and alongside dX they are used to train a model using **KRR** to predict dX. Idem **dY**.')
-        st.markdown('- For the **dUT1** prediction, the data is preprocessed by removing the leap seconds. Afterwards, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final dUT1 prediction.')
-        #url = 'https://github.com/ldelnidoher/stream_app/blob/d96b9356e65ab39e2da50f92a9ddf37790d6f755/esquema.png'
-        st.image('esquema.png',output_format = 'PNG',width = 1420) 
-        st.divider()
-
-        st.subheader("Prediction models using EAM")
-        st.write("To predict EOP using **Effective Angular Momentum** Functions data, we will sum into one variable -called **xEAM**- the xmass and xmotion components of Atmospheric Angular Momentum (AAM), Oceanic Angular Momentum (OAM) and Hydrological Angular Momentum (HAM). We follow the same proceeding with the y and z components to obtain the variables **yEAM** and **zEAM**.")
-        st.markdown("- For **xpol** prediction, each component is preprocessed by applying **Singular Spectrum Analysis (SSA)** in order to obtain a reconstructed time series and the residual noise time series. Using this parameters alongside xEAM a model is trained using **Kernel Ridge Regression (KRR)** algorithm to predict xpol. Idem **ypol**.")
-        st.markdown("- For the **dX** prediction, the **Free Core Nutation (FCN)** x component (xFCN) is calculated, and alongside dX and xEAM they are used to train a model using **KRR** to predict dX. Idem **dY**.")
-        st.markdown("- For the **dUT1** prediction, the data is preprocessed by removing the leap seconds. Afterwards, alongside with zEAM, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final dUT1 prediction.")
-        st.image('esquema_eam.png',output_format = 'PNG',width = 1420)
+ 
         
-if menu == "EOP ESTIMATIONS":
-    try:
-        #Connection to db database where all predictions are stored
-        db_path = 'db.db' 
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-        cursor.execute("""SELECT * from polls_fcn_cpo """)
-        dff=pd.read_sql("""SELECT * from polls_fcn_cpo """, conn)  #DataFrame with all the prediction data from the database
-        conn.close()
         
-        upt = (dff.pub_date[len(dff)-1])[:10]
         
-        df_fcn, fm = fcn_cpo(dff)
         
-        np.savetxt('fcn_cpo.txt',df_fcn,fmt = fm, delimiter = '   \t', header = 'Date [YY-MM-DD]    |  Epoch [MJD] |    Ac [muas]   |   As [muas]  |    X0 [muas]  |    Y0 [muas]  |    dX [muas]   |   dY [muas]')
         
-        f = open('fcn_cpo.txt','r')
-        ls = f.read()
-        f.close()
-        
-        #read iers
-        dx_c04, dy_c04 = read_iers()
-        
-        st.header('CPOs estimation')
-        #Plot
-        st.write(text5+f' *(last updated: {upt})*.')
-        
-        st.subheader("Interactive plot")
-        
-        i = (df_fcn[df_fcn['Date [YY-MM-DD]'] =='1998-01-01 00:00:00'].index)[0]
-        with st.container(border = True):
-            fig = go.Figure()
-            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:len(dx_c04)], y = dx_c04[i:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u23 C04'))
-            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:len(dy_c04)], y = dy_c04[i:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
-            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:], y = df_fcn[df_fcn.columns[6]][i:], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dX'))
-            fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:], y = df_fcn[df_fcn.columns[7]][i:], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dY'))
-            fig.update_layout(title = 'CPOs solutions',
-                              title_font_color = '#fb9a5a',
-                              title_font_size = 28,
-                              title_font_weight = 20,
-                              title_x = .5
-                              # title_xanchor = 'center',
-                              # title_yanchor = 'top',
-                                )
-            fig.update_layout(legend_title_text = 'Parameters',
-                              legend_bordercolor = '#fb9a5a',
-                              legend_borderwidth = 1.5,
-                              legend_font_size = 14,
-                              legend_title_font_size = 18
-                              )
-            fig.update_layout(plot_bgcolor = '#fff')
-            fig.update_xaxes(title_text="Date",
-                              tickfont_size = 14,
-                              ticks = 'outside',
-                              minor_ticks = 'outside',
-
-                              tickcolor = '#d1d1d1',
-                              )
+    with tab2:
+        try:
+            #Connection to db database where all predictions are stored
+            db_path = 'db.db' 
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+            cursor.execute("""SELECT * from polls_fcn_cpo """)
+            dff=pd.read_sql("""SELECT * from polls_fcn_cpo """, conn)  #DataFrame with all the prediction data from the database
+            conn.close()
             
-            fig.update_yaxes(title_text="muas",
-                              tickfont_size = 14,
-                              ticks = 'outside',
-                              tickcolor = '#d1d1d1',
-                              minor_ticks = 'outside',
-                              gridcolor = '#d1d1d1',
-                              minor_showgrid = True,
-                              minor_griddash = 'dot'
-                              )
-    
-            st.plotly_chart(fig, use_container_width=True)
+            upt = (dff.pub_date[len(dff)-1])[:10]
             
+            df_fcn, fm = fcn_cpo(dff)
+            
+            np.savetxt('fcn_cpo.txt',df_fcn,fmt = fm, delimiter = '   \t', header = 'Date [YY-MM-DD]    |  Epoch [MJD] |    Ac [muas]   |   As [muas]  |    X0 [muas]  |    Y0 [muas]  |    dX [muas]   |   dY [muas]')
+            
+            f = open('fcn_cpo.txt','r')
+            ls = f.read()
+            f.close()
+            
+            #read iers
+            dx_c04, dy_c04 = read_iers()
+            
+            st.header('CPOs prediction')
+            #Plot
+            st.write(text5+f' *(last updated: {upt})*.')
+            
+            st.subheader("Interactive plot")
+            
+            i = (df_fcn[df_fcn['Date [YY-MM-DD]'] =='1998-01-01 00:00:00'].index)[0]
+            with st.container(border = True):
+                fig = go.Figure()
+                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:len(dx_c04)], y = dx_c04[i:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u23 C04'))
+                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:len(dy_c04)], y = dy_c04[i:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
+                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:], y = df_fcn[df_fcn.columns[6]][i:], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dX'))
+                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:], y = df_fcn[df_fcn.columns[7]][i:], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dY'))
+                fig.update_layout(title = 'CPOs solutions',
+                                  title_font_color = '#fb9a5a',
+                                  title_font_size = 28,
+                                  title_font_weight = 20,
+                                  title_x = .5
+                                    )
+                fig.update_layout(legend_title_text = 'Parameters',
+                                  legend_bordercolor = '#fb9a5a',
+                                  legend_borderwidth = 1.5,
+                                  legend_font_size = 14,
+                                  legend_title_font_size = 18
+                                  )
+                fig.update_layout(plot_bgcolor = '#fff')
+                fig.update_xaxes(title_text="Date",
+                                  tickfont_size = 14,
+                                  ticks = 'outside',
+                                  minor_ticks = 'outside',
 
+                                  tickcolor = '#d1d1d1',
+                                  )
+                
+                fig.update_yaxes(title_text="muas",
+                                  tickfont_size = 14,
+                                  ticks = 'outside',
+                                  tickcolor = '#d1d1d1',
+                                  minor_ticks = 'outside',
+                                  gridcolor = '#d1d1d1',
+                                  minor_showgrid = True,
+                                  minor_griddash = 'dot'
+                                  )
         
-        #Create .txt and .csv files:
-        st.subheader('Data files')
-        st.write('Here you can download all the solutions of this model since 1962-01-01: amplitudes (Ac, As), constant offsets (X0, Y0) and the celestial polar offsets:')
-        col1,col2 = st.columns([0.2,0.8],gap = 'small')
-        with col1:
-              st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'fcn_cpo.txt', data = ls)
-        with col2:
-              st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = f'fcn_cpo.csv', data = df_fcn.to_csv(index = False))
-             
-        st.divider()  
+                st.plotly_chart(fig, use_container_width=True)
+                
 
+            
+            #Create .txt and .csv files:
+            st.subheader('Data files')
+            st.write('Here you can download all the solutions of this model since 1962-01-01: amplitudes (Ac, As), constant offsets (X0, Y0) and the celestial polar offsets:')
+            col1,col2 = st.columns([0.2,0.8],gap = 'small')
+            with col1:
+                  st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'fcn_cpo.txt', data = ls)
+            with col2:
+                  st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = f'fcn_cpo.csv', data = df_fcn.to_csv(index = False))
+                 
+            st.divider()  
+
+            
+        #Error message
+        except:
+            with st.spinner(text="Uploading. This process might take a few minutes..."):
+                time.sleep(15)
+                st.rerun()  
         
-    #Error message
-    except:
-        with st.spinner(text="Uploading. This process might take a few minutes..."):
-            time.sleep(15)
-            st.rerun()        
 
 #Prediction models theory page
+if menu == "PREDICTION MODELS":
+    st.header("Short-term EOP predictions: 10 days")
+    st.subheader("Prediction models without EAM")
+    st.markdown('- For **xpol** prediction, each component is preprocessed by applying **Singular Spectrum Analysis (SSA)** in order to obtain a reconstructed time series and the residual noise time series. Using the **Kernel Ridge Regression (KRR)** algorithm, two models are trained: one to predict the reconstructed time series and the other to predict the noise. Both predictions are then added to generate the final xpol prediction. Idem **ypol**.')
+    st.markdown('- For the **dX** prediction, the **Free Core Nutation (FCN)** x component (xFCN) is calculated, and alongside dX they are used to train a model using **KRR** to predict dX. Idem **dY**.')
+    st.markdown('- For the **dUT1** prediction, the data is preprocessed by removing the leap seconds. Afterwards, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final dUT1 prediction.')
+    st.image('esquema.png',output_format = 'PNG',width = 1420) 
+    st.divider()
 
+    st.subheader("Prediction models using EAM")
+    st.write("To predict EOP using **Effective Angular Momentum** Functions data, we will sum into one variable -called **xEAM**- the xmass and xmotion components of Atmospheric Angular Momentum (AAM), Oceanic Angular Momentum (OAM) and Hydrological Angular Momentum (HAM). We follow the same proceeding with the y and z components to obtain the variables **yEAM** and **zEAM**.")
+    st.markdown("- For **xpol** prediction, each component is preprocessed by applying **Singular Spectrum Analysis (SSA)** in order to obtain a reconstructed time series and the residual noise time series. Using this parameters alongside xEAM a model is trained using **Kernel Ridge Regression (KRR)** algorithm to predict xpol. Idem **ypol**.")
+    st.markdown("- For the **dX** prediction, the **Free Core Nutation (FCN)** x component (xFCN) is calculated, and alongside dX and xEAM they are used to train a model using **KRR** to predict dX. Idem **dY**.")
+    st.markdown("- For the **dUT1** prediction, the data is preprocessed by removing the leap seconds. Afterwards, alongside with zEAM, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final dUT1 prediction.")
+    st.image('esquema_eam.png',output_format = 'PNG',width = 1420)
    
      
 
