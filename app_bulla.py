@@ -311,44 +311,44 @@ if menu == "EOP PREDICTIONS":
             st.subheader("Interactive plot")
             
             i = (df_fcn[df_fcn['Date [YY-MM-DD]'] =='1998-01-01 00:00:00'].index)[0]
-            with st.container(border = True):
-                fig = go.Figure()
-                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:len(dx_c04)], y = dx_c04[i:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u23 C04'))
-                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:len(dy_c04)], y = dy_c04[i:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
-                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:], y = df_fcn[df_fcn.columns[6]][i:], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dX'))
-                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:], y = df_fcn[df_fcn.columns[7]][i:], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dY'))
-                fig.update_layout(title = 'CPOs solutions',
-                                  title_font_color = '#fb9a5a',
-                                  title_font_size = 28,
-                                  title_font_weight = 20,
-                                  title_x = .5
-                                    )
-                fig.update_layout(legend_title_text = 'Parameters',
-                                  legend_bordercolor = '#fb9a5a',
-                                  legend_borderwidth = 1.5,
-                                  legend_font_size = 14,
-                                  legend_title_font_size = 18
-                                  )
-                fig.update_layout(plot_bgcolor = '#fff')
-                fig.update_xaxes(title_text="Date",
-                                  tickfont_size = 14,
-                                  ticks = 'outside',
-                                  minor_ticks = 'outside',
+            # with st.container(border = True):
+            #     fig = go.Figure()
+            #     fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:len(dx_c04)], y = dx_c04[i:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u23 C04'))
+            #     fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:len(dy_c04)], y = dy_c04[i:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
+            #     fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:], y = df_fcn[df_fcn.columns[6]][i:], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dX'))
+            #     fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:], y = df_fcn[df_fcn.columns[7]][i:], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dY'))
+            #     fig.update_layout(title = 'CPOs solutions',
+            #                       title_font_color = '#fb9a5a',
+            #                       title_font_size = 28,
+            #                       title_font_weight = 20,
+            #                       title_x = .5
+            #                         )
+            #     fig.update_layout(legend_title_text = 'Parameters',
+            #                       legend_bordercolor = '#fb9a5a',
+            #                       legend_borderwidth = 1.5,
+            #                       legend_font_size = 14,
+            #                       legend_title_font_size = 18
+            #                       )
+            #     fig.update_layout(plot_bgcolor = '#fff')
+            #     fig.update_xaxes(title_text="Date",
+            #                       tickfont_size = 14,
+            #                       ticks = 'outside',
+            #                       minor_ticks = 'outside',
 
-                                  tickcolor = '#d1d1d1',
-                                  )
+            #                       tickcolor = '#d1d1d1',
+            #                       )
                 
-                fig.update_yaxes(title_text="muas",
-                                  tickfont_size = 14,
-                                  ticks = 'outside',
-                                  tickcolor = '#d1d1d1',
-                                  minor_ticks = 'outside',
-                                  gridcolor = '#d1d1d1',
-                                  minor_showgrid = True,
-                                  minor_griddash = 'dot'
-                                  )
+            #     fig.update_yaxes(title_text="muas",
+            #                       tickfont_size = 14,
+            #                       ticks = 'outside',
+            #                       tickcolor = '#d1d1d1',
+            #                       minor_ticks = 'outside',
+            #                       gridcolor = '#d1d1d1',
+            #                       minor_showgrid = True,
+            #                       minor_griddash = 'dot'
+            #                       )
         
-                st.plotly_chart(fig, use_container_width=True)
+            #     st.plotly_chart(fig, use_container_width=True)
                 
 
             
