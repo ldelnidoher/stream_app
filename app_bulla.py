@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import time
-import datetime
+import datetime 
 from astropy.time import Time
 import os
 import matplotlib.pyplot as plt
@@ -310,57 +310,78 @@ if menu == "EOP PREDICTIONS":
             
             st.subheader("Interactive plot")
             
-            i = (df_fcn[df_fcn['Date [YY-MM-DD]'] =='1998-01-01 00:00:00'].index)[0]
-            # with st.container(border = True):
-            #     fig = go.Figure()
-            #     fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:len(dx_c04)], y = dx_c04[i:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u23 C04'))
-            #     fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:len(dy_c04)], y = dy_c04[i:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
-            #     fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:], y = df_fcn[df_fcn.columns[6]][i:], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dX'))
-            #     fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:], y = df_fcn[df_fcn.columns[7]][i:], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dY'))
-            #     fig.update_layout(title = 'CPOs solutions',
-            #                       title_font_color = '#fb9a5a',
-            #                       title_font_size = 28,
-            #                       title_font_weight = 20,
-            #                       title_x = .5
-            #                         )
-            #     fig.update_layout(legend_title_text = 'Parameters',
-            #                       legend_bordercolor = '#fb9a5a',
-            #                       legend_borderwidth = 1.5,
-            #                       legend_font_size = 14,
-            #                       legend_title_font_size = 18
-            #                       )
-            #     fig.update_layout(plot_bgcolor = '#fff')
-            #     fig.update_xaxes(title_text="Date",
-            #                       tickfont_size = 14,
-            #                       ticks = 'outside',
-            #                       minor_ticks = 'outside',
-
-            #                       tickcolor = '#d1d1d1',
-            #                       )
+            fin = df_fcn['Date [YY-MM-DD]'].values[-1]
+            inicio = df_fcn['Date [YY-MM-DD]'].values[-365*10]
+            inicio = datetime.datetime.strptime(inicio, '%Y-%m-%d %H:%M:%S')
+            fin = datetime.datetime.strptime(fin, '%Y-%m-%d %H:%M:%S')
+            intervalo = st.date_input("Select a range",
+                                      value = [inicio, fin],
+                                      min_value = datetime.date(1962,1,1),
+                                      max_value = fin,
+                                      help = 'In order not to potentially freeze the app, it is advised to select less than 10 years of data. Nevertheless it is possible to load all 60+ years.',
+                                      label_visibility='visible'
+                                      )
+            a, b = intervalo[0].strftime('%Y-%m-%d %H:%M:%S'), intervalo[1].strftime('%Y-%m-%d %H:%M:%S')
+            i = (df_fcn[df_fcn['Date [YY-MM-DD]'] == a].index)[0]
+            f = (df_fcn[df_fcn['Date [YY-MM-DD]'] == b].index)[0]
+            
+            if f> len(df_fcn):
+                xval = len(df_fcn)
+            else: 
+                xval = f
                 
-            #     fig.update_yaxes(title_text="muas",
-            #                       tickfont_size = 14,
-            #                       ticks = 'outside',
-            #                       tickcolor = '#d1d1d1',
-            #                       minor_ticks = 'outside',
-            #                       gridcolor = '#d1d1d1',
-            #                       minor_showgrid = True,
-            #                       minor_griddash = 'dot'
-            #                       )
+            with st.container(border = True):
+                fig = go.Figure()
+                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:xval], y = dx_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u23 C04'))
+                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:xval], y = dy_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
+                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:f], y = df_fcn[df_fcn.columns[6]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dX'))
+                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:f], y = df_fcn[df_fcn.columns[7]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dY'))
+                fig.update_layout(title = 'CPOs solutions',
+                                  title_font_color = '#fb9a5a',
+                                  title_font_size = 28,
+                                  title_font_weight = 20,
+                                  title_x = .5
+                                    )
+                fig.update_layout(legend_title_text = 'Parameters',
+                                  legend_bordercolor = '#fb9a5a',
+                                  legend_borderwidth = 1.5,
+                                  legend_font_size = 14,
+                                  legend_title_font_size = 18
+                                  )
+                fig.update_layout(plot_bgcolor = '#fff')
+                fig.update_xaxes(title_text="Date",
+                                  tickfont_size = 14,
+                                  ticks = 'outside',
+                                  minor_ticks = 'outside',
+
+                                  tickcolor = '#d1d1d1',
+                                  )
+                
+                fig.update_yaxes(title_text="muas",
+                                  tickfont_size = 14,
+                                  ticks = 'outside',
+                                  tickcolor = '#d1d1d1',
+                                  minor_ticks = 'outside',
+                                  gridcolor = '#d1d1d1',
+                                  minor_showgrid = True,
+                                  minor_griddash = 'dot'
+                                  )
         
-            #     st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, use_container_width=True)
                 
 
             
             #Create .txt and .csv files:
             st.subheader('Data files')
             st.write('Here you can download all the solutions of this model since 1962-01-01: amplitudes (Ac, As), constant offsets (X0, Y0) and the celestial polar offsets:')
-            col1,col2 = st.columns([0.2,0.8],gap = 'small')
+            col1,col2,col3 = st.columns([0.2,0.2,0.6],gap = 'small')
             with col1:
-                  st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = f'fcn_cpo.txt', data = ls)
+                  st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = 'fcn_cpo.txt', data = ls)
             with col2:
-                  st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = f'fcn_cpo.csv', data = df_fcn.to_csv(index = False))
-                 
+                  st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = 'fcn_cpo.csv', data = df_fcn.to_csv(index = False))
+            with col3:
+                  st.download_button(label =':arrow_heading_down: Save plot as .png :arrow_heading_down:', file_name = 'fcn_cpo_plot.png', data = open('fcn_cpo_plot.png','rb').read())
+                      
             st.divider()  
 
             

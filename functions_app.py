@@ -206,4 +206,5 @@ def read_iers():
     aux = [lista[i].split() for i in range(len(lista)-1)]   #last value is an empty line
     dx = [1e6*float(aux[i][8]) for i in range(len(aux))]
     dy = [1e6*float(aux[i][9]) for i in range(len(aux))]
+    
     return dx,dy
