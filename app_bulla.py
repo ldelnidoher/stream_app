@@ -334,8 +334,8 @@ if menu == "EOP PREDICTIONS":
                 fig = go.Figure()
                 fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:xval], y = dx_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u23 C04'))
                 fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:xval], y = dy_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
-                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:f], y = df_fcn[df_fcn.columns[6]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dX'))
-                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:f], y = df_fcn[df_fcn.columns[7]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'dY'))
+                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:f], y = df_fcn[df_fcn.columns[6]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dX'))
+                fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:f], y = df_fcn[df_fcn.columns[7]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dY'))
                 fig.update_layout(title = 'CPOs solutions',
                                   title_font_color = '#fb9a5a',
                                   title_font_size = 28,
