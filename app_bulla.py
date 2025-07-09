@@ -304,7 +304,7 @@ if menu == "EOP PREDICTIONS":
             #read iers
             dx_c04, dy_c04 = read_iers()
             
-            st.header('CPOs prediction')
+            st.header('FCN-CPOs prediction')
             #Plot
             st.write(text5+f' *(last updated: {upt})*.')
             
@@ -336,7 +336,7 @@ if menu == "EOP PREDICTIONS":
                 fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:xval], y = dy_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
                 fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:f], y = df_fcn[df_fcn.columns[6]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dX'))
                 fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:f], y = df_fcn[df_fcn.columns[7]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dY'))
-                fig.update_layout(title = 'CPOs solutions',
+                fig.update_layout(title = 'FCN-CPOs solutions',
                                   title_font_color = '#fb9a5a',
                                   title_font_size = 28,
                                   title_font_weight = 20,
