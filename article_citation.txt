@@ -1,0 +1,11 @@
+Santiago Belda, José M. Ferrándiz, Robert Heinkelmann, Tobias Nilsson, Harald Schuh,
+Testing a new Free Core Nutation empirical model,
+Journal of Geodynamics,
+Volumes 94–95,
+2016,
+Pages 59-67,
+ISSN 0264-3707,
+https://doi.org/10.1016/j.jog.2016.02.002.
+(https://www.sciencedirect.com/science/article/pii/S0264370715300120)
+Abstract: The Free Core Nutation (FCN) is a free mode of the Earth's rotation caused by the different material characteristics of the Earth's core and mantle. This causes the rotational axes of those layers to slightly diverge from each other, resulting in a wobble of the Earth's rotation axis comparable to nutations. In this paper we focus on estimating empirical FCN models using the observed nutations derived from the VLBI sessions between 1993 and 2013. Assuming a fixed value for the oscillation period, the time-variable amplitudes and phases are estimated by means of multiple sliding window analyses. The effects of using different a priori Earth Rotation Parameters (ERP) in the derivation of models are also addressed. The optimal choice of the fundamental parameters of the model, namely the window width and step-size of its shift, is searched by performing a thorough experimental analysis using real data. The former analyses lead to the derivation of a model with a temporal resolution higher than the one used in the models currently available, with a sliding window reduced to 400 days and a day-by-day shift. It is shown that this new model increases the accuracy of the modeling of the observed Earth's rotation. Besides, empirical models determined from USNO Finals as a priori ERP present a slightly lower Weighted Root Mean Square (WRMS) of residuals than IERS 08 C04 along the whole period of VLBI observations, according to our computations. The model is also validated through comparisons with other recognized models. The level of agreement among them is satisfactory. Let us remark that our estimates give rise to the lowest residuals and seem to reproduce the FCN signal in more detail.
+Keywords: Earth; Reference systems; Nutations; Empirical methods

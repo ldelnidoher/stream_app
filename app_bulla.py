@@ -31,7 +31,8 @@ text1 = 'The prediction of the parameters is calculated using **Machine Learning
 text2 = '[IERS EOP 20 C04, IERS finals.all](https://www.iers.org/IERS/EN/DataProducts/EarthOrientationData/eop.html) and [GFZ Effective Angular Momentum Functions](http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=e0fff81f-dcae-469e-8e0a-eb10caf2975b) are employed as input data.'
 text3 = text2+' Two predictive models are applied. **w/o EAM** utilises only EOP data as input whereas **w/ EAM** includes both EOP data and Effective Angular Momentum data.'
 text4 = 'Here we present a compilation of all the predictions, calculated every Wednesday, in a single file. As two different prediction models are used, two separate files are provided.'
-text5 = 'Here we present the **FCN-CPOs** solutions that we obtained in the FCN_CPO model, alongside the IERS 20u23 C04 solutions for comparison. This data gets updated bi-monthly'
+text5 = 'Here we present the **FCN-CPOs** solutions that we obtained in the FCN_CPO model, alongside the IERS 20u23 C04 solutions for comparison.'
+text6 = text5 + 'The methodoly and details about this model can be found in the following paper: [Belda, S., Ferrándiz J.M., Heinkelmann R., Nilsson T. and Schuh H. (2016). *Testing a new Free Core Nutation empirical model (2016)*](DOI:10.1016/j.jog.2016.02.002)'
 
 
 #Banner image
@@ -306,7 +307,9 @@ if menu == "EOP PREDICTIONS":
             
             st.header('FCN-CPOs prediction')
             #Plot
-            st.write(text5+f' *(last updated: {upt})*.')
+            st.write(text6)
+
+            st.write(f'This data gets updated bi-monthly *(last updated: {upt})*.')
             
             st.subheader("Interactive plot")
             
@@ -373,7 +376,7 @@ if menu == "EOP PREDICTIONS":
             
             #Create .txt and .csv files:
             st.subheader('Data files')
-            st.write('Here you can download all the solutions of this model since 1962-01-01: amplitudes (Ac, As), constant offsets (X0, Y0) and the celestial polar offsets:')
+            st.write('Here you can download all the solutions of this model since 1962-01-01: amplitudes (Ac, As), constant offsets (X0, Y0) and the celestial polar offsets.')
             col1,col2,col3 = st.columns([0.2,0.2,0.6],gap = 'small')
             with col1:
                   st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = 'fcn_cpo.txt', data = ls)
@@ -381,6 +384,13 @@ if menu == "EOP PREDICTIONS":
                   st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = 'fcn_cpo.csv', data = df_fcn.to_csv(index = False))
             with col3:
                   st.download_button(label =':arrow_heading_down: Save plot as .png :arrow_heading_down:', file_name = 'fcn_cpo_plot.png', data = open('fcn_cpo_plot.png','rb').read())
+            
+            st.write('Please, if you use this data make sure to cite it correctly:')  
+            col1,col2 = st.columns([0.2,0.8],gap = 'small')
+            with col1: 
+                st.download_button(label =':memo: Citation to .bib :arrow_heading_down:', file_name = 'article_citation.bib', data = open('article_citation.bib','rb').read())
+            with col2: 
+                st.download_button(label =':memo: Citation to .txt :arrow_heading_down:', file_name = 'article_citation.txt', data = open('article_citation.txt','rb').read())
                       
             st.divider()  
 
