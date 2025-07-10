@@ -385,12 +385,13 @@ if menu == "EOP PREDICTIONS":
             with col3:
                   st.download_button(label =':arrow_heading_down: Save plot as .png :arrow_heading_down:', file_name = 'fcn_cpo_plot.png', data = open('fcn_cpo_plot.png','rb').read())
             
-            st.write(':heavy_exclamation_mark: **Please, if you use this data we would appreciate you to cite our article:**')  
-            col1,col2 = st.columns([0.2,0.8],gap = 'small')
+            
+            st.markdown(':heavy_exclamation_mark: **Please, if you use this data we would appreciate you to cite our article:**')  
+            col1,col2= st.columns([0.2,0.8],gap = 'small')
             with col1: 
-                st.download_button(label =':memo: Citation to .bib :arrow_heading_down:', file_name = 'article_citation.bib', data = open('article_citation.bib','rb').read())
+                st.download_button(label =':memo: Citation to .bib', file_name = 'article_citation.bib', data = open('article_citation.bib','rb').read())
             with col2: 
-                st.download_button(label =':memo: Citation to .txt :arrow_heading_down:', file_name = 'article_citation.txt', data = open('article_citation.txt','rb').read())
+                st.download_button(label =':memo: Citation to .txt', file_name = 'article_citation.txt', data = open('article_citation.txt','rb').read())
                       
             st.divider()  
 
