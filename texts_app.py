@@ -66,6 +66,17 @@ We are a team of scientists working in collaboration from:
 *If you have any questions or suggestions, please write (ES/EN) to lucia.delnido@ua.es*
 """
 
+css_tabs = """
+<style>
+    /* Custom style for all tabs */
+    .stTabs > .tablist > .react-tabs__tab {
+        font-size: 32px;
+        color:#fc03fc;
+    }
+</style>
+"""
+
+
 
 pred_short_no = """- For **xpol** prediction, each component is preprocessed by
  applying **Singular Spectrum Analysis (SSA)** in order to obtain a 
