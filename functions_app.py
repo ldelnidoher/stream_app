@@ -12,6 +12,17 @@ import datetime
 from astropy.time import Time
 import sqlite3
 import requests
+import plotly.graph_objects as go
+
+
+def read_db(num):
+    table = ['polls_files','polls_files_new','polls_fcn_cpo']
+    conn = sqlite3.connect('db.db')
+    cursor = conn.cursor()
+    cursor.execute(f"""SELECT * from {table[num]} """)
+    dff=pd.read_sql(f"""SELECT * from {table[num]} """, conn)  #DataFrame with all the prediction data from the database
+    conn.close()
+    return dff
 
 
 def separate_dates(df):
@@ -178,6 +189,23 @@ def history(dff,dff2):
     return df_no_hist, df_si_hist
     
 
+def df_filtered(dff_aux,df,val, years, months, days):
+    dff2 = dff_aux[dff_aux['param'] == val]
+    dff_mjd= dff_aux[dff_aux['param'] == 'mj']
+    
+    if (years in dff2['year'].values and months in dff2['month'].values and days in dff2['day'].values):
+        dff3 = dff2[dff2['year']==years]
+        dff4 = dff3[dff3['month']==months]
+        dff5 = dff4[dff4['day']==days]
+        
+        df_new, txt_new, fm_new = create_df(val, dff5, dff_mjd)
+        
+        df = pd.concat([df,df_new[df_new.columns[-2:]]],axis = 1, ignore_index = False)
+        df.columns = pd.Index(['Date [YY-MM-DD]', 'Epoch [MJD]', 'w/o EAM [mas]', 'w/ EAM [mas]','NEW w/o EAM [mas]', 'NEW w/ EAM [mas]'], dtype='object')
+        t = True
+    return df, t
+
+
 def fcn_cpo(dff):
     df = pd.DataFrame(data = [], columns = ['dt','mj','ac','as','x0','y0','dx','dy'])
     for i in range(len(dff)):
@@ -208,3 +236,97 @@ def read_iers():
     dy = [1e6*float(aux[i][9]) for i in range(len(aux))]
     
     return dx,dy
+
+
+def interval_dates(df_fcn):
+    inicio = df_fcn['Date [YY-MM-DD]'].values[-365*10]
+    fin = df_fcn['Date [YY-MM-DD]'].values[-1]
+    inicio = datetime.datetime.strptime(inicio, '%Y-%m-%d %H:%M:%S')
+    fin = datetime.datetime.strptime(fin, '%Y-%m-%d %H:%M:%S')
+    return inicio, fin
+
+
+def fig_eops(df,txt,selected,lim):
+    fig = go.Figure()
+    for j in range(1,lim):
+         fig.add_trace(go.Scatter(x = df['Epoch [MJD]'],y = df[df.columns[-j]],mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
+     
+    fig.update_layout(title = f'{selected}',
+                      title_font_color = '#fb9a5a',
+                      title_font_size = 28,
+                      title_font_weight = 20,
+                      title_x = .5
+                        )
+    fig.update_layout(legend_title_text = 'Models',
+                      legend_bordercolor = '#fb9a5a',
+                      legend_borderwidth = 1.5,
+                      legend_font_size = 14,
+                      legend_title_font_size = 18
+                      )
+    fig.update_layout(plot_bgcolor = '#fff')
+    fig.update_xaxes(title_text="Date",
+                     tickfont_size = 14,
+                     ticks = 'outside',
+                     minor_ticks = 'outside',
+                     minor_dtick = 1,
+                     tickcolor = '#d1d1d1',
+                     )
+    
+    fig.update_yaxes(title_text=f"[{txt}]",
+                     tickfont_size = 14,
+                     ticks = 'outside',
+                     tickcolor = '#d1d1d1',
+                     minor_ticks = 'outside',
+                     gridcolor = '#d1d1d1',
+                     minor_showgrid = True,
+                     minor_griddash = 'dot'
+                     )
+    return fig
+
+
+def fig_fcn(intervalo, df_fcn, dx_c04, dy_c04):
+    a, b = intervalo[0].strftime('%Y-%m-%d %H:%M:%S'), intervalo[1].strftime('%Y-%m-%d %H:%M:%S')
+    i = (df_fcn[df_fcn['Date [YY-MM-DD]'] == a].index)[0]
+    f = (df_fcn[df_fcn['Date [YY-MM-DD]'] == b].index)[0]
+    
+    if f> len(df_fcn):
+        xval = len(df_fcn)
+    else: 
+        xval = f
+        
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:xval], y = dx_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u23 C04'))
+    fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:xval], y = dy_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
+    fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:f], y = df_fcn[df_fcn.columns[6]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dX'))
+    fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:f], y = df_fcn[df_fcn.columns[7]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dY'))
+    fig.update_layout(title = 'FCN-CPOs solutions',
+                      title_font_color = '#fb9a5a',
+                      title_font_size = 28,
+                      title_font_weight = 20,
+                      title_x = .5
+                        )
+    fig.update_layout(legend_title_text = 'Parameters',
+                      legend_bordercolor = '#fb9a5a',
+                      legend_borderwidth = 1.5,
+                      legend_font_size = 14,
+                      legend_title_font_size = 18
+                      )
+    fig.update_layout(plot_bgcolor = '#fff')
+    fig.update_xaxes(title_text="Date",
+                      tickfont_size = 14,
+                      ticks = 'outside',
+                      minor_ticks = 'outside',
+
+                      tickcolor = '#d1d1d1',
+                      )
+    
+    fig.update_yaxes(title_text="muas",
+                      tickfont_size = 14,
+                      ticks = 'outside',
+                      tickcolor = '#d1d1d1',
+                      minor_ticks = 'outside',
+                      gridcolor = '#d1d1d1',
+                      minor_showgrid = True,
+                      minor_griddash = 'dot'
+                      )
+    return fig
