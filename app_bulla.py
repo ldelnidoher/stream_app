@@ -26,6 +26,7 @@ def scroll():
     st.session_state.scroll_to_top = True
 
 
+
 #here we store the larger texts so the code doesn't get too overcrowded
 text1 = 'The prediction of the parameters is calculated using **Machine Learning** algorithms. The prediction horizon extends 10 days into the future, in addition to the day on which the calculations are conducted, referred to as Day 0.'
 text2 = '[IERS EOP 20 C04, IERS finals.all](https://www.iers.org/IERS/EN/DataProducts/EarthOrientationData/eop.html) and [GFZ Effective Angular Momentum Functions](http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=e0fff81f-dcae-469e-8e0a-eb10caf2975b) are employed as input data. On 5 June 2025 the series IERS EOP 20 C04 was discontinued and ever since IERS EOP 20u23 C04 is used as input.'
@@ -56,9 +57,12 @@ custom_html = """
 """
 st.components.v1.html(custom_html)
 
+
+
+
 #Menu on top of the page
 menu = option_menu(menu_title = None,
-                   options=["EOP PREDICTIONS", "PREDICTION MODELS","ABOUT US"],
+                   options=["INTRODUCTION","EOP PREDICTIONS", "PREDICTION MODELS","ABOUT US"],
                    orientation = "horizontal",
                    menu_icon = None,
                    styles = {
@@ -68,12 +72,40 @@ menu = option_menu(menu_title = None,
                         },
                   )
 
+if menu == "INTRODUCTION":
+    st.markdown(
+    """
+    ### **Welcome to the repository of the VLBI Analysis Center of the University of Alicante (UAVAC).**
+
+    In this app you will be able to find:
+    - EOP short-term predictions.
+    - FCN-CPOs predictions.
+    - Downloadable data in different formats and plots.
+        
+    In the menu option :orange[***"EOP PREDICTIONS"***] you will find different parameters predictions, both with downloadable historic data files in .txt and .csv. and interactive plots.  
+    In this plots you will be able to zoom in/out, select and especific area, choose which data to display (by right-clicking the parameter in the plot legend) and download them as .png. This options 
+    are found in the top right corner of the plot.
+
+    In the menu option :orange[***"PREDICTION MODELS"***] you will find diagrams and explanations further in depth about the prediction models used. 
+
+    In the menu option :orange[***"ABOUT US"***] you will find about the institutions involved in this project and contact information.
+
+    *This app is still under construction, so it might change with time. Thank you for your understanding.*    
+    """
+    )
+
 #About us page
 if menu == "ABOUT US":
-    st.write("We are a team of scientists working in collaboration from:")
-    st.markdown('- VLBI Analysis Center of the University of Alicante: [UAVAC](https://web.ua.es/en/uavac/)')
-    st.markdown('- Geodesy Area of the Spanish National Geographic Institute: [IGN Geodesy](https://www.ign.es/web/ign/portal/gds-area-geodesia)')
-    st.markdown('- Atlantic Network of Space Geodetic Stations: [RAEGE](https://raege.eu/)')
+    st.markdown(
+    """
+    We are a team of scientists working in collaboration from:
+    - VLBI Analysis Center of the University of Alicante: [UAVAC](https://web.ua.es/en/uavac/)
+    - Geodesy Area of the Spanish National Geographic Institute: [IGN Geodesy](https://www.ign.es/web/ign/portal/gds-area-geodesia)
+    - Atlantic Network of Space Geodetic Stations: [RAEGE](https://raege.eu/)'
+    
+    *If you have any questions or suggestions, please write to lucia.delnido@ua.es*
+    """
+    )
 
 
 
