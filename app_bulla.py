@@ -12,7 +12,7 @@ import sqlite3
 from streamlit_option_menu import option_menu
 from streamlit_scroll_to_top import scroll_to_here
 from functions_app import *
-
+from texts_app import *
 st.set_page_config(layout = 'wide', page_title='EOP data', page_icon = ':earth_africa:')
 
 #Creating a "scroll to top of the page" button
@@ -26,39 +26,7 @@ def scroll():
     st.session_state.scroll_to_top = True
 
 
-
-#here we store the larger texts so the code doesn't get too overcrowded
-text1 = 'The prediction of the parameters is calculated using **Machine Learning** algorithms. The prediction horizon extends 10 days into the future, in addition to the day on which the calculations are conducted, referred to as Day 0.'
-text2 = '[IERS EOP 20 C04, IERS finals.all](https://www.iers.org/IERS/EN/DataProducts/EarthOrientationData/eop.html) and [GFZ Effective Angular Momentum Functions](http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=e0fff81f-dcae-469e-8e0a-eb10caf2975b) are employed as input data. On 5 June 2025 the series IERS EOP 20 C04 was discontinued and ever since IERS EOP 20u23 C04 is used as input.'
-text3 = text2+' Two predictive models are applied. **w/o EAM** utilises only EOP data as input whereas **w/ EAM** includes both EOP data and Effective Angular Momentum data.'
-text4 = 'Here we present a compilation of all the predictions, calculated every Wednesday, in a single file. As two different prediction models are used, two separate files are provided.'
-text5 = 'Here we present the **FCN-CPOs** solutions that we obtained in the FCN_CPO model, alongside the IERS 20u23 C04 CPOs solutions for comparison.'
-text6 = text5 + 'The methodology and details about this model can be found in the following paper: [Belda, S., Ferrándiz J.M., Heinkelmann R., Nilsson T. and Schuh H. (2016). *Testing a new Free Core Nutation empirical model (2016)*](DOI:10.1016/j.jog.2016.02.002)'
-
-
-#Banner image
-custom_html = """
-<div class="banner">
-     <img src="https://github.com/ldelnidoher/stream_app/blob/main/logos.png?raw=true" alt="Banner Image">
-</div>
-<style>
-     <center>
-         .banner {
-             width: 100%;
-             height: 70px;
-             overflow: hidden;
-         }
-         .banner img {
-             width: 75%;
-             object-fit: cover;
-         }
-    </center>
-</style>
-"""
 st.components.v1.html(custom_html)
-
-
-
 
 #Menu on top of the page
 menu = option_menu(menu_title = None,
@@ -73,39 +41,12 @@ menu = option_menu(menu_title = None,
                   )
 
 if menu == "INTRODUCTION":
-    st.markdown(
-    """
-    ### **Welcome to the repository of the VLBI Analysis Center of the University of Alicante (UAVAC).**
-
-    In this app you will be able to find:
-    - EOP short-term predictions.
-    - FCN-CPOs predictions.
-    - Downloadable data in different formats and plots.
-        
-    In the menu option :orange[***"EOP PREDICTIONS"***] you will find different parameters predictions, both with downloadable historic data files in .txt and .csv. and interactive plots.  
-    In this plots you will be able to zoom in/out, select and especific area, choose which data to display (by right-clicking the parameter in the plot legend) and download them as .png. This options 
-    are found in the top right corner of the plot.
-
-    In the menu option :orange[***"PREDICTION MODELS"***] you will find diagrams and explanations further in depth about the prediction models used. 
-
-    In the menu option :orange[***"ABOUT US"***] you will find about the institutions involved in this project and contact information.
-
-    *This app is still under construction, so it might change with time. Thank you for your understanding.*    
-    """
-    )
+    st.markdown(introduction)
+   
 
 #About us page
 if menu == "ABOUT US":
-    st.markdown(
-    """
-    We are a team of scientists working in collaboration from:
-    - VLBI Analysis Center of the University of Alicante: [UAVAC](https://web.ua.es/en/uavac/)
-    - Geodesy Area of the Spanish National Geographic Institute: [IGN Geodesy](https://www.ign.es/web/ign/portal/gds-area-geodesia)
-    - Atlantic Network of Space Geodetic Stations: [RAEGE](https://raege.eu/)'
-    
-    *If you have any questions or suggestions, please write to lucia.delnido@ua.es*
-    """
-    )
+    st.markdown(about_us)
 
 
 
@@ -131,13 +72,13 @@ if menu == "EOP PREDICTIONS":
             #Filter the files for the user
             st.header('Short-term EOP predictions: 10 days')
             st.subheader('Introduction')
-            st.write(text1+f' *(Last updated: {upt})*')
-            st.markdown(text3) 
+            st.write(ml_intro1+f' *(Last updated: {upt})*')
+            st.markdown(ml_intro2) 
     
             st.divider()
             
             st.subheader('Historical records:')
-            st.write(text4)
+            st.write(ml_historical)
             np.savetxt('history_no_eam.txt',df_no_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f', '% s','% s'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]    |    dY[mas]    |    dX_new[mas] |   dY_new[mas]  ')   
             np.savetxt('history_with_eam.txt',df_si_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f', '% s','% s'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]    |    dY[mas]    |    dX_new[mas] |   dY_new[mas]  ') 
             
@@ -263,8 +204,7 @@ if menu == "EOP PREDICTIONS":
             dx_c04, dy_c04 = read_iers()
             
             st.header('FCN-CPOs prediction')
-            st.write(text6)
-            st.write(f'This data gets updated bi-monthly *(last updated: {upt})*.')
+            st.markdown(fcn_intro + f' This data gets updated bi-monthly *(last updated: {upt})*.')
             
             st.subheader("Interactive plot")
             inicio, fin = interval_dates(df_fcn)
@@ -272,7 +212,7 @@ if menu == "EOP PREDICTIONS":
                                       value = [inicio, fin],
                                       min_value = datetime.date(1962,1,1),
                                       max_value = fin,
-                                      help = 'In order not to potentially freeze the app, it is advised to select less than 10 years of data. Nevertheless it is possible to load all 60+ years.',
+                                      help = fcn_help_plot,
                                       label_visibility='visible'
                                       )
             
@@ -314,17 +254,12 @@ if menu == "EOP PREDICTIONS":
 if menu == "PREDICTION MODELS":
     st.header("Short-term EOP predictions: 10 days")
     st.subheader("Prediction models without EAM")
-    st.markdown('- For **xpol** prediction, each component is preprocessed by applying **Singular Spectrum Analysis (SSA)** in order to obtain a reconstructed time series and the residual noise time series. Using the **Kernel Ridge Regression (KRR)** algorithm, two models are trained: one to predict the reconstructed time series and the other to predict the noise. Both predictions are then added to generate the final xpol prediction. Idem **ypol**.')
-    st.markdown('- For the **dX** prediction, the **Free Core Nutation (FCN)** x component (xFCN) is calculated, and alongside dX they are used to train a model using **KRR** to predict dX. Idem **dY**.')
-    st.markdown('- For the **dUT1** prediction, the data is preprocessed by removing the leap seconds. Afterwards, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final dUT1 prediction.')
+    st.markdown(pred_short_no)
     st.image('esquema.png',output_format = 'PNG',width = 1420) 
     st.divider()
 
     st.subheader("Prediction models using EAM")
-    st.write("To predict EOP using **Effective Angular Momentum** Functions data, we will sum into one variable -called **xEAM**- the xmass and xmotion components of Atmospheric Angular Momentum (AAM), Oceanic Angular Momentum (OAM) and Hydrological Angular Momentum (HAM). We follow the same proceeding with the y and z components to obtain the variables **yEAM** and **zEAM**.")
-    st.markdown("- For **xpol** prediction, each component is preprocessed by applying **Singular Spectrum Analysis (SSA)** in order to obtain a reconstructed time series and the residual noise time series. Using this parameters alongside xEAM a model is trained using **Kernel Ridge Regression (KRR)** algorithm to predict xpol. Idem **ypol**.")
-    st.markdown("- For the **dX** prediction, the **Free Core Nutation (FCN)** x component (xFCN) is calculated, and alongside dX and xEAM they are used to train a model using **KRR** to predict dX. Idem **dY**.")
-    st.markdown("- For the **dUT1** prediction, the data is preprocessed by removing the leap seconds. Afterwards, alongside with zEAM, a model is trained using **KRR** to predict this modified dUT1 time series. Lastly, the leap seconds are added back to obtain the final dUT1 prediction.")
+    st.markdown(pred_short_si)
     st.image('esquema_eam.png',output_format = 'PNG',width = 1420)
    
      
@@ -336,6 +271,3 @@ with columns[1]:
     st.button('Scroll to top', on_click=scroll)
 
     
-     
-
-
