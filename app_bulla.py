@@ -49,7 +49,6 @@ if menu == "ABOUT US":
     st.markdown(about_us)
 
 
-
 #EOP predictions page     
 if menu == "EOP PREDICTIONS":
     tab1, tab2 = st.tabs(["**MACHINE LEARNING PREDICTION**", "**FCN-CPOs PREDICTION**"])

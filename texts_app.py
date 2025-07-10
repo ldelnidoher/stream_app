@@ -28,8 +28,7 @@ custom_html = """
 
 
 introduction = """
-### **Welcome to the repository of the VLBI Analysis Center of the University
- of Alicante (UAVAC).**
+### **Welcome to the repository of the VLBI Analysis Center of the University of Alicante (UAVAC).**
 
 In this app you will be able to find:
 - **EOP short-term predictions.**
@@ -37,7 +36,7 @@ In this app you will be able to find:
 - **Downloadable data in different formats and plots.**
     
 In the menu option :orange[***"EOP PREDICTIONS"***] you will find different
- parameters predictions, both with downloadable historic data files in .txt
+ parameters predictions, with downloadable historic data files in .txt
  and .csv. and interactive plots.  
 In this plots you will be able to zoom in/out, select and especific area,
  choose which data to display (by right-clicking the parameter in the plot
