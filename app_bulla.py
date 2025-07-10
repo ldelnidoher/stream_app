@@ -31,8 +31,8 @@ text1 = 'The prediction of the parameters is calculated using **Machine Learning
 text2 = '[IERS EOP 20 C04, IERS finals.all](https://www.iers.org/IERS/EN/DataProducts/EarthOrientationData/eop.html) and [GFZ Effective Angular Momentum Functions](http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=e0fff81f-dcae-469e-8e0a-eb10caf2975b) are employed as input data.'
 text3 = text2+' Two predictive models are applied. **w/o EAM** utilises only EOP data as input whereas **w/ EAM** includes both EOP data and Effective Angular Momentum data.'
 text4 = 'Here we present a compilation of all the predictions, calculated every Wednesday, in a single file. As two different prediction models are used, two separate files are provided.'
-text5 = 'Here we present the **FCN-CPOs** solutions that we obtained in the FCN_CPO model, alongside the IERS 20u23 C04 solutions for comparison.'
-text6 = text5 + 'The methodoly and details about this model can be found in the following paper: [Belda, S., Ferrándiz J.M., Heinkelmann R., Nilsson T. and Schuh H. (2016). *Testing a new Free Core Nutation empirical model (2016)*](DOI:10.1016/j.jog.2016.02.002)'
+text5 = 'Here we present the **FCN-CPOs** solutions that we obtained in the FCN_CPO model, alongside the IERS 20u23 C04 CPOs solutions for comparison.'
+text6 = text5 + 'The methodology and details about this model can be found in the following paper: [Belda, S., Ferrándiz J.M., Heinkelmann R., Nilsson T. and Schuh H. (2016). *Testing a new Free Core Nutation empirical model (2016)*](DOI:10.1016/j.jog.2016.02.002)'
 
 
 #Banner image

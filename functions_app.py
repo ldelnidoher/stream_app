@@ -153,7 +153,6 @@ def history2(dff):
         for it in ['mj','dx','dy']:
             aux_no[it] = list(map(float,sample_no[it].split(',')))
             aux_si[it] = list(map(float,sample_si[it].split(',')))
-            # df_no_hist = pd.concat([df_no_hist,[np.nan]*7])
         df_no_hist = pd.concat([df_no_hist,aux_no])
         df_si_hist = pd.concat([df_si_hist,aux_si])
         
@@ -167,8 +166,9 @@ def history2(dff):
     ls = {'pub_date':'Date [YY-MM-DD]','mj':'Epoch[MJD]','dop':'Prediction day','dx':'dX_new[mas]','dy':'dY_new[mas]'}
     df_no_hist = df_no_hist.rename(ls, axis = 1)
     df_si_hist = df_si_hist.rename(ls, axis = 1)
-    
     return df_no_hist, df_si_hist
+
+
 
 def history(dff,dff2):
     df_no_hist, df_si_hist = history1(dff)
@@ -234,7 +234,6 @@ def read_iers():
     aux = [lista[i].split() for i in range(len(lista)-1)]   #last value is an empty line
     dx = [1e6*float(aux[i][8]) for i in range(len(aux))]
     dy = [1e6*float(aux[i][9]) for i in range(len(aux))]
-    
     return dx,dy
 
 
