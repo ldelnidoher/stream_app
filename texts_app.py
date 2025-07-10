@@ -28,7 +28,7 @@ custom_html = """
 
 
 introduction = """
-### **Welcome to the repository of the VLBI Analysis Center of the University of Alicante (UAVAC).**
+### **Welcome to the repository of the VLBI Analysis Center of the University of Alicante (UAVAC)**
 
 In this app you will be able to find:
 - **EOP short-term predictions.**
@@ -63,7 +63,7 @@ We are a team of scientists working in collaboration from:
 - Atlantic Network of Space Geodetic Stations:
  [RAEGE](https://raege.eu/)
 
-*If you have any questions or suggestions, please write to lucia.delnido@ua.es*
+*If you have any questions or suggestions, please write (ES/EN) to lucia.delnido@ua.es*
 """
 
 
