@@ -61,7 +61,7 @@ We are a team of scientists working in collaboration from:
 - Geodesy Area of the Spanish National Geographic Institute: 
  [IGN Geodesy](https://www.ign.es/web/ign/portal/gds-area-geodesia)
 - Atlantic Network of Space Geodetic Stations:
- [RAEGE](https://raege.eu/)'
+ [RAEGE](https://raege.eu/)
 
 *If you have any questions or suggestions, please write to lucia.delnido@ua.es*
 """
