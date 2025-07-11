@@ -204,11 +204,11 @@ if menu == "EOP PREDICTIONS":
             dx_c04, dy_c04 = read_iers()
             
             st.header('FCN-CPOs prediction')
-            st.markdown(fcn_intro + f' This data gets updated bi-monthly *(last updated: {upt})*.')
+            st.markdown(fcn_intro + f' *(last updated: {upt})*.')
             
             st.subheader("Interactive plot")
             inicio, fin = interval_dates(df_fcn)
-            intervalo = st.date_input("Select a range",
+            intervalo = st.date_input("Select a date range:",
                                       value = [inicio, fin],
                                       min_value = datetime.date(1962,1,1),
                                       max_value = fin,

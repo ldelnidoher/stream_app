@@ -66,17 +66,6 @@ We are a team of scientists working in collaboration from:
 *If you have any questions or suggestions, please write (ES/EN) to lucia.delnido@ua.es*
 """
 
-css_tabs = """
-<style>
-    /* Custom style for all tabs */
-    .stTabs > .tablist > .react-tabs__tab {
-        font-size: 32px;
-        color:#fc03fc;
-    }
-</style>
-"""
-
-
 
 pred_short_no = """- For **xpol** prediction, each component is preprocessed by
  applying **Singular Spectrum Analysis (SSA)** in order to obtain a 
@@ -91,6 +80,9 @@ pred_short_no = """- For **xpol** prediction, each component is preprocessed by
  seconds. Afterwards, a model s trained using **KRR** to predict this modified
  dUT1 time series. Lastly, the leap seconds are added back to obtain the final
  dUT1 prediction.  
+ - The output returns 1 day only, so there is 11 models (day 0 to day 10) per 
+ parameter. For the CPOs results with the **NEW** title, the algorithm is
+ multi-output and returns all 11 days simultaneously.
 """
 
 
@@ -112,6 +104,9 @@ pred_short_si = """To predict EOP using **Effective Angular Momentum**
  seconds. Afterwards, alongside with zEAM, a model is trained using **KRR** to
  predict this modified dUT1 time series. Lastly, the leap seconds are added
  back to obtain the final dUT1 prediction.")
+ - The output returns 1 day only, so there is 11 models (day 0 to day 10) per 
+ parameter. For the CPOs results with the **NEW** title, the algorithm is
+ multi-output and returns all 11 days simultaneously.
 """
 
 ml_intro1 = """
@@ -126,7 +121,7 @@ ml_intro2 = """
  are employed as input data. On 5 June 2025 the series IERS EOP 20 C04 was 
  discontinued and ever since IERS EOP 20u23 C04 is used as input.
 Two predictive models are applied. **w/o EAM** utilises only EOP data as input 
-whereas **w/ EAM** includes both EOP data and Effective Angular Momentum data.'
+whereas **w/ EAM** includes both EOP data and Effective Angular Momentum data.
 """
 
 ml_historical = """
