@@ -10,7 +10,6 @@ Created on Thu Jul 10 13:11:42 2025
 custom_html = """
 <div class="banner">
      <img src="https://github.com/ldelnidoher/stream_app/blob/main/logos.png?raw=true" alt="Banner Image">
-</div>
 <style>
      <center>
          .banner {
@@ -24,8 +23,48 @@ custom_html = """
          }
     </center>
 </style>
+</div>
 """
-
+# css_tabs = """
+# <div class="st-emotion-cache-bfgnao e1g8wfdw0">
+# <\button}
+# <style>
+#     .st-emotion-cache-bfgnao {
+#         --scrollbar-width: 0px;
+#         text-size-adjust: 100%;
+#         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+#         -webkit-font-smoothing: auto;
+#         color-scheme: light;
+#         font-weight: normal;
+#         line-height: 1.6;
+#         white-space: nowrap;
+#         cursor: pointer;
+#         box-sizing: border-box;
+#         scrollbar-width: thin;
+#         scrollbar-color: transparent transparent;
+#         font-family: "Source Sans", sans-serif;
+#         font-size: 1.5rem;
+#         color: inherit;
+#     }
+# <\style>
+# <\button>
+# <\div>
+# """
+css_tabs="""
+<style>
+    .stTabs > .tablist > .react-tabs__tab--selected {
+        background-color: #0e1117;
+        color: #ffffff;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    /* Custom style for all tabs */
+    .stTabs > .tablist > .react-tabs__tab {
+        background-color: #e8e8e8;
+        color: #4f4f4f;
+        font-family: 'Courier New', Courier, monospace;
+    }
+</style>
+"""
 
 introduction = """
 ### **Welcome to the repository of the VLBI Analysis Center of the University of Alicante (UAVAC)**
