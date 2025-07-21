@@ -4,7 +4,7 @@ Created on Thu Jul 10 13:11:42 2025
 
 @author: lddelnido
 """
-
+import streamlit as st
 
 #Banner image
 custom_html = """
@@ -66,14 +66,16 @@ css_tabs="""
 </style>
 """
 
-introduction = """
+introduction = f"""
 ### **Welcome to the repository of the VLBI Analysis Center of the University of Alicante (UAVAC)**
 
 In this app you will be able to find:
 - **EOP short-term predictions.**
 - **FCN-CPOs predictions.**
 - **Downloadable data in different formats and plots.**
-    
+  
+{st.divider()}
+  
 In the menu option :orange[***"EOP PREDICTIONS"***] you will find different
  parameters predictions, with downloadable historic data files in .txt
  and .csv. and interactive plots.  
