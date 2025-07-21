@@ -41,12 +41,12 @@ menu = option_menu(menu_title = None,
                   )
 
 if menu == "INTRODUCTION":
-    st.markdown(introduction)
+    st.markdown(introduction,unsafe_allow_html=True)
    
 
 #About us page
 if menu == "ABOUT US":
-    st.markdown(about_us)
+    st.markdown(about_us, unsafe_allow_html=True)
 
 
 #EOP predictions page     
@@ -73,13 +73,13 @@ if menu == "EOP PREDICTIONS":
             #Filter the files for the user
             st.header('Short-term EOP predictions: 10 days')
             st.subheader('Introduction')
-            st.write(ml_intro1+f' *(Last updated: {upt})*')
-            st.markdown(ml_intro2) 
+            st.markdown(ml_intro1+f' <i>(last updated: {upt})</i></div>.',unsafe_allow_html=True)
+            st.markdown(ml_intro2, unsafe_allow_html=True) 
     
             st.divider()
             
             st.subheader('Historical records:')
-            st.write(ml_historical)
+            st.markdown(ml_historical,unsafe_allow_html=True)
             np.savetxt('history_no_eam.txt',df_no_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f', '% s','% s'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]    |    dY[mas]    |    dX_new[mas] |   dY_new[mas]  ')   
             np.savetxt('history_with_eam.txt',df_si_hist, fmt = ['% s','%5d','%1d','% .8f','% .8f','% .9f', '% .5f','% .5f', '% s','% s'], delimiter='   \t', header = 'Date [YY-MM-DD]  | Epoch[MJD] |Prediction day| xpol[as]     |  ypol[as]    |   dUT1[s]     |   dX[mas]    |    dY[mas]    |    dX_new[mas] |   dY_new[mas]  ') 
             
@@ -205,7 +205,7 @@ if menu == "EOP PREDICTIONS":
             dx_c04, dy_c04 = read_iers()
             
             st.header('FCN-CPOs prediction')
-            st.markdown(fcn_intro + f' *(last updated: {upt})*.')
+            st.markdown(fcn_intro +f' <i>(last updated: {upt})</i></div>.', unsafe_allow_html=True)
             
             st.subheader("Interactive plot")
             inicio, fin = interval_dates(df_fcn)
@@ -255,12 +255,12 @@ if menu == "EOP PREDICTIONS":
 if menu == "PREDICTION MODELS":
     st.header("Short-term EOP predictions: 10 days")
     st.subheader("Prediction models without EAM")
-    st.markdown(pred_short_no)
+    st.markdown(pred_short_no, unsafe_allow_html = True)
     st.image('esquema.png',output_format = 'PNG',width = 1420) 
     st.divider()
 
     st.subheader("Prediction models using EAM")
-    st.markdown(pred_short_si)
+    st.markdown(pred_short_si, unsafe_allow_html = True)
     st.image('esquema_eam.png',output_format = 'PNG',width = 1420)
    
      
