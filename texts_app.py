@@ -116,7 +116,7 @@ pred_short_no = """- For **xpol** prediction, each component is preprocessed by
  is calculated, and alongside dX they are used to train a model using **KRR** 
  to predict dX. Idem **dY**.    
 - For the **dUT1** prediction, the data is preprocessed by removing the leap
- seconds. Afterwards, a model s trained using **KRR** to predict this modified
+ seconds. Afterwards, a model is trained using **KRR** to predict this modified
  dUT1 time series. Lastly, the leap seconds are added back to obtain the final
  dUT1 prediction.  
  - The output returns 1 day only, so there is 11 models (day 0 to day 10) per 
