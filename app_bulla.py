@@ -73,7 +73,7 @@ if menu == "EOP PREDICTIONS":
             #Filter the files for the user
             st.header('Short-term EOP predictions: 10 days')
             st.subheader('Introduction')
-            st.markdown(ml_intro1+f' <i>(last updated: {upt})</i></div>.',unsafe_allow_html=True)
+            st.markdown(ml_intro1+f' <i>(Last updated: {upt})</i></div>',unsafe_allow_html=True)
             st.markdown(ml_intro2, unsafe_allow_html=True) 
     
             st.divider()
