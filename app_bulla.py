@@ -205,7 +205,7 @@ if menu == "EOP PREDICTIONS":
             dx_c04, dy_c04 = read_iers()
             
             st.header('FCN-CPOs prediction')
-            st.markdown(fcn_intro +f' <i>(last updated: {upt})</i></div>.', unsafe_allow_html=True)
+            st.markdown(fcn_intro +f' <i>(last updated: {upt}).</i></div>', unsafe_allow_html=True)
             
             st.subheader("Interactive plot")
             inicio, fin = interval_dates(df_fcn)
