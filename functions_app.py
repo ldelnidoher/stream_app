@@ -14,7 +14,7 @@ import sqlite3
 import requests
 import plotly.graph_objects as go
 
-
+@st.cache_data(ttl = 3600, show_spinner='Connecting to the database')
 def read_db(num):
     table = ['polls_files','polls_files_new','polls_fcn_cpo']
     conn = sqlite3.connect('db.db')
@@ -25,6 +25,7 @@ def read_db(num):
     return dff
 
 
+# @st.cache_data(ttl = 3600, show_spinner=True)
 def separate_dates(df):
     dates = df['pub_date'].values
     year = [s[:4] for s in dates]
@@ -36,6 +37,8 @@ def separate_dates(df):
     df.insert(2, column = 'day', value = day)
     return df
 
+
+@st.cache_data(ttl = 3600, show_spinner=True)
 def create_df(val,df5,df_mjd):
     #Reading the data of the chosen prediction epoch
     conv1 = (df5[df5['type_EAM'] == 0])["values"].iloc[0]
@@ -59,6 +62,8 @@ def create_df(val,df5,df_mjd):
     df_final = pd.DataFrame({'Date [YY-MM-DD]':dates_fmt,'Epoch [MJD]':epochs, f'w/o EAM [{txt}]':conv1, f'w/ EAM [{txt}]':conv2}, index = (['Day'+str(v) for v in range(11)]))     
     return df_final, txt, fm
 
+
+@st.cache_data(ttl = 3600, show_spinner=True)
 def create_download(df,selected,txt,fm,t):
     l = len(txt)
     if l<3:
@@ -81,6 +86,7 @@ def create_download(df,selected,txt,fm,t):
     return string, lista
 
 
+@st.cache_data(ttl = 3600, show_spinner=True)
 def history1(dff):
     df_aux_no = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
     df_no = dff[dff['type_EAM'] == 0].sort_values('pub_date')
@@ -126,6 +132,7 @@ def history1(dff):
     return df_no_hist, df_si_hist
         
 
+@st.cache_data(ttl = 3600, show_spinner=True)
 def history2(dff):
     df_aux_no = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','dx','dy'])
     df_no = dff[dff['type_EAM'] == 0].sort_values('pub_date')
@@ -169,7 +176,7 @@ def history2(dff):
     return df_no_hist, df_si_hist
 
 
-
+@st.cache_data(ttl = 3600, show_spinner=True)
 def history(dff,dff2):
     df_no_hist, df_si_hist = history1(dff)
     a1,a2 = history2(dff2)
@@ -189,11 +196,12 @@ def history(dff,dff2):
     return df_no_hist, df_si_hist
     
 
+@st.cache_data(ttl = 3600, show_spinner=True)
 def df_filtered(dff_aux,df,val, years, months, days):
     dff2 = dff_aux[dff_aux['param'] == val]
     dff_mjd= dff_aux[dff_aux['param'] == 'mj']
-    
-    if (years in dff2['year'].values and months in dff2['month'].values and days in dff2['day'].values):
+    t=False
+    if ((years in dff2['year'].values) and (months in dff2['month'].values) and (days in dff2['day'].values)):
         dff3 = dff2[dff2['year']==years]
         dff4 = dff3[dff3['month']==months]
         dff5 = dff4[dff4['day']==days]
@@ -206,6 +214,7 @@ def df_filtered(dff_aux,df,val, years, months, days):
     return df, t
 
 
+@st.cache_data(ttl = 3600, show_spinner=True)
 def fcn_cpo(dff):
     df = pd.DataFrame(data = [], columns = ['dt','mj','ac','as','x0','y0','dx','dy'])
     for i in range(len(dff)):
@@ -220,7 +229,8 @@ def fcn_cpo(dff):
     fm = ['% s','%5d','% .4f','% .4f','% .4f','% .4f','% .4f','% .4f']    
     return df, fm
         
- 
+
+@st.cache_data(ttl = 3600, show_spinner=True)
 def read_iers():
     r = requests.get("https://datacenter.iers.org/data/latestVersion/EOP_20u23_C04_one_file_1962-now.txt")
     datos = r.text
@@ -237,6 +247,7 @@ def read_iers():
     return dx,dy
 
 
+@st.cache_data(ttl = 3600, show_spinner=True)
 def interval_dates(df_fcn):
     inicio = df_fcn['Date [YY-MM-DD]'].values[-365*10]
     fin = df_fcn['Date [YY-MM-DD]'].values[-1]
@@ -245,6 +256,7 @@ def interval_dates(df_fcn):
     return inicio, fin
 
 
+@st.cache_data(ttl = 3600, show_spinner=True)
 def fig_eops(df,txt,selected,lim):
     fig = go.Figure()
     for j in range(1,lim):
@@ -282,7 +294,7 @@ def fig_eops(df,txt,selected,lim):
                      )
     return fig
 
-
+@st.cache_data(ttl = 3600, show_spinner='Loading data')
 def fig_fcn(intervalo, df_fcn, dx_c04, dy_c04):
     a, b = intervalo[0].strftime('%Y-%m-%d %H:%M:%S'), intervalo[1].strftime('%Y-%m-%d %H:%M:%S')
     i = (df_fcn[df_fcn['Date [YY-MM-DD]'] == a].index)[0]

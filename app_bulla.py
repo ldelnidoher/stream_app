@@ -126,9 +126,8 @@ if menu == "EOP PREDICTIONS":
             if selected == 'UT1-UTC':
                  val = 'dt' 
             st.write(f'**Predictions for {selected:}**')
-            # st.write(text3) 
+
         
-            
             df2 = dff[dff['param']==val]
             df_mjd = dff[dff['param'] == 'mj']
             st.write('Filters:') 
@@ -149,13 +148,13 @@ if menu == "EOP PREDICTIONS":
                  days = st.selectbox(label = '3.- Select a day:', options = ll, index = ll.index(max(ll)))
                  df5 = df4[df4['day']==days]
             
+
             df, txt, fm = create_df(val,df5,df_mjd)
-            
             t = False
             if val in {'dx','dy'}:
                 df, t = df_filtered(dff_aux,df,val, years, months, days)
-                
             #Visualization of the predictions for the chosen epoch in a table format
+            
             styles = [dict(selector="", props=[('border','2px solid #fb9a5a')]), dict(selector="th", props=[("background-color","#b2d6fb"),('color','black')])] 
             s = df.style.set_table_styles(styles)
             st.table(s)
