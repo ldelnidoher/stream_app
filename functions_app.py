@@ -25,7 +25,7 @@ def read_db(num):
     return dff
 
 
-# @st.cache_data(ttl = 3600, show_spinner=True)
+# @st.cache_data(ttl = 3600, show_spinner=False)
 def separate_dates(df):
     dates = df['pub_date'].values
     year = [s[:4] for s in dates]
@@ -38,7 +38,7 @@ def separate_dates(df):
     return df
 
 
-@st.cache_data(ttl = 3600, show_spinner=True)
+@st.cache_data(ttl = 3600, show_spinner=False)
 def create_df(val,df5,df_mjd):
     #Reading the data of the chosen prediction epoch
     conv1 = (df5[df5['type_EAM'] == 0])["values"].iloc[0]
@@ -63,7 +63,7 @@ def create_df(val,df5,df_mjd):
     return df_final, txt, fm
 
 
-@st.cache_data(ttl = 3600, show_spinner=True)
+@st.cache_data(ttl = 3600, show_spinner=False)
 def create_download(df,selected,txt,fm,t):
     l = len(txt)
     if l<3:
@@ -86,7 +86,7 @@ def create_download(df,selected,txt,fm,t):
     return string, lista
 
 
-@st.cache_data(ttl = 3600, show_spinner=True)
+@st.cache_data(ttl = 3600, show_spinner=False)
 def history1(dff):
     df_aux_no = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
     df_no = dff[dff['type_EAM'] == 0].sort_values('pub_date')
@@ -132,7 +132,7 @@ def history1(dff):
     return df_no_hist, df_si_hist
         
 
-@st.cache_data(ttl = 3600, show_spinner=True)
+@st.cache_data(ttl = 3600, show_spinner=False)
 def history2(dff):
     df_aux_no = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','dx','dy'])
     df_no = dff[dff['type_EAM'] == 0].sort_values('pub_date')
@@ -176,7 +176,7 @@ def history2(dff):
     return df_no_hist, df_si_hist
 
 
-@st.cache_data(ttl = 3600, show_spinner=True)
+@st.cache_data(ttl = 3600, show_spinner=False)
 def history(dff,dff2):
     df_no_hist, df_si_hist = history1(dff)
     a1,a2 = history2(dff2)
@@ -196,7 +196,7 @@ def history(dff,dff2):
     return df_no_hist, df_si_hist
     
 
-@st.cache_data(ttl = 3600, show_spinner=True)
+@st.cache_data(ttl = 3600, show_spinner=False)
 def df_filtered(dff_aux,df,val, years, months, days):
     dff2 = dff_aux[dff_aux['param'] == val]
     dff_mjd= dff_aux[dff_aux['param'] == 'mj']
@@ -214,7 +214,7 @@ def df_filtered(dff_aux,df,val, years, months, days):
     return df, t
 
 
-@st.cache_data(ttl = 3600, show_spinner=True)
+@st.cache_data(ttl = 3600, show_spinner=False)
 def fcn_cpo(dff):
     df = pd.DataFrame(data = [], columns = ['dt','mj','ac','as','x0','y0','dx','dy'])
     for i in range(len(dff)):
@@ -230,7 +230,7 @@ def fcn_cpo(dff):
     return df, fm
         
 
-@st.cache_data(ttl = 3600, show_spinner=True)
+@st.cache_data(ttl = 3600, show_spinner=False)
 def read_iers():
     r = requests.get("https://datacenter.iers.org/data/latestVersion/EOP_20u23_C04_one_file_1962-now.txt")
     datos = r.text
@@ -247,7 +247,7 @@ def read_iers():
     return dx,dy
 
 
-@st.cache_data(ttl = 3600, show_spinner=True)
+@st.cache_data(ttl = 3600, show_spinner=False)
 def interval_dates(df_fcn):
     inicio = df_fcn['Date [YY-MM-DD]'].values[-365*10]
     fin = df_fcn['Date [YY-MM-DD]'].values[-1]
@@ -256,7 +256,7 @@ def interval_dates(df_fcn):
     return inicio, fin
 
 
-@st.cache_data(ttl = 3600, show_spinner=True)
+@st.cache_data(ttl = 3600, show_spinner=False)
 def fig_eops(df,txt,selected,lim):
     fig = go.Figure()
     for j in range(1,lim):
