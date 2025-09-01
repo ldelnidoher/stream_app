@@ -82,7 +82,7 @@ In this app you will be able to find:
   
 In the menu option <span style="color: #fb6a00"><i><b>"EOP PREDICTIONS"</b></i></span> you will find different
 parameters predictions, with downloadable historic data files in .txt
-and .csv. and interactive plots.  
+and .csv and interactive plots.  
 In these plots you will be able to zoom in/out, select and especific area,
 choose which data to display (by right-clicking the parameter in the plot
 legend) and download them as .png. This options are found in the top right
