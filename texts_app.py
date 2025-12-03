@@ -186,10 +186,10 @@ to the day on which the calculations are conducted, referred to as Day 0.
 """
 
 ml_intro2 = """<div style="text-align: justify;">
-<a href="https://www.iers.org/IERS/EN/DataProducts/EarthOrientationData/eop.html">IERS EOP 20 C04, IERS finals.all</a> and
+<a href="https://www.iers.org/IERS/EN/DataProducts/EarthOrientationData/eop.html">IERS EOP 20 C04 (*), IERS finals.all</a> and
 <a href="http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=e0fff81f-dcae-469e-8e0a-eb10caf2975b">GFZ Effective Angular Momentum Functions</a>
-are employed as input data. On 5 June 2025 the series IERS EOP 20 C04 was 
-discontinued and ever since IERS EOP 20u23 C04 is used as input.
+are employed as input data.(*) On 5 June 2025 the series IERS EOP 20 C04 was 
+discontinued and ever since <b>IERS EOP 20u23 C04<\b> is used as input.
 Two predictive models are applied. <b>w/o EAM</b> utilises only EOP data as input 
 whereas <b>w/ EAM</b> includes both EOP data and Effective Angular Momentum data.
 </div>
