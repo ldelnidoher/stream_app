@@ -16,8 +16,8 @@ import plotly.graph_objects as go
 
 @st.cache_data(ttl = 3600, show_spinner='Connecting to the database')
 def read_db(num):
-    table = ['polls_files','polls_files_new','polls_fcn_cpo']
-    conn = sqlite3.connect('db.db')
+    table = ['eop_old','eop_new','fcn_cpo']
+    conn = sqlite3.connect('eop_predictions.db')
     cursor = conn.cursor()
     cursor.execute(f"""SELECT * from {table[num]} """)
     dff=pd.read_sql(f"""SELECT * from {table[num]} """, conn)  #DataFrame with all the prediction data from the database
@@ -41,21 +41,19 @@ def separate_dates(df):
 @st.cache_data(ttl = 3600, show_spinner=False)
 def create_df(val,df5,df_mjd):
     #Reading the data of the chosen prediction epoch
-    conv1 = (df5[df5['type_EAM'] == 0])["values"].iloc[0]
-    conv2 = (df5[df5['type_EAM'] == 1])["values"].iloc[0]
-    conv_dates = ((df5[df5['type_EAM'] == 0])["pub_date"].values)[0]
-    epochs = (df_mjd[df_mjd["pub_date"] == conv_dates])["values"].iloc[0]
-    epochs = [int(float(item)) for item in epochs.split(',')] 
-    conv1 =  [float(item) for item in conv1.split(',')] 
-    conv2 =  [float(item) for item in conv2.split(',')]  
+    conv1 = (df5[df5['type_eam'] == 0])[df5.columns[-11:]].values[0]
+    conv2 = (df5[df5['type_eam'] == 1])[df5.columns[-11:]].values[0]
+    conv_dates = ((df5[df5['type_eam'] == 0])["pub_date"].values)[0]
+    epochs = (df_mjd[df_mjd["pub_date"] == conv_dates])[df5.columns[-11:]].iloc[0].values
+    epochs =[int(x) for x in epochs]
     dates_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in epochs]
-    if val in 'dt':
+    if val in 'dut1':
          txt = 's'
          fm = '% .9f'
     if val in {'dx','dy'}:
          txt = 'mas'
          fm = '% 5f'
-    if val in {'xp','yp'}:
+    if val in {'xpol','ypol'}:
          txt = 'as'
          fm = '% .8f'
          
@@ -88,44 +86,28 @@ def create_download(df,selected,txt,fm,t):
 
 @st.cache_data(ttl = 3600, show_spinner=False)
 def history1(dff):
-    df_aux_no = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
-    df_no = dff[dff['type_EAM'] == 0].sort_values('pub_date')
+    df_no_hist = pd.DataFrame(data = [], columns = ['date','epoch','dop','xpol','ypol','dut1','dx','dy'])
+    df_no = dff[dff['type_eam'] == 0].sort_values('pub_date')
 
-    df_aux_si = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
-    df_si = dff[dff['type_EAM'] == 1].sort_values('pub_date')
+    df_si_hist = pd.DataFrame(data = [], columns = ['date','epoch','dop','xpol','ypol','dut1','dx','dy'])
+    df_si = dff[dff['type_eam'] == 1].sort_values('pub_date')
     
-    for item in ['mj','xp','yp','dx','dy','dt']:
-        d1 = df_no[df_no['param']==item]
-        d2 = df_si[df_si['param']==item]
+    
+    for item in ['epoch','xpol','ypol','dx','dy','dut1']:
+        d1 = df_no[df_no['parameter']==item]
+        d2 = df_si[df_si['parameter']==item]
         
-        df_aux_no[item] = d1['values'].values
-        df_aux_si[item] = d2['values'].values
+        df_no_hist[item] = (d1[d1.columns[-11:]].values).flatten()
+        df_si_hist[item] = (d2[d2.columns[-11:]].values).flatten()
+            
+    df_no_hist.dop = np.resize(np.arange(11),len(df_no_hist))
+    df_si_hist.dop = np.resize(np.arange(11),len(df_no_hist))
     
-         
-    #Change df format for a row per day:
-    df_no_hist = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
-    df_si_hist = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
+    dates_hist_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in df_no_hist['epoch'].values]
+    df_no_hist.date = dates_hist_fmt
+    df_si_hist.date = dates_hist_fmt
     
-    for i in range(len(df_aux_no)):
-        sample_no = df_aux_no.iloc[i]
-        aux_no = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
-        sample_si = df_aux_si.iloc[i]
-        aux_si = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','xp','yp','dt','dx','dy'])
-        for it in ['mj','xp','yp','dt','dx','dy']:
-            aux_no[it] = list(map(float,sample_no[it].split(',')))
-            aux_si[it] = list(map(float,sample_si[it].split(',')))
-            # df_no_hist = pd.concat([df_no_hist,[np.nan]*7])
-        df_no_hist = pd.concat([df_no_hist,aux_no])
-        df_si_hist = pd.concat([df_si_hist,aux_si])
-        
-    df_no_hist.dop = df_no_hist.index
-    df_si_hist.dop = df_si_hist.index
-    
-    dates_hist_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in df_no_hist['mj'].values]
-    df_no_hist.pub_date = dates_hist_fmt
-    df_si_hist.pub_date = dates_hist_fmt
-    
-    ls = {'pub_date':'Date [YY-MM-DD]','mj':'Epoch[MJD]','dop':'Prediction day','xp':'xpol[as]','yp':'ypol[as]','dt':'dUT1[s]','dx':'dX[mas]','dy':'dY[mas]'}
+    ls = {'date':'Date [YY-MM-DD]','epoch':'Epoch[MJD]','dop':'Prediction day','xpol':'xpol[as]','ypol':'ypol[as]','dut1':'dUT1[s]','dx':'dX[mas]','dy':'dY[mas]'}
     df_no_hist = df_no_hist.rename(ls, axis = 1)
     df_si_hist = df_si_hist.rename(ls, axis = 1)
   
@@ -134,43 +116,27 @@ def history1(dff):
 
 @st.cache_data(ttl = 3600, show_spinner=False)
 def history2(dff):
-    df_aux_no = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','dx','dy'])
-    df_no = dff[dff['type_EAM'] == 0].sort_values('pub_date')
+    df_no_hist = pd.DataFrame(data = [], columns = ['date','epoch','dop','dx','dy'])
+    df_no = dff[dff['type_eam'] == 0].sort_values('pub_date')
 
-    df_aux_si = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','dx','dy'])
-    df_si = dff[dff['type_EAM'] == 1].sort_values('pub_date')
+    df_si_hist = pd.DataFrame(data = [], columns = ['date','epoch','dop','dx','dy'])
+    df_si = dff[dff['type_eam'] == 1].sort_values('pub_date')
     
-    for item in ['mj','dx','dy']:
-        d1 = df_no[df_no['param']==item]
-        d2 = df_si[df_si['param']==item]
+    for item in ['epoch','dx','dy']:
+        d1 = df_no[df_no['parameter']==item]
+        d2 = df_si[df_si['parameter']==item]
         
-        df_aux_no[item] = d1['values'].values
-        df_aux_si[item] = d2['values'].values
-    
-         
-    #Change df format for a row per day:
-    df_no_hist = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','dx','dy'])
-    df_si_hist = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','dx','dy'])
-    
-    for i in range(len(df_aux_no)):
-        sample_no = df_aux_no.iloc[i]
-        aux_no = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','dx','dy'])
-        sample_si = df_aux_si.iloc[i]
-        aux_si = pd.DataFrame(data = [], columns = ['pub_date','mj','dop','dx','dy'])
-        for it in ['mj','dx','dy']:
-            aux_no[it] = list(map(float,sample_no[it].split(',')))
-            aux_si[it] = list(map(float,sample_si[it].split(',')))
-        df_no_hist = pd.concat([df_no_hist,aux_no])
-        df_si_hist = pd.concat([df_si_hist,aux_si])
+        df_no_hist[item] = (d1[d1.columns[-11:]].values).flatten()
+        df_si_hist[item] = (d2[d2.columns[-11:]].values).flatten()
         
-    df_no_hist.dop = df_no_hist.index
-    df_si_hist.dop = df_si_hist.index
+    df_no_hist.dop = np.resize(np.arange(11),len(df_no_hist))
+    df_si_hist.dop = np.resize(np.arange(11),len(df_no_hist))
     
-    dates_hist_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in df_no_hist['mj'].values]
-    df_no_hist.pub_date = dates_hist_fmt
-    df_si_hist.pub_date = dates_hist_fmt
+    dates_hist_fmt = [(Time(item,format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for item in df_no_hist['epoch'].values]
+    df_no_hist.date = dates_hist_fmt
+    df_si_hist.date = dates_hist_fmt
     
-    ls = {'pub_date':'Date [YY-MM-DD]','mj':'Epoch[MJD]','dop':'Prediction day','dx':'dX_new[mas]','dy':'dY_new[mas]'}
+    ls = {'date':'Date [YY-MM-DD]','epoch':'Epoch[MJD]','dop':'Prediction day','dx':'dX_new[mas]','dy':'dY_new[mas]'}
     df_no_hist = df_no_hist.rename(ls, axis = 1)
     df_si_hist = df_si_hist.rename(ls, axis = 1)
     return df_no_hist, df_si_hist
@@ -198,8 +164,8 @@ def history(dff,dff2):
 
 @st.cache_data(ttl = 3600, show_spinner=False)
 def df_filtered(dff_aux,df,val, years, months, days):
-    dff2 = dff_aux[dff_aux['param'] == val]
-    dff_mjd= dff_aux[dff_aux['param'] == 'mj']
+    dff2 = dff_aux[dff_aux['parameter'] == val]
+    dff_mjd= dff_aux[dff_aux['parameter'] == 'epoch']
     t=False
     if ((years in dff2['year'].values) and (months in dff2['month'].values) and (days in dff2['day'].values)):
         dff3 = dff2[dff2['year']==years]
@@ -212,23 +178,7 @@ def df_filtered(dff_aux,df,val, years, months, days):
         df.columns = pd.Index(['Date [YY-MM-DD]', 'Epoch [MJD]', 'w/o EAM [mas]', 'w/ EAM [mas]','NEW w/o EAM [mas]', 'NEW w/ EAM [mas]'], dtype='object')
         t = True
     return df, t
-
-
-@st.cache_data(ttl = 3600, show_spinner=False)
-def fcn_cpo(dff):
-    df = pd.DataFrame(data = [], columns = ['dt','mj','ac','as','x0','y0','dx','dy'])
-    for i in range(len(dff)):
-        aa = dff.iloc[i]
-        val = [float(x) for x in aa['values'].split(',')]
-        df[aa.param] = val
-        
-        if aa.param == 'mj':
-            inter = [(Time(x, format = 'mjd').to_value('datetime')).strftime("%Y-%m-%d %H:%M:%S") for x in val]
-            df.dt = inter
-    df = df.rename({'dt':'Date [YY-MM-DD]','mj':'Epoch [MJD]','ac':'Ac [muas]','as':'As [muas]','x0':'X0 [muas]','y0':'Y0 [muas]','dx':'dX [muas]','dy':'dY [muas]'},axis = 1) 
-    fm = ['% s','%5d','% .4f','% .4f','% .4f','% .4f','% .4f','% .4f']    
-    return df, fm
-        
+     
 
 @st.cache_data(ttl = 3600, show_spinner=False)
 def read_iers():
@@ -249,8 +199,8 @@ def read_iers():
 
 @st.cache_data(ttl = 3600, show_spinner=False)
 def interval_dates(df_fcn):
-    inicio = df_fcn['Date [YY-MM-DD]'].values[-365*10]
-    fin = df_fcn['Date [YY-MM-DD]'].values[-1]
+    inicio = df_fcn.date.values[-365*10]
+    fin = df_fcn.date.values[-1]
     inicio = datetime.datetime.strptime(inicio, '%Y-%m-%d %H:%M:%S')
     fin = datetime.datetime.strptime(fin, '%Y-%m-%d %H:%M:%S')
     return inicio, fin
@@ -275,12 +225,13 @@ def fig_eops(df,txt,selected,lim):
                       legend_title_font_size = 18
                       )
     fig.update_layout(plot_bgcolor = '#fff')
-    fig.update_xaxes(title_text="Date",
+    fig.update_xaxes(title_text="Epoch [MJD]",
                      tickfont_size = 14,
                      ticks = 'outside',
                      minor_ticks = 'outside',
                      minor_dtick = 1,
                      tickcolor = '#d1d1d1',
+                     tickformat = 'd'
                      )
     
     fig.update_yaxes(title_text=f"[{txt}]",
@@ -297,8 +248,8 @@ def fig_eops(df,txt,selected,lim):
 @st.cache_data(ttl = 3600, show_spinner='Loading data')
 def fig_fcn(intervalo, df_fcn, dx_c04, dy_c04):
     a, b = intervalo[0].strftime('%Y-%m-%d %H:%M:%S'), intervalo[1].strftime('%Y-%m-%d %H:%M:%S')
-    i = (df_fcn[df_fcn['Date [YY-MM-DD]'] == a].index)[0]
-    f = (df_fcn[df_fcn['Date [YY-MM-DD]'] == b].index)[0]
+    i = (df_fcn[df_fcn.date == a].index)[0]
+    f = (df_fcn[df_fcn.date == b].index)[0]
     
     if f> len(df_fcn):
         xval = len(df_fcn)
@@ -306,10 +257,10 @@ def fig_fcn(intervalo, df_fcn, dx_c04, dy_c04):
         xval = f
         
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:xval], y = dx_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u23 C04'))
-    fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:xval], y = dy_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
-    fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:f], y = df_fcn[df_fcn.columns[6]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dX'))
-    fig.add_trace(go.Scatter(x = df_fcn['Date [YY-MM-DD]'][i:f], y = df_fcn[df_fcn.columns[7]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dY'))
+    fig.add_trace(go.Scatter(x = df_fcn.date[i:xval], y = dx_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u23 C04'))
+    fig.add_trace(go.Scatter(x = df_fcn.date[i:xval], y = dy_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
+    fig.add_trace(go.Scatter(x = df_fcn.date[i:f], y = df_fcn[df_fcn.columns[6]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dX'))
+    fig.add_trace(go.Scatter(x = df_fcn.date[i:f], y = df_fcn[df_fcn.columns[7]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dY'))
     fig.update_layout(title = 'FCN-CPOs solutions',
                       title_font_color = '#fb9a5a',
                       title_font_size = 28,
@@ -331,7 +282,7 @@ def fig_fcn(intervalo, df_fcn, dx_c04, dy_c04):
                       tickcolor = '#d1d1d1',
                       )
     
-    fig.update_yaxes(title_text="muas",
+    fig.update_yaxes(title_text="[muas]",
                       tickfont_size = 14,
                       ticks = 'outside',
                       tickcolor = '#d1d1d1',
