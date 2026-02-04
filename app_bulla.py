@@ -115,21 +115,19 @@ if menu == "EOP PREDICTIONS":
             st.write('Filtering results by epoch and parameter:')
             selected = st.selectbox('Choose an EOP:', ('xpol', 'ypol', 'dX', 'dY', 'UT1-UTC'),)  #choosing a parameter
             eop = ['xpol', 'ypol', 'dX', 'dY', 'UT1-UTC']
-            if selected == 'xpol':
-                 val = 'xp'
-            if selected == 'ypol':
-                 val = 'yp'
+            if selected in ['xpol','ypol']:
+                 val = selected
             if selected == 'dX':
                  val = 'dx'
             if selected == 'dY':
                  val = 'dy'
             if selected == 'UT1-UTC':
-                 val = 'dt' 
+                 val = 'dut1' 
             st.write(f'**Predictions for {selected:}**')
 
         
-            df2 = dff[dff['param']==val]
-            df_mjd = dff[dff['param'] == 'mj']
+            df2 = dff[dff['parameter']==val]
+            df_mjd = dff[dff['parameter'] == 'epoch']
             st.write('Filters:') 
             col1,col2,col3 = st.columns(3)
             with col1:
@@ -191,9 +189,9 @@ if menu == "EOP PREDICTIONS":
     with tab2: #CPO_FCN MODEL
         try:
             #Connection to db database where all predictions are stored
-            dff_fcn = read_db(2)
-            upt = (dff_fcn.pub_date[len(dff_fcn)-1])[:10]
-            df_fcn, fm = fcn_cpo(dff_fcn)
+            df_fcn = read_db(2)
+            upt = (df_fcn.date[len(df_fcn)-1])[:10]
+            fm = ['% s','%5d','% .4f','% .4f','% .4f','% .4f','% .4f','% .4f']  
             np.savetxt('fcn_cpo.txt',df_fcn,fmt = fm, delimiter = '   \t', header = 'Date [YY-MM-DD]    |  Epoch [MJD] |    Ac [muas]   |   As [muas]  |    X0 [muas]  |    Y0 [muas]  |    dX [muas]   |   dY [muas]')
             
             f = open('fcn_cpo.txt','r')
