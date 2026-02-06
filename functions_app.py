@@ -16,6 +16,7 @@ import plotly.graph_objects as go
 
 @st.cache_data(ttl = 3600, show_spinner='Connecting to the database')
 def read_db(num):
+    #Connects to the database, selects all data from one of its tables returns it in a DataFrame
     table = ['eop_old','eop_new','fcn_cpo']
     conn = sqlite3.connect('eop_predictions.db')
     cursor = conn.cursor()
@@ -27,6 +28,7 @@ def read_db(num):
 
 # @st.cache_data(ttl = 3600, show_spinner=False)
 def separate_dates(df):
+    #separates the gregorian date in three strings for yearn, month and day
     dates = df['pub_date'].values
     year = [s[:4] for s in dates]
     month = [m[5:7] for m in dates]
@@ -40,6 +42,7 @@ def separate_dates(df):
 
 @st.cache_data(ttl = 3600, show_spinner=False)
 def create_df(val,df5,df_mjd):
+    #Generates a DataFrame with user choosen data epoch and the format
     #Reading the data of the chosen prediction epoch
     conv1 = (df5[df5['type_eam'] == 0])[df5.columns[-11:]].values[0]
     conv2 = (df5[df5['type_eam'] == 1])[df5.columns[-11:]].values[0]
@@ -63,6 +66,7 @@ def create_df(val,df5,df_mjd):
 
 @st.cache_data(ttl = 3600, show_spinner=False)
 def create_download(df,selected,txt,fm,t):
+    #Creates the string that will be used to write a file for downloading
     l = len(txt)
     if l<3:
         txt = txt+']'+(' '*(2-l))
@@ -86,6 +90,7 @@ def create_download(df,selected,txt,fm,t):
 
 @st.cache_data(ttl = 3600, show_spinner=False)
 def history1(dff):
+    #Auxiliary function to join all data in the same "place". Used by function history
     df_no_hist = pd.DataFrame(data = [], columns = ['date','epoch','dop','xpol','ypol','dut1','dx','dy'])
     df_no = dff[dff['type_eam'] == 0].sort_values('pub_date')
 
@@ -116,6 +121,7 @@ def history1(dff):
 
 @st.cache_data(ttl = 3600, show_spinner=False)
 def history2(dff):
+    #Auxiliary function to join all data in the same "place". Used by function history
     df_no_hist = pd.DataFrame(data = [], columns = ['date','epoch','dop','dx','dy'])
     df_no = dff[dff['type_eam'] == 0].sort_values('pub_date')
 
@@ -144,6 +150,7 @@ def history2(dff):
 
 @st.cache_data(ttl = 3600, show_spinner=False)
 def history(dff,dff2):
+    #Creates dataframes that contain all the predictions stored in the database
     df_no_hist, df_si_hist = history1(dff)
     a1,a2 = history2(dff2)
     
@@ -164,6 +171,7 @@ def history(dff,dff2):
 
 @st.cache_data(ttl = 3600, show_spinner=False)
 def df_filtered(dff_aux,df,val, years, months, days):
+    #Used to filter the predictions in the database by date
     dff2 = dff_aux[dff_aux['parameter'] == val]
     dff_mjd= dff_aux[dff_aux['parameter'] == 'epoch']
     t=False
@@ -182,6 +190,7 @@ def df_filtered(dff_aux,df,val, years, months, days):
 
 @st.cache_data(ttl = 3600, show_spinner=False)
 def read_iers():
+    #Reading IERS CPO solution
     r = requests.get("https://datacenter.iers.org/data/latestVersion/EOP_20u23_C04_one_file_1962-now.txt")
     datos = r.text
     cont,j = 0,0
@@ -199,6 +208,7 @@ def read_iers():
 
 @st.cache_data(ttl = 3600, show_spinner=False)
 def interval_dates(df_fcn):
+    #formatting of dates
     inicio = df_fcn.date.values[-365*10]
     fin = df_fcn.date.values[-1]
     inicio = datetime.datetime.strptime(inicio, '%Y-%m-%d %H:%M:%S')
@@ -208,6 +218,7 @@ def interval_dates(df_fcn):
 
 @st.cache_data(ttl = 3600, show_spinner=False)
 def fig_eops(df,txt,selected,lim):
+    #creates a plot to display the prediction data
     fig = go.Figure()
     for j in range(1,lim):
          fig.add_trace(go.Scatter(x = df['Epoch [MJD]'],y = df[df.columns[-j]],mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
@@ -247,6 +258,7 @@ def fig_eops(df,txt,selected,lim):
 
 @st.cache_data(ttl = 3600, show_spinner='Loading data')
 def fig_fcn(intervalo, df_fcn, dx_c04, dy_c04):
+    #creates a plot to display fcn-cpo model solutions
     a, b = intervalo[0].strftime('%Y-%m-%d %H:%M:%S'), intervalo[1].strftime('%Y-%m-%d %H:%M:%S')
     i = (df_fcn[df_fcn.date == a].index)[0]
     f = (df_fcn[df_fcn.date == b].index)[0]
