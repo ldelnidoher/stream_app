@@ -193,7 +193,7 @@ are employed as input data.\n
 (*) On 5 June 2025 the series IERS EOP 20 C04 was 
 discontinued and IERS EOP 20u23 C04 was used as input up until its discontinuation
 on 5 February 2026. Since then, the EOP data employed as 
-input is the series <b>IERS EOP 20u24 C04</b>.
+input is the series <b>IERS EOP 20u24 C04</b>.\n
 
 Two predictive models are applied. <b>w/o EAM</b> utilises only EOP data as input 
 whereas <b>w/ EAM</b> includes both EOP data and Effective Angular Momentum data.
