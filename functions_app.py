@@ -191,7 +191,7 @@ def df_filtered(dff_aux,df,val, years, months, days):
 @st.cache_data(ttl = 3600, show_spinner=False)
 def read_iers():
     #Reading IERS CPO solution
-    r = requests.get("https://datacenter.iers.org/data/latestVersion/EOP_20u23_C04_one_file_1962-now.txt")
+    r = requests.get("https://datacenter.iers.org/data/latestVersion/EOP_20u24_C04_one_file_1962-now.txt")
     datos = r.text
     cont,j = 0,0
     while cont<6:
@@ -269,8 +269,8 @@ def fig_fcn(intervalo, df_fcn, dx_c04, dy_c04):
         xval = f
         
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x = df_fcn.date[i:xval], y = dx_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u23 C04'))
-    fig.add_trace(go.Scatter(x = df_fcn.date[i:xval], y = dy_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u23 C04'))
+    fig.add_trace(go.Scatter(x = df_fcn.date[i:xval], y = dx_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u24 C04'))
+    fig.add_trace(go.Scatter(x = df_fcn.date[i:xval], y = dy_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u24 C04'))
     fig.add_trace(go.Scatter(x = df_fcn.date[i:f], y = df_fcn[df_fcn.columns[6]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dX'))
     fig.add_trace(go.Scatter(x = df_fcn.date[i:f], y = df_fcn[df_fcn.columns[7]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dY'))
     fig.update_layout(title = 'FCN-CPOs solutions',
