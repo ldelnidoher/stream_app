@@ -209,7 +209,7 @@ separate files are provided.
 
 fcn_intro = """<div style="text-align: justify;">
 Here we present the <b>FCN-CPOs</b> solutions that we obtained in the FCN_CPO
-model, alongside the IERS 20u23 C04 CPOs solutions for comparison.
+model, alongside the IERS 20u24 C04 CPOs solutions for comparison.
 The methodology and details about this model can be found in the following 
 paper: <a href="https://www.sciencedirect.com/science/article/pii/S0264370715300120">Belda, S., Ferrándiz J.M., Heinkelmann R., Nilsson T. and Schuh H. (2016).
         <i>Testing a new Free Core Nutation empirical model (2016)</i></a>
