@@ -69,7 +69,7 @@ css_tabs="""
 introduction = """<div style="text-align: justify;">
 <h3>
     <b>Welcome to the repository of the VLBI Analysis Center of the University
-    of Alicante (UAVAC)</b>
+    of Alicante (UAVAC) and the National Geographic Institute of Spain (IGN)</b>
 </h3>
 
 In this app you will be able to find:
