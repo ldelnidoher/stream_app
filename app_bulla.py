@@ -191,6 +191,7 @@ if menu == "EOP PREDICTIONS":
             #Connection to db database where all predictions are stored
             df_fcn = read_db(2)
             upt = (df_fcn.date[len(df_fcn)-1])[:10]
+            upt = str(int(upt[:4])-1)+upt[4:]
             fm = ['% s','%5d','% .4f','% .4f','% .4f','% .4f','% .4f','% .4f']  
             np.savetxt('fcn_cpo.txt',df_fcn,fmt = fm, delimiter = '   \t', header = 'Date [YY-MM-DD]    |  Epoch [MJD] |    Ac [muas]   |   As [muas]  |    X0 [muas]  |    Y0 [muas]  |    dX [muas]   |   dY [muas]')
             
@@ -204,8 +205,7 @@ if menu == "EOP PREDICTIONS":
 
             
             st.header('FCN-CPOs prediction')
-            st.markdown(fcn_intro + '.', unsafe_allow_html=True)
-            #st.markdown(fcn_intro +f' <i>(last updated: {upt}).</i></div>', unsafe_allow_html=True)
+            st.markdown(fcn_intro +f' <i>(last updated: {upt}).</i></div>', unsafe_allow_html=True)
             
             st.subheader("Interactive plot")
             inicio, fin = interval_dates(df_fcn)
