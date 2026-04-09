@@ -204,7 +204,7 @@ if menu == "EOP PREDICTIONS":
 
             
             st.header('FCN-CPOs prediction')
-            st.markdown(fcn_intro, unsafe_allow_html=True)
+            st.markdown(fcn_intro + '.', unsafe_allow_html=True)
             #st.markdown(fcn_intro +f' <i>(last updated: {upt}).</i></div>', unsafe_allow_html=True)
             
             st.subheader("Interactive plot")
