@@ -199,10 +199,13 @@ if menu == "EOP PREDICTIONS":
             f.close()
             
             #read iers
-            dx_c04, dy_c04 = read_iers()
+            mjd_c04,xp_c04,yp_c04,dx_c04, dy_c04,dut1_c04 = read_iers()
+            epoch_fin,xp_fin,yp_fin,dx_fin,dy_fin,dut1_fin = read_finals()
+            # df_fin = pd.DataFrame(data = {'epoch':epoch_fin,'xpol':xp_fin,'ypol':yp_fin,'dX':dx_fin,'dY':dy_fin,'dUT1':dut1_fin})
+
             
             st.header('FCN-CPOs prediction')
-            st.markdown(fcn_intro +f' <i>(last updated: {upt}).</i></div>', unsafe_allow_html=True)
+            # st.markdown(fcn_intro +f' <i>(last updated: {upt}).</i></div>', unsafe_allow_html=True)
             
             st.subheader("Interactive plot")
             inicio, fin = interval_dates(df_fcn)
@@ -215,10 +218,16 @@ if menu == "EOP PREDICTIONS":
                                       )
             
             with st.container(border = True):
-                figfcn = fig_fcn(intervalo, df_fcn, dx_c04, dy_c04)
+                dx_mag = [x*1e3 for x in dx_c04]
+                dy_mag = [x*1e3 for x in dy_c04]
+                
+                dx_fin_mag = [x*1e3 for x in dx_fin]
+                dy_fin_mag = [x*1e3 for x in dy_fin]
+                          
+                figfcn = fig_fcn(intervalo, df_fcn, dx_mag, dy_mag,dx_fin_mag,dy_fin_mag,epoch_fin)
                 st.plotly_chart(figfcn, use_container_width=True)
                 
-           
+            
             #Create .txt and .csv files:
             st.subheader('Data files')
             st.write('Here you can download all the solutions of this model since 1962-01-01: amplitudes (Ac, As), constant offsets (X0, Y0) and the celestial polar offsets.')
