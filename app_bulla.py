@@ -201,11 +201,11 @@ if menu == "EOP PREDICTIONS":
             #read iers
             mjd_c04,xp_c04,yp_c04,dx_c04, dy_c04,dut1_c04 = read_iers()
             epoch_fin,xp_fin,yp_fin,dx_fin,dy_fin,dut1_fin = read_finals()
-            # df_fin = pd.DataFrame(data = {'epoch':epoch_fin,'xpol':xp_fin,'ypol':yp_fin,'dX':dx_fin,'dY':dy_fin,'dUT1':dut1_fin})
 
             
             st.header('FCN-CPOs prediction')
-            # st.markdown(fcn_intro +f' <i>(last updated: {upt}).</i></div>', unsafe_allow_html=True)
+            st.markdown(fcn_intro +f' <i>(last updated: {upt}).</i></div>', unsafe_allow_html=True)
+            #st.markdown(fcn_intro +f' <i>(last updated: {upt}).</i></div>', unsafe_allow_html=True)
             
             st.subheader("Interactive plot")
             inicio, fin = interval_dates(df_fcn)
