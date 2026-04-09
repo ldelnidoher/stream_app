@@ -217,7 +217,7 @@ def read_finals():
     yp = [float(k[37:46]) for k in takewhile(lambda x: x[38]!=' ', l)]
     dut1 = [float(k[58:68]) for k in takewhile(lambda x: x[59]!=' ', l)]
     dx = [float(k[100:106]) for k in takewhile(lambda x: x[101]!=' ', l)] #[mas]
-    dy = [float(k[109:115]) for k in takewhile(lambda x: x[110]!=' ', l)] #[mas]
+    dy = [float(k[119:125]) for k in takewhile(lambda x: x[110]!=' ', l)] #[mas]
     epoch = [float(k[7:15]) for k in takewhile(lambda x: x[8]!=' ', l)] 
     return  epoch,xp,yp,dx,dy,dut1
 
