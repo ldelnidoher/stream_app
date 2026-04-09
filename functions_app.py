@@ -193,7 +193,7 @@ def read_iers():
     #Reading IERS CPO solution
     r = requests.get("https://datacenter.iers.org/data/latestVersion/EOP_20u24_C04_one_file_1962-now.txt")
     datos = r.text
-    text = (datos.split('/n'))[6:-1]
+    text = (datos.split('\n'))[6:-1]
     
     data = [text[k].split() for k in range(len(text))]
     dx = [1e6*float(data[k][8]) for k in range(len(data))]
