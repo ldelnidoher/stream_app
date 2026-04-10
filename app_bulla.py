@@ -176,9 +176,18 @@ if menu == "EOP PREDICTIONS":
             else: 
                 lim = 3
                 
+            c04 = read_iers()
+            fin = read_finals()
+            name = eop.index(selected)
+            
+            df_fin = pd.DataFrame(data = {'epoch':fin[0][:len(fin[name+1])], selected: fin[name+1]})
+            df_c04 = pd.DataFrame(data = {'epoch':c04[0][:len(c04[name+1])], selected: c04[name+1]})
+            df_fin = df_fin.astype({'epoch':'int'})
+            df_c04 = df_c04.astype({'epoch':'int'})
+
             with st.container(border = True):
-                fig = fig_eops(df,txt,selected,lim)
-                st.plotly_chart(fig, use_container_width=True)
+                fig = fig_eops(df,txt,selected,lim,df_fin,df_c04)
+                st.plotly_chart(fig, width='stretch')
                 
         #Error message
         except:
@@ -225,7 +234,7 @@ if menu == "EOP PREDICTIONS":
                 dy_fin_mag = [x*1e3 for x in dy_fin]
                           
                 figfcn = fig_fcn(intervalo, df_fcn, dx_mag, dy_mag,dx_fin_mag,dy_fin_mag,epoch_fin)
-                st.plotly_chart(figfcn, use_container_width=True)
+                st.plotly_chart(figfcn, width='stretch')
                 
             
             #Create .txt and .csv files:

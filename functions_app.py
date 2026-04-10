@@ -217,7 +217,7 @@ def read_finals():
     yp = [float(k[37:46]) for k in takewhile(lambda x: x[38]!=' ', l)]
     dut1 = [float(k[58:68]) for k in takewhile(lambda x: x[59]!=' ', l)]
     dx = [float(k[100:106]) for k in takewhile(lambda x: x[101]!=' ', l)] #[mas]
-    dy = [float(k[119:125]) for k in takewhile(lambda x: x[110]!=' ', l)] #[mas]
+    dy = [float(k[119:125]) for k in takewhile(lambda x: x[120]!=' ', l)] #[mas]
     epoch = [float(k[7:15]) for k in takewhile(lambda x: x[8]!=' ', l)] 
     return  epoch,xp,yp,dx,dy,dut1
 
@@ -233,12 +233,22 @@ def interval_dates(df_fcn):
 
 
 @st.cache_data(ttl = 3600, show_spinner=False)
-def fig_eops(df,txt,selected,lim):
+def fig_eops(df,txt,selected,lim,df_fin,df_c04):
+    #checking if data is in c04 or finals
+    b = [True if x in df['Epoch [MJD]'].values else False for x in df_c04.epoch]
+    b2 = [True if x in df['Epoch [MJD]'].values else False for x in df_fin.epoch]
+    
     #creates a plot to display the prediction data
     fig = go.Figure()
     for j in range(1,lim):
          fig.add_trace(go.Scatter(x = df['Epoch [MJD]'],y = df[df.columns[-j]],mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
-     
+    
+    
+    if True in b:
+        fig.add_trace(go.Scatter(x = df_c04.epoch[b],y = df_c04[df_c04.columns[1]][b],mode = 'lines+markers', marker = dict(size = 7), marker_symbol='star', line = dict(width = 1.5,dash = 'dot'),name = 'IERS 20u24 C04'))
+    if True in b2:
+        fig.add_trace(go.Scatter(x = df_fin.epoch[b2],y = df_fin[df_fin.columns[1]][b2],mode = 'lines+markers', marker = dict(size = 7), marker_symbol='star',line = dict(width = 1.5,dash = 'dot'),name = 'IERS finals.daily'))     
+   
     fig.update_layout(title = f'{selected}',
                       title_font_color = '#fb9a5a',
                       title_font_size = 28,
