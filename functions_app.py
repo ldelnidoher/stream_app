@@ -302,12 +302,12 @@ def fig_fcn(intervalo, df_fcn, dx_c04, dy_c04, dx_fin, dy_fin, epoch_fin):
     
     
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x = df_fcn.date[i:xval], y = dx_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u24 C04'))
+    fig.add_trace(go.Scatter(x = df_fcn.date[i:xval], y = dx_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1.1,dash = 'dot'),name = 'dX IERS 20u24 C04'))
     fig.add_trace(go.Scatter(x = df_fcn.date[i:xval], y = dy_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u24 C04'))
     fig.add_trace(go.Scatter(x = df_fcn.date[i:f], y = df_fcn[df_fcn.columns[6]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dX'))
     fig.add_trace(go.Scatter(x = df_fcn.date[i:f], y = df_fcn[df_fcn.columns[7]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dY'))
-    fig.add_trace(go.Scatter(x = date_fin[ult:ult+len(dx_fin)], y = dx_fin[ult:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS finals.daily'))
-    fig.add_trace(go.Scatter(x = date_fin[ult:ult+len(dy_fin)], y = dy_fin[ult:], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS finals.daily'))
+    fig.add_trace(go.Scatter(x = date_fin[ult:ult+len(dx_fin)], y = dx_fin[ult:], mode = 'lines+markers',marker = dict(size = 3.5), marker_symbol='star', line = dict(width = 1,dash = 'dot'),name = 'dX IERS finals.daily'))
+    fig.add_trace(go.Scatter(x = date_fin[ult:ult+len(dy_fin)], y = dy_fin[ult:], mode = 'lines+markers',marker = dict(size = 3.5), marker_symbol='star', line = dict(width = 1,dash = 'dot'),name = 'dY IERS finals.daily'))
     fig.update_layout(title = 'FCN-CPOs solutions',
                       title_font_color = '#fb9a5a',
                       title_font_size = 28,
