@@ -245,8 +245,8 @@ if menu == "EOP PREDICTIONS":
                   st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = 'fcn_cpo.txt', data = ls)
             with col2:
                   st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = 'fcn_cpo.csv', data = df_fcn.to_csv(index = False))
-            with col3:
-                  st.download_button(label =':arrow_heading_down: Save plot as .png :arrow_heading_down:', file_name = 'fcn_cpo_plot.png', data = open('fcn_cpo_plot.png','rb').read())
+            #with col3:
+                  #st.download_button(label =':arrow_heading_down: Save plot as .png :arrow_heading_down:', file_name = 'fcn_cpo_plot.png', data = open('fcn_cpo_plot.png','rb').read())
             
             
             st.write('**Please, if you use this data we would appreciate you to cite our article:**')  
