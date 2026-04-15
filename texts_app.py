@@ -186,7 +186,7 @@ to the day on which the calculations are conducted, referred to as Day 0.
 """
 
 ml_intro2 = """<div style="text-align: justify;">
-<a href="https://www.iers.org/IERS/EN/DataProducts/EarthOrientationData/eop.html">IERS EOP 20 C04 (*), IERS finals.daily</a> and
+<a href="https://www.iers.org/IERS/EN/DataProducts/EarthOrientationData/eop.html">IERS EOP 20u24 C04 (*), IERS finals.daily</a> and
 <a href="http://rz-vm115.gfz-potsdam.de:8080/repository/entry/show?entryid=e0fff81f-dcae-469e-8e0a-eb10caf2975b">GFZ Effective Angular Momentum Functions</a>
 are employed as input data.\n
 

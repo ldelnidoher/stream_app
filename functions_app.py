@@ -13,6 +13,7 @@ from astropy.time import Time
 import sqlite3
 import requests
 import plotly.graph_objects as go
+from itertools import takewhile
 
 @st.cache_data(ttl = 3600, show_spinner='Connecting to the database')
 def read_db(num):
@@ -193,17 +194,32 @@ def read_iers():
     #Reading IERS CPO solution
     r = requests.get("https://datacenter.iers.org/data/latestVersion/EOP_20u24_C04_one_file_1962-now.txt")
     datos = r.text
-    cont,j = 0,0
-    while cont<6:
-        if datos[j] =='\n':
-            cont+=1
-        j+=1
-    datos=datos[j:]
-    lista = datos.split("\n")
-    aux = [lista[i].split() for i in range(len(lista)-1)]   #last value is an empty line
-    dx = [1e6*float(aux[i][8]) for i in range(len(aux))]
-    dy = [1e6*float(aux[i][9]) for i in range(len(aux))]
-    return dx,dy
+    text = (datos.split('\n'))[6:-1]
+    
+    data = [text[k].split() for k in range(len(text))]
+    mjd = [int(float(data[k][4])) for k in range(len(data))]
+    xpol = [float(data[k][5]) for k in range(len(data))]
+    ypol = [float(data[k][6]) for k in range(len(data))]
+    dut1 = [float(data[k][7]) for k in range(len(data))]
+    dx = [1e3*float(data[k][8]) for k in range(len(data))]
+    dy = [1e3*float(data[k][9]) for k in range(len(data))]
+    return mjd,xpol,ypol,dx,dy,dut1
+
+@st.cache_data(ttl = 3600, show_spinner=False)
+def read_finals():
+    #Reading IERS finals_daily solution
+    r = requests.get("https://datacenter.iers.org/data/latestVersion/finals.daily.iau2000.txt")
+    datos = r.text
+    l = (datos.split('\n'))[:-1]
+    
+    epoch, xp, yp, dut1, dx, dy = [],[],[],[],[],[]
+    xp = [float(k[18:27]) for k in takewhile(lambda x: x[19]!=' ', l)]
+    yp = [float(k[37:46]) for k in takewhile(lambda x: x[38]!=' ', l)]
+    dut1 = [float(k[58:68]) for k in takewhile(lambda x: x[59]!=' ', l)]
+    dx = [float(k[100:106]) for k in takewhile(lambda x: x[101]!=' ', l)] #[mas]
+    dy = [float(k[119:125]) for k in takewhile(lambda x: x[120]!=' ', l)] #[mas]
+    epoch = [float(k[7:15]) for k in takewhile(lambda x: x[8]!=' ', l)] 
+    return  epoch,xp,yp,dx,dy,dut1
 
 
 @st.cache_data(ttl = 3600, show_spinner=False)
@@ -217,12 +233,22 @@ def interval_dates(df_fcn):
 
 
 @st.cache_data(ttl = 3600, show_spinner=False)
-def fig_eops(df,txt,selected,lim):
+def fig_eops(df,txt,selected,lim,df_fin,df_c04):
+    #checking if data is in c04 or finals
+    b = [True if x in df['Epoch [MJD]'].values else False for x in df_c04.epoch]
+    b2 = [True if x in df['Epoch [MJD]'].values else False for x in df_fin.epoch]
+    
     #creates a plot to display the prediction data
     fig = go.Figure()
     for j in range(1,lim):
          fig.add_trace(go.Scatter(x = df['Epoch [MJD]'],y = df[df.columns[-j]],mode = 'lines+markers', marker = dict(size = 5), line = dict(width = 1.5),name = df.columns[-j]))
-     
+    
+    
+    if True in b:
+        fig.add_trace(go.Scatter(x = df_c04.epoch[b],y = df_c04[df_c04.columns[1]][b],mode = 'lines+markers', marker = dict(size = 7), marker_symbol='star', line = dict(width = 1.5,dash = 'dot'),name = 'IERS 20u24 C04'))
+    if True in b2:
+        fig.add_trace(go.Scatter(x = df_fin.epoch[b2],y = df_fin[df_fin.columns[1]][b2],mode = 'lines+markers', marker = dict(size = 7), marker_symbol='star',line = dict(width = 1.5,dash = 'dot'),name = 'IERS finals.daily'))     
+   
     fig.update_layout(title = f'{selected}',
                       title_font_color = '#fb9a5a',
                       title_font_size = 28,
@@ -257,22 +283,31 @@ def fig_eops(df,txt,selected,lim):
     return fig
 
 @st.cache_data(ttl = 3600, show_spinner='Loading data')
-def fig_fcn(intervalo, df_fcn, dx_c04, dy_c04):
+def fig_fcn(intervalo, df_fcn, dx_c04, dy_c04, dx_fin, dy_fin, epoch_fin):
     #creates a plot to display fcn-cpo model solutions
     a, b = intervalo[0].strftime('%Y-%m-%d %H:%M:%S'), intervalo[1].strftime('%Y-%m-%d %H:%M:%S')
     i = (df_fcn[df_fcn.date == a].index)[0]
     f = (df_fcn[df_fcn.date == b].index)[0]
     
+    date_fin = [(Time(x, format = 'mjd').to_datetime()).strftime('%Y-%m-%d %H:%M:%S') for x in epoch_fin]
     if f> len(df_fcn):
         xval = len(df_fcn)
     else: 
         xval = f
-        
+    
+    try:
+        ult = epoch_fin.index(df_fcn.epoch.loc[f]+1)
+    except:
+        ult = 0
+    
+    
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x = df_fcn.date[i:xval], y = dx_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dX IERS 20u24 C04'))
+    fig.add_trace(go.Scatter(x = df_fcn.date[i:xval], y = dx_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1.1,dash = 'dot'),name = 'dX IERS 20u24 C04'))
     fig.add_trace(go.Scatter(x = df_fcn.date[i:xval], y = dy_c04[i:xval], mode = 'lines+markers',marker = dict(size = 2.5), line = dict(width = 1,dash = 'dot'),name = 'dY IERS 20u24 C04'))
     fig.add_trace(go.Scatter(x = df_fcn.date[i:f], y = df_fcn[df_fcn.columns[6]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dX'))
     fig.add_trace(go.Scatter(x = df_fcn.date[i:f], y = df_fcn[df_fcn.columns[7]][i:f], mode = 'lines+markers',marker = dict(size = 3), line = dict(width = 1.2),name = 'FCN - dY'))
+    fig.add_trace(go.Scatter(x = date_fin[ult:ult+len(dx_fin)], y = dx_fin[ult:], mode = 'lines+markers',marker = dict(size = 3.5), marker_symbol='star', line = dict(width = 1,dash = 'dot'),name = 'dX IERS finals.daily'))
+    fig.add_trace(go.Scatter(x = date_fin[ult:ult+len(dy_fin)], y = dy_fin[ult:], mode = 'lines+markers',marker = dict(size = 3.5), marker_symbol='star', line = dict(width = 1,dash = 'dot'),name = 'dY IERS finals.daily'))
     fig.update_layout(title = 'FCN-CPOs solutions',
                       title_font_color = '#fb9a5a',
                       title_font_size = 28,

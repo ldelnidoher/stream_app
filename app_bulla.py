@@ -176,9 +176,18 @@ if menu == "EOP PREDICTIONS":
             else: 
                 lim = 3
                 
+            c04 = read_iers()
+            fin = read_finals()
+            name = eop.index(selected)
+            
+            df_fin = pd.DataFrame(data = {'epoch':fin[0][:len(fin[name+1])], selected: fin[name+1]})
+            df_c04 = pd.DataFrame(data = {'epoch':c04[0][:len(c04[name+1])], selected: c04[name+1]})
+            df_fin = df_fin.astype({'epoch':'int'})
+            df_c04 = df_c04.astype({'epoch':'int'})
+
             with st.container(border = True):
-                fig = fig_eops(df,txt,selected,lim)
-                st.plotly_chart(fig, use_container_width=True)
+                fig = fig_eops(df,txt,selected,lim,df_fin,df_c04)
+                st.plotly_chart(fig, width='stretch')
                 
         #Error message
         except:
@@ -191,6 +200,7 @@ if menu == "EOP PREDICTIONS":
             #Connection to db database where all predictions are stored
             df_fcn = read_db(2)
             upt = (df_fcn.date[len(df_fcn)-1])[:10]
+            upt = str(int(upt[:4])-1)+upt[4:]
             fm = ['% s','%5d','% .4f','% .4f','% .4f','% .4f','% .4f','% .4f']  
             np.savetxt('fcn_cpo.txt',df_fcn,fmt = fm, delimiter = '   \t', header = 'Date [YY-MM-DD]    |  Epoch [MJD] |    Ac [muas]   |   As [muas]  |    X0 [muas]  |    Y0 [muas]  |    dX [muas]   |   dY [muas]')
             
@@ -199,7 +209,9 @@ if menu == "EOP PREDICTIONS":
             f.close()
             
             #read iers
-            dx_c04, dy_c04 = read_iers()
+            mjd_c04,xp_c04,yp_c04,dx_c04, dy_c04,dut1_c04 = read_iers()
+            epoch_fin,xp_fin,yp_fin,dx_fin,dy_fin,dut1_fin = read_finals()
+
             
             st.header('FCN-CPOs prediction')
             st.markdown(fcn_intro +f' <i>(last updated: {upt}).</i></div>', unsafe_allow_html=True)
@@ -215,10 +227,16 @@ if menu == "EOP PREDICTIONS":
                                       )
             
             with st.container(border = True):
-                figfcn = fig_fcn(intervalo, df_fcn, dx_c04, dy_c04)
-                st.plotly_chart(figfcn, use_container_width=True)
+                dx_mag = [x*1e3 for x in dx_c04]
+                dy_mag = [x*1e3 for x in dy_c04]
                 
-           
+                dx_fin_mag = [x*1e3 for x in dx_fin]
+                dy_fin_mag = [x*1e3 for x in dy_fin]
+                          
+                figfcn = fig_fcn(intervalo, df_fcn, dx_mag, dy_mag,dx_fin_mag,dy_fin_mag,epoch_fin)
+                st.plotly_chart(figfcn, width='stretch')
+                
+            
             #Create .txt and .csv files:
             st.subheader('Data files')
             st.write('Here you can download all the solutions of this model since 1962-01-01: amplitudes (Ac, As), constant offsets (X0, Y0) and the celestial polar offsets.')
@@ -227,8 +245,8 @@ if menu == "EOP PREDICTIONS":
                   st.download_button(label =':arrow_heading_down: Save data as .txt :arrow_heading_down:', file_name = 'fcn_cpo.txt', data = ls)
             with col2:
                   st.download_button(label =':arrow_heading_down: Save data as .csv :arrow_heading_down:', file_name = 'fcn_cpo.csv', data = df_fcn.to_csv(index = False))
-            with col3:
-                  st.download_button(label =':arrow_heading_down: Save plot as .png :arrow_heading_down:', file_name = 'fcn_cpo_plot.png', data = open('fcn_cpo_plot.png','rb').read())
+            #with col3:
+                  #st.download_button(label =':arrow_heading_down: Save plot as .png :arrow_heading_down:', file_name = 'fcn_cpo_plot.png', data = open('fcn_cpo_plot.png','rb').read())
             
             
             st.write('**Please, if you use this data we would appreciate you to cite our article:**')  
