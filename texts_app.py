@@ -222,3 +222,25 @@ fcn_help_plot = """
 In order not to potentially freeze the app, it is advised to select less than
  10 years of data. Nevertheless it is possible to load all 60+ years.
 """
+
+intro_eop = """<div style="text-align: justify;">
+The Earth's rotation and its spatial
+orientation are subject to irregular variations arising 
+from a wide range of geophysical and astronomical phenomena.
+
+The Earth Orientation Parameters (EOP) are a set of five variables that
+ describe the planet’s orientation and rotational behaviour:
+<ul>
+    <li><b>The pole coordinates (xₚₒₗ, yₚₒₗ)</b> of the Celestial Intermediate Pole (CIP) with
+ respect to the International Terrestrial Reference Frame (ITRF).
+    </li>
+    <li><b>The celestial pole offsets (dX, dY)</b>, which represent observational corrections
+        to the theoretical models of precession and nutation.
+    </li>
+    <li><b>The difference in Universal Time (UT1–UTC or dUT1)</b>. UT1 is a refined form
+    of Universal Time (UT), a time standard based on the Earth's rotation. 
+    Coordinated Universal Time (UTC) is the time standard obtained
+    by combining UT1 and International Atomic Time (TAI).
+   </li>
+</ul>
+"""
